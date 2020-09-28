@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>BOARD</title>
+</head>
+<body>
+	<h3>REGISTER</h3>
+	
+	<form method="post" th:action="@{/board/post}">
+		<button type="submit" name="register">Register</button>
+	</form>
+	
+	<a th:href="@{/board/get?list}">LIST</a>
+	
+</body>
+</html>

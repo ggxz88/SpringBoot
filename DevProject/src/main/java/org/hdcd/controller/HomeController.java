@@ -30,4 +30,18 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/formHome", method = RequestMethod.GET)
+	public String formHome() {
+		return "formHome";
+	}
+	
+	//3. 컨트롤러 요청 매핑
+	//Headers 매핑
+	//Content Type 매핑
+	//Accept 매핑
+	@RequestMapping(value = "/ajaxHome", method = RequestMethod.GET)
+	public String ajaxHome() {
+		return "ajaxHome";
+	}
+	
 }
