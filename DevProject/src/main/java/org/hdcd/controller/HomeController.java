@@ -268,4 +268,15 @@ public class HomeController {
 		}
 		return entity;
 	}
+	
+	//5. 컨트롤러 요청 처리
+	//Ajax 방식 요청 처리
+	//파일업로드 Ajax 방식 요청 처리
+	
+	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
+	public String registerForm() {
+		logger.info("registerForm");
+		
+		return "registerForm";
+	}
 }

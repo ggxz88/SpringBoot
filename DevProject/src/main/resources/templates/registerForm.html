@@ -1,0 +1,607 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+</head>
+
+<script src="/js/jQuery-2.1.4.min.js"></script>
+
+<script type="text/javascript">
+
+// Ajax 방식 요청 처리
+$(document).ready(function() {
+	
+	$("#registerBtn01").on("click", function() {
+		$.get("/register/hongkd", function(result){
+			console.log("result: " + result);
+			if(result === "SUCCESS") {
+				slert("SUCCESS");
+			}
+		});
+	});
+	
+	
+	$("#registerBtn02").on("click", function() {
+		var userId = $("#userId");
+		var password = $("#password");
+		
+		var userIdVal = userId.val();
+		var passwordVal = password.val();
+		
+		var userObject = {
+			userId : userIdVal,
+			password : passwordVal
+		};
+		
+		$.ajax({
+			type : "post",
+			url : "/register/hongkd/pw01",
+			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				if(result === "SUCCESS") {
+					alert("SUCCESS");
+				}
+			}
+		});
+	});
+	
+	$("#registerBtn03").on("click", function() {
+		var userId = $("#userId");
+		var password = $("#password");
+		
+		var userIdVal = userId.val();
+		var passwordVal = password.val();
+		
+		var userObject = {
+			userId : userIdVal,
+			password : passwordVal
+		};
+		
+		$.ajax({
+			type : "post",
+			url : "/register03",
+			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				if(result === "SUCCESS") {
+					alert("SUCCESS");
+				}
+			}
+		});
+	});
+	
+	$("#registerBtn04").on("click", function() {
+		var userId = $("#userId");
+		var password = $("#password");
+		
+		var userIdVal = userId.val();
+		var passwordVal = password.val();
+		
+		var userObject = {
+			userId : userIdVal,
+			password : passwordVal
+		};
+		
+		$.ajax({
+			type : "post",
+			url : "/register04",
+			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				if(result === "SUCCESS") {
+					alert("SUCCESS");
+				}
+			}
+		});
+	});
+
+	$("#registerBtn05").on("click", function() {
+		var userId = $("#userId");
+		var password = $("#password");
+		
+		var userIdVal = userId.val();
+		var passwordVal = password.val();
+		
+		var userObject = {
+			userId : userIdVal,
+			password : passwordVal
+		};
+		
+		$.ajax({
+			type : "post",
+			url : "/register05?userId=user01",
+			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				if(result === "SUCCESS") {
+					alert("SUCCESS");
+				}
+			}
+		});
+	});
+	
+	$("#registerBtn06").on("click", function() {
+		var userId = $("#userId");
+		var password = $("#password");
+		
+		var userIdVal = userId.val();
+		var passwordVal = password.val();
+		
+		var userObject = {
+			userId : userIdVal,
+			password : passwordVal
+		};
+		
+		$.ajax({
+			type : "post",
+			url : "/register/hongkd",
+			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				if(result === "SUCCESS") {
+					alert("SUCCESS");
+				}
+			}
+		});
+	});
+	
+	$("#registerBtn07").on("click", function() {
+		var userObjectArray = [
+			{userId : "name01", password : "pw01"},
+			{userId : "name02", password : "pw02"}
+		];
+		
+		$.ajax({
+			type : "post",
+			url : "/register07",
+			data : JSON.stringify(userObjectArray),
+			contentType : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				if(result === "SUCCESS") {
+					alert("SUCCESS");
+				}
+			}
+		});
+	});
+	
+	$("#registerBtn08").on("click", function() {
+		var userId = $("#userId");
+		var password = $("#password");
+		
+		var userIdVal = userId.val();
+		var passwordVal = password.val();
+		
+		var userObject = {
+			userId : userIdVal,
+			password : passwordVal, 
+			address : {postCode:"010908", location:"seoul"}
+		};
+		
+		$.ajax({
+			type : "post",
+			url : "/register08",
+			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				if(result === "SUCCESS") {
+					alert("SUCCESS");
+				}
+			}
+		});
+	});
+	
+	$("#registerBtn09").on("click", function() {
+		var userId = $("#userId");
+		var password = $("#password");
+		
+		var userIdVal = userId.val();
+		var passwordVal = password.val();
+		
+		var userObject = {
+			userId : userIdVal,
+			password : passwordVal, 
+			cardList : [{no:"23456", validMonth:"20190908"}, {no:"12342", validMonth:"20200705"}]
+		};
+		
+		$.ajax({
+			type : "post",
+			url : "/register09",
+			data : JSON.stringify(userObject),
+			contentType : "application/json; charset=utf-8",
+			success : function(result) {
+				console.log("result: " + result);
+				if(result === "SUCCESS") {
+					alert("SUCCESS");
+				}
+			}
+		});
+	});
+	
+	//파일업로드 Ajax 방식 요청 처리
+
+	$("#inputFile").on("change", function(event) {
+		
+		console.log("change");
+		
+		var files = event.target.files;
+		
+		var file = files[0];
+		
+		console.log(file);
+		
+		var formData = new FormData();
+		
+		formData.append("file", file);
+		
+		$.ajax({
+			type : "post",
+			url : "/uploadAjax",
+			data : formData,
+			dataType : 'text',
+			processData: false,
+			contentType: false,
+			success : function(result) {
+				alert(data);
+			}
+		});
+	});
+});
+
+
+</script>
+
+
+<body>
+	<h1>Register Form</h1>
+	
+	<!-- 요청 처리 -->
+	<!-- 
+	<a th:href="@{register?userId=hongkd&password=1234">register?userId=hongkd&amp;password=1234</a><br>
+	<a th:href="@{register/hongkd}">register/hongkd</a><br>
+	
+	<form th:action="@{/register01}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register01">
+	</form>
+	
+	<form th:action="@{/register02}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register02">
+	</form>
+	
+	<form th:action="@{/register03}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register03">
+	</form>
+	
+	<form th:action="@{/register04}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register04">
+	</form>
+	
+	<form th:action="@{/register05}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register05">
+	</form>
+	-->
+	
+	<!-- 요청 처리 데이터 애너테이션 -->
+	<!-- 
+	<a th:href="@{register/hongkd}">register/hongkd</a><br>
+	<a th:href="@{register/hongkd/100}">register/hongkd/100</a><br>
+	
+	<form th:action="@{/register01}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register01">
+	</form>
+	
+	<form th:action="@{/register0201}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register0201">
+	</form>
+	
+	<form th:action="@{/register0202}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register0202">
+	</form>
+	
+	<form th:action="@{/register0301}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register0301">
+	</form>
+	
+	<form th:action="@{/register0302}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register0302">
+	</form>
+	-->
+	
+	<!-- 요청 처리 자바빈즈 -->
+	<!--
+	<form th:action="@{/register01}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register01">
+	</form>
+	
+	<form th:action="@{/register02}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register02">
+	</form>
+	
+	<form th:action="@{/register03}" method="post">
+		uid: <input type="text" name="uid" value="50"><br>
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		coin: <input type="text" name="coin" value="100"><br>
+		<input type="submit" value="register03">
+	</form>
+	-->
+	
+	<!-- Date 타입 처리 -->
+	<!-- @DateTimeFormat 애너테이션 -->
+	<!-- 
+	<a th:href="@{registerByGet01?userId=hongkd&dateOfBirth=1234">registerByGet01?userId=hongkd&amp;dateOfBirth=1234</a><br>
+	<a th:href="@{registerByGet01?userId=hongkd&dateOfBirth=2018-09-08">registerByGet01?userId=hongkd&amp;dateOfBirth=2018-09-08</a><br>
+	<a th:href="@{registerByGet01?userId=hongkd&dateOfBirth=20180908">registerByGet01?userId=hongkd&amp;dateOfBirth=20180908</a><br>
+	<a th:href="@{registerByGet01?userId=hongkd&dateOfBirth=2018/09/08">registerByGet01?userId=hongkd&amp;dateOfBirth=2018/09/08</a><br>
+	<a th:href="@{registerByGet02?userId=hongkd&dateOfBirth=20180908">registerByGet02?userId=hongkd&amp;dateOfBirth=20180908</a><br>
+	
+	
+	<form th:action="@{/register}" method="post">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		dateOfBirth: <input type="text" name="dateOfBirth" value="20180908"><br>
+		<input type="submit" value="register">
+	</form>
+	-->
+	
+	<!-- 폼 방식 요청 처리 -->
+	<!-- 
+	<form th:action="@{/registerUserId}" method="post">
+    	userId: <input type="text" name="userId" /><br>
+	    <input type="submit" value="registerUserId">
+    </form>
+    
+	<form th:action="@{/registerMemberUserId}" method="post">
+    	userId: <input type="text" name="userId" /><br>
+	    <input type="submit" value="registerMemberUserId">
+	</form>
+    
+	<form th:action="@{/registerPassword}" method="post">
+    	password: <input type="password" name="password" /><br>
+    	<input type="submit" value="registerPassword">
+    </form>
+
+	<form th:action="@{/registerRadio}" method="post">
+		gender: <br>
+    	<input type="radio" name="gender" value="male" checked> Male<br>
+	    <input type="radio" name="gender" value="female"> Female<br>
+    	<input type="radio" name="gender" value="other"> Other<br>
+    	<input type="submit" value="registerRadio">
+    </form>
+    
+    <form th:action="@{/registerSelect}" method="post">
+	    nationality:
+    	<select name="nationality">
+	    	<option value="Korea" selected>대한민국</option>
+		    <option value="Germany">독일</option>
+    		<option value="Australia">호주</option>
+		    <option value="Canada">캐나다</option>
+    	</select><br>
+	    <input type="submit" value="registerSelect">
+    </form>
+
+ 	<form th:action="@{/registerMultipleSelect01}" method="post">
+    	cars: 
+    	<select name="cars" multiple>
+	    	<option value="volvo">Volvo</option>
+    		<option value="saab">Saab</option>
+    		<option value="opel">Opel</option>
+		    <option value="audi">Audi</option>
+    	</select><br>
+    	<input type="submit" value="registerMultipleSelect01">
+	</form>
+    
+	<form th:action="@{/registerMultipleSelect02}" method="post">
+    	carArray: 
+    	<select name="carArray" multiple>
+    		<option value="volvo">Volvo</option>
+    		<option value="saab">Saab</option>
+    		<option value="opel">Opel</option>
+		    <option value="audi">Audi</option>
+	    </select><br>
+    	<input type="submit" value="registerMultipleSelect02">
+    </form>
+
+ 	<form th:action="@{/registerMultipleSelect03}" method="post">
+    	carList: 
+    	<select name="carList" multiple>
+	    	<option value="volvo">Volvo</option>
+		    <option value="saab">Saab</option>
+    		<option value="opel">Opel</option>
+    		<option value="audi">Audi</option>
+	    </select><br>
+    	<input type="submit" value="registerMultipleSelect03">
+    </form>
+    
+    <form th:action="@{/registerCheckbox01}" method="post">
+	    hobby: <br>
+    	<input type="checkbox" name="hobby" value="Sports"> Sports<br>
+	    <input type="checkbox" name="hobby" value="Music"> Music<br>
+    	<input type="checkbox" name="hobby" value="Movie"> Movie<br>
+    	<input type="submit" value="registerCheckbox01">
+    </form>
+	   
+	<form th:action="@{/registerCheckbox02}" method="post">
+	    hobbyList: <br>
+	    <input type="checkbox" name="hobbyList" value="Sports"> Sports<br>
+    	<input type="checkbox" name="hobbyList" value="Music"> Music<br>
+    	<input type="checkbox" name="hobbyList" value="Movie"> Movie<br>
+		<input type="submit" value="registerCheckbox02">
+	</form>
+    
+    <form th:action="@{/registerCheckbox03}" method="post">
+	    hobbyArray: <br>
+	    <input type="checkbox" name="hobbyArray" value="Sports"> Sports<br>
+	    <input type="checkbox" name="hobbyArray" value="Music"> Music<br>
+    	<input type="checkbox" name="hobbyArray" value="Movie"> Movie<br>
+    	<input type="submit" value="registerCheckbox03">
+    </form>
+
+	<form th:action="@{/registerCheckbox04}" method="post">
+    	developer: <input type="checkbox" name="developer" value="Y"><br>
+    	<input type="submit" value="registerCheckbox04">
+    </form>
+	    
+	<form th:action="@{/registerCheckbox05}" method="post">
+	    foreigner: <input type="checkbox" name="foreigner" value="false"><br>
+    	<input type="submit" value="registerCheckbox05">
+    </form>
+    
+	<form th:action="@{/registerAddress}" method="post">
+    	postCode: <input type="text" name="postCode" /><br>
+    	location: <input type="text" name="location" /><br>
+    	<input type="submit" value="registerAddress">
+    </form>
+
+	<form th:action="@{/registerUserCardList}" method="post">
+	    카드1 - 번호 : <input type="text" name="cardList[0].no" /><br>
+	    카드1 - 유효년월 : <input type="text" name="cardList[0].validMonth" /><br><br>
+    	카드2 - 번호 : <input type="text" name="cardList[1].no" /><br>
+	    카드2 - 유효년월 : <input type="text" name="cardList[1].validMonth" /><br><br>
+    	<input type="submit" value="registerUserCardList">
+    </form>
+    
+    <form th:action="@{/registerTextArea}" method="post">
+    	introduction: <br>
+    	<textarea name="introduction" rows="6" cols="50"></textarea><br>
+    	<input type="submit" value="registerTextArea">
+    </form>
+
+	<form th:action="@{/registerDate01}" method="post">
+    	dateOfBirth: <input type="text" name="dateOfBirth" /><br>
+    	<input type="submit" value="registerDate01">
+    </form>
+    
+	<form th:action="@{/registerDate02}" method="post">
+	    dateOfBirth: <input type="text" name="dateOfBirth" /><br>
+	    <input type="submit" value="registerDate02">
+    </form>  
+	-->
+	
+	<!-- 파일업로드 폼 방식 요청 처리 -->
+	<!-- 
+	<form th:action="@{/register01}" method="post" enctype="multipart/form-data">
+		<input type="file" name="picture"><input type="submit">
+	</form>
+	
+	<form th:action="@{/register02}" method="post" enctype="multipart/form-data">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		<input type="file" name="picture"><input type="submit">
+	</form>
+	
+	<form th:action="@{/register03}" method="post" enctype="multipart/form-data">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		<input type="file" name="picture"><input type="submit">
+	</form>
+	
+	<form th:action="@{/register04}" method="post" enctype="multipart/form-data">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		<input type="file" name="picture"><input type="submit">
+	</form>
+	
+	<form th:action="@{/register05}" method="post" enctype="multipart/form-data">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		<input type="file" name="picture"><br>
+		<input type="file" name="picture2"><input type="submit">
+	</form>
+	
+	<form th:action="@{/register06}" method="post" enctype="multipart/form-data">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		<input type="file" name="pictureList[0]"><br>
+		<input type="file" name="pictureList[1]"><input type="submit">
+	</form>
+	
+	<form th:action="@{/register06}" method="post" enctype="multipart/form-data">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		<input type="file" name="pictureList"><br>
+		<input type="file" name="pictureList"><input type="submit">
+	</form>
+	
+	<form th:action="@{/register07}" method="post" enctype="multipart/form-data">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		<input type="file" name="pictureList[0]"><br>
+		<input type="file" name="pictureList[1]"><input type="submit">
+	</form>
+	
+	<form th:action="@{/register08}" method="post" enctype="multipart/form-data">
+		userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+		<input type="file" name="pictureList"><input type="submit">
+	</form>
+	-->
+	
+	<!-- Ajax 방식 요청 처리 -->
+	<!-- 
+	<form>
+	 	userId: <input type="text" name="userId" value="hongkd"><br>
+		password: <input type="text" name="password" value="1234"><br>
+	</form>
+	
+	<button id="registerBtn01">registerBtn01</button>
+	<button id="registerBtn02">registerBtn02</button>
+	<button id="registerBtn03">registerBtn03</button>
+	<button id="registerBtn04">registerBtn04</button>
+	<button id="registerBtn05">registerBtn05</button>
+	<button id="registerBtn06">registerBtn06</button>
+	<button id="registerBtn07">registerBtn07</button>
+	<button id="registerBtn08">registerBtn08</button>
+	<button id="registerBtn09">registerBtn09</button>
+	-->
+	
+	<!-- Ajax 방식 요청 처리 -->
+	<h3>Ajax File Upload</h3>
+	<div>
+		<input type="file" id="inputFile">
+	</div>
+</body>
+</html>
