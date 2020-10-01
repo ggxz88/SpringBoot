@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+</head>
+<body>
+	<h3>Result</h3>
+	
+	<div th:text="'user.userId : ' + ${user.userId}">user.userId : ${user.userId}</div>
+	<div th:text="'user.password : ' + ${user.password}">user.password : ${user.password}</div>
+	<div th:text="'user.userName : ' + ${user.userName}">user.userName : ${user.userName}</div>
+	<div th:text="'user.email : ' + ${user.email}">user.email : ${user.email}</div>	
+</body>
+</html>
