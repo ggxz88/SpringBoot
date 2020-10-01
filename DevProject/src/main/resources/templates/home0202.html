@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf/org">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<!-- 속성 값 설정 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>${member.userId}</td>
+			<td th:text="${member.userId}">userId</td>
+		</tr>
+		<tr>
+			<td>${member.password}</td>
+			<td th:text="${member.password}">password</td>
+		</tr>
+		<tr>
+			<td>${member.userName}</td>
+			<td th:text="${member.userName}">userName</td>
+		</tr>
+		<tr>
+			<td>${member.email}</td>
+			<td th:text="${member.email}">email</td>
+		</tr>
+		<tr>
+			<td>${member.dateOfBirth}</td>
+			<td th:text="${member.dateOfBirth}">dateOfBirth</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 제어 속성 -->
+	
+	<div th:switch="${member.gender}">
+		<p th:case="M">male</p>
+		<p th:case="F">female</p>
+		<p th:case="*">others</p>
+	</div>
+	
+</body>
+</html>

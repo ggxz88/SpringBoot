@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf/org">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+	<!-- 제어 속성 -->
+	
+	<th:block th:if="${member.foreigner}">
+		<p>member.foreigner == false</p>
+	</th:block>
+	
+</body>
+</html>

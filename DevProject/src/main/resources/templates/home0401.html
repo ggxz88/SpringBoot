@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf/org">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<script th:inlind="javascript">
+	<!-- 인라인 -->
+	var username = [[${username}]];
+
+</script>
+
+<body>
+	<!-- 속성 값 설정 -->
+	<!-- 
+	<h2>Home0401</h2>
+	
+	<div>
+		<a href="./sub/home0402.html" th:href="@{/sub/home0402}">Home0402로 이동</a>
+	</div>
+	-->
+	
+	<!-- 제어 속성 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>${member.userId}</td>
+			<td th:text="${member.userId}">member.userId</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 인라인 -->
+	
+	<p th:text="|Hello, ${username}!|">greeting</p>
+	<p>Hello, <span th:text="${username}">name</span>!</p>
+	<p>Hello, [[${username}]]!</p>
+	
+	
+	
+</body>
+</html>

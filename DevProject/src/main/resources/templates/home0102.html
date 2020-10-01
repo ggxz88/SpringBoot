@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf/org">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<!-- 
+	<h1 th:utext="${msg}">greeting</h1>
+	-->
+	
+	<!-- 제어 속성 -->
+	<!-- 
+	<th:block th:if="${member.foreigner}">
+		<p>member.foreigner == true</p>
+	</th:block>
+	-->
+	
+	<!-- 인라인 -->
+	
+	<p th:utext="|Hello, ${username}!|">greeting</p>
+	<p>Hello, <span th:utext="${username}">name</span>!</p>
+	<p>Hello, [(${username})]!</p>
+	
+	
+</body>
+</html>

@@ -1,0 +1,106 @@
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/layouts.main_template}">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- 레이아웃 재사용 -->
+	<link rel="stylesheet" href=".././static/css/style.css" th:href=@{/css/style.css}"/>
+</head>
+
+<body>
+	<!-- 표현식 -->
+	<!-- 
+	<h1 th:text="${msg}">greeting</h1>
+	-->
+	
+	<!-- 속성 값 설정 -->
+	<!-- 
+	<form id="board" action="success.html" th:action="@{/register}" method="POST">
+		<table>
+			<tr>
+				<td>Title</td>
+				<td><input type="text" name="title" /></td>
+			</tr>
+		</table>
+	</form>
+	-->
+	
+	<!-- 제어 속성 -->
+	<!-- 
+	<div th:switch="${member.gender}">
+		<p th:case="M">male</p>
+		<p th:case="F">female</p>
+		<p th:case="*">others</p>
+	</div>
+	-->
+	
+	<!-- 인라인 -->
+	<!-- 
+	<p>Hello, [[${username}]]!</p>
+	<p>Hello, [[${username}]]!</p>
+	<p th:inline="none">Hello, [[${username}]]!</p>
+	-->
+	
+	<!-- 주석 -->
+	<!--/* This code will be removed at Thymeleaf parsing time! */-->
+	<!-- 
+	<h1 th:text="${msg}">greeting</h1>
+	-->
+	
+	<!-- 템플릿 프래그먼트 -->
+	<!-- 
+	<div th:insert="~{fragments/header::header}"></div>
+	
+	<div>
+		<h1 th:text="${msg}">greeting</h1>
+	</div>
+	
+	<div th:insert="~{fragments/footer::footer}"></div>
+	-->
+	
+	<!-- 레이아웃 재사용 -->
+	<!-- 대체하고싶은 요소에 layout:fragment 속성을 부여한다. -->
+	<!--
+	<div layout:fragment="content">
+		<p>Home0201 Content</p>
+	</div>
+	-->
+	
+	<!-- 유틸리티 객체 -->
+	
+	<table border="1">
+		<tr>
+			<td>${now}</td>
+			<td th:text=${now}"></td>
+		</tr>
+		<tr>
+			<td>${#dates.format(now, 'yyyy-MM-dd')}</td>
+			<td th:text="${#dates.format(now, 'yyyy-MM-dd')}"></td>
+		</tr>
+		<tr>
+			<td>${#dates.format(now, 'yyyy-MM-dd HH:mm:ss')}</td>
+			<td th:text="${#dates.format(now, 'yyyy-MM-dd HH:mm:ss')}"></td>
+		</tr>
+		<tr>
+			<td>${#dates.format(now, 'a h:mm')}</td>
+			<td th:text="${#dates.format(now, 'a h:mm')}"></td>
+		</tr>
+		<tr>
+			<td>${#dates.format(now, 'z a h:mm')}</td>
+			<td th:text="${#dates.format(now, 'z a h:mm')}"></td>
+		</tr>
+		<tr>
+			<td>timeValue=${#dates.createToday()}</td>
+			<td>
+				<div th:with="timeValue=${#dates.createToday()}">
+					<p>[[${timeValue}]]</p>
+				</div>
+			</td>
+		</tr>
+	</table>
+	
+	
+</body>
+</html>

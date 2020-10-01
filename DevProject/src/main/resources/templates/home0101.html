@@ -1,0 +1,107 @@
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/layouts.main_template}">
+
+<head>
+	<title>Home</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- 레이아웃 재사용 -->
+	<link rel="stylesheet" href=".././static/css/style.css" th:href=@{/css/style.css}"/>
+</head>
+
+<body>
+	<!-- 텍스트 사용 -->
+	<!-- 
+	<h1 th:text="${msg}">greeting</h1>
+	-->
+	
+	<!-- 표현식 -->
+	<!-- 
+	<h1 th:text="#{welcome.message}">greeting</h1>
+	-->
+	
+	<!-- 속성 값 설정 -->
+	<!--  
+	<a href="home0201.html" th:href="@{/home0201}">home0201</a>
+	-->
+	
+	<!-- 제어 속성 -->
+	<!-- 
+	<th:block th:if="${member.hobbyArray == null}">
+		<p>member.hobbyArray == null</p>
+	</th:block>
+	
+	<th:block th:if="${member.hobbyArray eq null}">
+		<p>member.hobbyArray eq null</p>
+	</th:block>
+	-->
+	
+	<!-- 인라인 -->
+	<!-- 
+	<p th:text="|Hello, ${username}!|">greeting</p>
+	<p>Hello, <span th:text="${username}">name</span>!</p>
+	<p>Hello, [[${username}]]!</p>
+	-->
+	
+	<!-- 주석 -->
+	<!-- User info follows -->
+	<!-- 
+	<h1 th:text="${msg}">greeting</h1>
+	-->
+	
+	<!-- 템플릿 프래그먼트 -->
+	<!-- 
+	<div th:insert="~{fragments/header::header}"></div>
+	
+	<div>
+		<h1 th:text="${msg}">greeting</h1>
+	</div>
+	
+	<div th:insert="~{fragments/footer::footer}"></div>
+	-->
+	
+	<!-- 레이아웃 재사용 -->
+	<!-- 대체하고싶은 요소에 layout:fragment 속성을 부여한다. -->
+	<!-- 
+	<div layout:fragment="content">
+		<p>Home0101 Content</p>
+	</div>
+	-->
+	
+	<!-- 유틸리티 객체 -->
+	
+	<table border="1">
+		<tr>
+			<td>${coin}</td>
+			<td th:text=${coin}"></td>
+		</tr>
+		<tr>
+			<td>${#numbers.formatInteger(coin,3,'COMMA')}</td>
+			<td th:text="${#numbers.formatInteger(coin,3,'COMMA')}"></td>
+		</tr>
+		<tr>
+			<td>${#numbers.formatCurrency(coin)}</td>
+			<td th:text="${#numbers.formatCurrency(coin)}"></td>
+		</tr>
+		<tr>
+			<td>
+				<div>priceValue=99.87654</div>
+				<div>${#numbers.formatInteger(priceValue,3,'COMMA')}</div>
+				<div>${#numbers.formatInteger(priceValue,5,10,'POINT')}</div>
+			</td>
+			<td>
+				<div th:with="priceValue=99.87654">
+					<p th:text="${#numbers.formatInteger(priceValue,3,'COMMA')}"></p>
+					<p th:text="${#numbers.formatInteger(priceValue,5,10,'POINT')}"></p>
+				</div>
+			</td>
+		</tr>
+		
+	</table>
+	
+	
+	
+	
+	
+</body>
+</html>
