@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+</head>
+
+<body>
+	<!-- 8. 스프링 폼 -->
+	
+	<h2>Spring Form</h2>
+	
+	<!-- 셀렉트 박스 요소 -->
+	
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>소유차량</td>
+				<td>
+					<select th:field="*{carList}">
+						<option value="">=== 선택해 주세요 ===</option>
+						<option th:each="carCode : ${carCodeList}" th:value="${carCode.value}" th:text="${carCode.label}">Volvo</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+</body>
+</html>

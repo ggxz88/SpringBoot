@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+</head>
+
+<body>
+	<!-- 8. 스프링 폼 -->
+	
+	<h2>Spring Form</h2>
+	
+	<!-- 여러 개의 체크박스 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>취미(hobbyList) : </td>
+				<td>
+					<th:block th:each="hobbyCode : ${hobbyCodeList}">
+						<input type="checkbox" th:field="*{hobbyList}" th:value="${hobbyCode.value}" />
+						<label th:for="${#ids.prev('hobbyList')}" th:text="${hobbyCode.label}">Sports</label>
+					</th:block>
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 여러 개의 라디오 버튼 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>성별</td>
+				<td>
+					<th:block th:each="element : ${genderCodeMap}">
+						<input type="radio" th:field="*{gender}" th:value="${element.key}" />
+						<label th:for="${#ids.prev('gender')}" th:text="${element.value}">Male</label>
+					</th:block>
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 셀렉트 박스 요소 -->
+	
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>국적</td>
+				<td>
+					<select th:field="*{nationality}">
+						<option th:each="element : ${nationalityCodeMap}" th:value="${element.key}" th:text="${element.value}">Korea</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+	
+	
+	
+</body>
+</html>

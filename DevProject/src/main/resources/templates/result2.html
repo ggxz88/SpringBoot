@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+</head>
+<body>
+	<h3>Result</h3>
+	
+	<!-- 셀렉트 박스 요소 -->
+	
+	<h4>carList : </h4>
+	
+	<th:block th:each="car : ${carList}">
+		<p th:text="${car}">car</p>
+	</th:block>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>

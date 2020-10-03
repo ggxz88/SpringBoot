@@ -5,7 +5,165 @@
 </head>
 <body>
 	<h3>Result</h3>
+	<!-- <div th:text="${msg}">${msg}</div> -->
 	
-	<div th:text="${msg}">${msg}</div>
+	<!-- 8. 스프링 폼 -->
+	<!-- 폼 요소 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>유저ID</td>
+			<td th:text="${member.userId}">${member.userId}</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td th:text="${member.userName}">${member.userName}</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 텍스트 필드 요소 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>유저ID</td>
+			<td th:text="${member.userId}">${member.userId}</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td th:text="${member.userName}">${member.userName}</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td th:text="${member.email}">${member.email}</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 패스워드 필드 요소 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>패스워드</td>
+			<td th:text="${member.password}">${member.password}</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 텍스트 영역 요소 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>소개</td>
+			<td th:text="${member.introduction}">${member.introduction}</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 여러 개의 체크박스 요소 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>취미(hobbyList) : </td>
+			<td>
+				<th:block th:each="hobby : ${hobbyList}">
+					<span th:text="${hobby}">hobby</span>
+					<br />
+				</th:block>	
+			</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 체크박스 요소 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>개발자여부</td>
+			<td th:text="${member.foreigner}">${member.foreigner}</td>
+		</tr>
+		<tr>
+			<td>외국인여부</td>
+			<td th:text="${member.developer}">${member.developer}</td>
+		</tr>
+		<tr>
+			<td>취미(hobby)</td>
+			<td th:text="${member.hobby}">${member.hobby}</td>
+		</tr>
+		<tr>
+			<td>취미(hobbyList) : </td>
+			<td>
+				<th:block th:each="hobby : ${hobbyList}">
+					<span th:text="${hobby}">hobby</span>
+					<br />
+				</th:block>	
+			</td>
+		</tr>
+		<tr>
+			<td>취미(hobbyList) : </td>
+			<td>
+				<th:block th:each="hobby : ${hobbyList}">
+					<span th:text="${hobby}">hobby</span>
+					<br />
+				</th:block>	
+			</td>
+		</tr>
+	</table>
+	-->
+	<!-- 여러 개의 라디오 버튼 요소 -->
+	<!-- 
+	<h4>gender : </h4>
+	
+	<span th:text="${gender}">gender</span>
+	-->
+	
+	<!-- 라디오 버튼 요소 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>성별</td>
+			<td th:text="${member.gender}">${member.gender}</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 셀렉트 박스 요소 -->
+	<!-- 
+	<h4>nationality : </h4>
+	
+	<span th:text="${nationality}">nationality</span>
+	-->
+	
+	<!-- 숨겨진 필드 요소 -->
+	<!-- 
+	<table border="1">
+		<tr>
+			<td>유저ID</td>
+			<td th:text="${member.userId}">${member.userId}</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td th:text="${member.userName}">${member.userName}</td>
+		</tr>
+	</table>
+	-->
+	
+	<!-- 입력값 검증 오류 -->
+	
+	<table border="1">
+		<tr>
+			<td>유저ID</td>
+			<td th:text="${member.userId}">${member.userId}</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td th:text="${member.userName}">${member.userName}</td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td th:text="${member.email}">${member.email}</td>
+		</tr>
+	</table>
+	
 </body>
 </html>

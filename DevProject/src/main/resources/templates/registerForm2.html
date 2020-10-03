@@ -1,0 +1,59 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+</head>
+
+<body>
+	<!-- 8. 스프링 폼 -->
+	
+	<h2>Spring Form</h2>
+	
+	<!-- 폼 요소 -->
+	<!-- th:object 속성에 폼 객체의 속성명을 지정한다. -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${user}" method="POST">
+		<table>
+			<tr>
+				<td>유저ID</td>
+				<td>
+					<input type="text" name="text" th:field="*{userId}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+		</table>
+		<button type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 여러 개의 체크박스 요소 -->
+	
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>취미(hobbyList) : </td>
+				<td>
+					<th:block th:each="hobbyCode : ${hobbyCodeList}">
+						<input type="checkbox" th:field="*{hobbyList}" th:value="${hobbyCode.value}" />
+						<label th:for="${#ids.prev('hobbyList')}" th:text="${hobbyCode.label}">Sports</label>
+					</th:block>
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+	
+</body>
+</html>

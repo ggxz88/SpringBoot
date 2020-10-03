@@ -261,7 +261,7 @@ $(document).ready(function() {
 
 
 <body>
-	<h1>Register Form</h1>
+	<!-- <h1>Register Form</h1> -->
 	
 	<!-- 요청 처리 -->
 	<!-- 
@@ -635,11 +635,280 @@ $(document).ready(function() {
 	-->
 	
 	<!-- RedirectAttributes 타입 -->
-	
+	<!-- 
 	<form action="result.html" th:action="@{/register}" method="post">
 		userId: <input type="text" name="userId" value="hongkd"><br>
 		password: <input type="text" name="password" value="1234"><br>
 		<input type="submit" value="register">
+	</form>
+	-->
+	
+		
+	<h2>Spring Form</h2>
+	
+	<!-- 8. 스프링 폼 -->
+	<!-- 폼 요소 -->
+	<!-- th:object 속성에 폼 객체의 속성명을 지정한다. -->
+	<!-- th:object 속성에 폼 객체의 속성명이 일치하지 않으면 에러가 발생한다. -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>유저ID</td>
+				<td>
+					<input type="text" name="text" th:field="*{userId}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 텍스트 필드 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>유저ID</td>
+				<td>
+					<input type="text" name="text" th:field="*{userId}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>E-MAIL</td>
+				<td>
+					<input type="text" name="text" th:field="*{email}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 패스워드 필드 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>패스워드</td>
+				<td>
+					<input type="password" name="password" th:field="*{password}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 텍스트 영역 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>소개</td>
+				<td>
+					<textarea name="textarea" rows="6" cols="30" th:field="*{introduction}"></textarea>
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 여러 개의 체크박스 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>취미(hobbyList) : </td>
+				<td>
+					<th:block th:each="element : ${hobbyMap}">
+						<input type="checkbox" th:field="*{hobbyList}" th:value="${element.key}" />
+						<label th:for="${#ids.prev('hobbyList')}" th:text="${element.value}">Sports</label>
+					</th:block>
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 체크박스 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>개발자여부</td>
+				<td>
+					<input type="checkbox" name="developer" th:field="*{developer}" th:value="Y" />
+				</td>
+			</tr>
+			<tr>
+				<td>외국인여부</td>
+				<td>
+					<input type="checkbox" name="foreigner" th:field="*{foreigner}" th:value="false" />
+				</td>
+			</tr>
+			<tr>
+				<td>취미</td>
+				<td>
+					<input type="checkbox" th:field="*{hobby}" th:value="Sports" />
+					<label th:for="${#ids.prev('hobby')}">Sports</label>
+					<br />
+					<input type="checkbox" th:field="*{hobby}" th:value="Music" />
+					<label th:for="${#ids.prev('hobby')}">Music</label>
+					<br />
+					<input type="checkbox" th:field="*{hobby}" th:value="Movie" />
+					<label th:for="${#ids.prev('hobby')}">Movie</label>
+					<br />
+				</td>
+			</tr>
+			<tr>
+				<td>취미(hobbyList)</td>
+				<td>
+					<input type="checkbox" th:field="*{hobbyArray}" th:value="Sports" />
+					<label th:for="${#ids.prev('hobbyArray')}">Sports</label>
+					<br />
+					<input type="checkbox" th:field="*{hobbyArray}" th:value="Music" />
+					<label th:for="${#ids.prev('hobbyArray')}">Music</label>
+					<br />
+					<input type="checkbox" th:field="*{hobbyArray}" th:value="Movie" />
+					<label th:for="${#ids.prev('hobbyArray')}">Movie</label>
+					<br />
+				</td>
+			</tr>
+			<tr>
+				<td>취미(hobbyList)</td>
+				<td>
+					<input type="checkbox" th:field="*{hobbyList}" th:value="Sports" />
+					<label th:for="${#ids.prev('hobbyList')}">Sports</label>
+					<br />
+					<input type="checkbox" th:field="*{hobbyList}" th:value="Music" />
+					<label th:for="${#ids.prev('hobbyList')}">Music</label>
+					<br />
+					<input type="checkbox" th:field="*{hobbyList}" th:value="Movie" />
+					<label th:for="${#ids.prev('hobbyList')}">Movie</label>
+					<br />
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 라디오 버튼 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>성별</td>
+				<td>
+					<input type="radio" th:field="*{gender}" th:value="male" />
+					<label th:for="${#ids.prev('gender')}">Male</label>
+					<br />
+					<input type="radio" th:field="*{gender}" th:value="female" />
+					<label th:for="${#ids.prev('gender')}">Female</label>
+					<br />
+					<input type="radio" th:field="*{gender}" th:value="other" />
+					<label th:for="${#ids.prev('gender')}">Other</label>
+					<br />
+				</td>
+			</tr>
+		</table>
+		
+		<button name ="register" type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 숨겨진 필드 요소 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 입력값 검증 에러 -->
+	
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>유저ID</td>
+				<td>
+					<input type="text" name="text" th:field="*{userId}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>E-MAIL</td>
+				<td>
+					<input type="text" name="text" th:field="*{email}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit">등록</button>
 	</form>
 </body>
 </html>

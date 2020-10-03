@@ -3,10 +3,13 @@ package org.hdcd.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hdcd.domain.Address;
 import org.hdcd.domain.Card;
+import org.hdcd.domain.CodeLabelValue;
 import org.hdcd.domain.FileMember;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.MultiFileMember;
@@ -1295,7 +1298,7 @@ public class MemberController {
 	*/
 	
 	//RedirectAttributes 타입
-	
+	/*
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
 	public String registerForm() {
 		logger.info("registerForm");
@@ -1318,6 +1321,577 @@ public class MemberController {
 		
 		return "result";
 	}
+	*/
 	
+	//8. 스프링 폼
+	//폼 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01() {
+		logger.info("registerForm01");
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	//화면에 전달할 데이터를 위해 모델을 매개변수로 지정한다.
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		//속성명에 'member'를 지정하고 폼 객체를 모델에 추가한다.
+		model.addAttribute("member", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm03", method = RequestMethod.GET)
+	//화면에 전달할 데이터를 위해 모델을 매개변수로 지정한다.
+	public String registerForm03(Model model) {
+		logger.info("registerForm03");
+		
+		//속성명에 'user'를 지정하고 폼 객체를 모델에 추가한다.
+		model.addAttribute("user", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm04", method = RequestMethod.GET)
+	//화면에 전달할 데이터를 위해 모델을 매개변수로 지정한다.
+	public String registerForm04(Model model) {
+		logger.info("registerForm04");
+		
+		//속성명에 'user'를 지정하고 폼 객체를 모델에 추가한다.
+		model.addAttribute("user", new Member());
+		
+		return "registerForm2";
+	}
+	
+	@RequestMapping(value = "/registerForm05", method = RequestMethod.GET)
+	//컨트롤러는 기본적으로 자바빈즈 규칙에 맞는 객체는 다시 화면으로 폼 객체를 전달한다.
+	public String registerForm05(Member member) {
+		logger.info("registerForm05");
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm06", method = RequestMethod.GET)
+	//폼 객체의 속성명은 매개변수로 전달된 자바빈즈 클래스의 타입명을 이용하여 만든다.
+	public String registerForm06(Member user) {
+		logger.info("registerForm06");
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm07", method = RequestMethod.GET)
+	//폼 객체의 속성명은 매개변수로 전달된 자바빈즈 클래스의 타입명을 이용하여 만든다.
+	public String registerForm07(@ModelAttribute("user") Member member) {
+		logger.info("registerForm07");
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm08", method = RequestMethod.GET)
+	//폼 객체의 속성명은 매개변수로 전달된 자바빈즈 클래스의 타입명을 이용하여 만든다.
+	public String registerForm08(@ModelAttribute("user") Member member) {
+		logger.info("registerForm08");
+		
+		return "registerForm2";
+	}
+	
+	@RequestMapping(value = "/registerForm09", method = RequestMethod.GET)
+	//화면에 전달할 데이터를 위해 모델을 매개변수로 지정한다.
+	public String registerForm09(Model model) {
+		logger.info("registerForm09");
+		
+		Member member = new Member();
+		
+		//폼 객체의 프로퍼티에 값을 지정한다.
+		member.setUserId("hongkd");
+		member.setUserName("홍길동");
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		logger.info("register");
+		
+		logger.info("member.getUserId() = " + member.getUserId());
+		
+		logger.info("member.getUserName() = " + member.getUserName());
+	
+		return "result";
+	}
+	*/
+	
+	//텍스트 필드 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		Member member = new Member();
+		
+		member.setEmail("aaa@ccc.com");
+		member.setUserName("홍길동");
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		logger.info("register");
+		
+		logger.info("member.getUserId() = " + member.getUserId());
+		logger.info("member.getUserName() = " + member.getUserName());
+		logger.info("member.getEmail() = " + member.getEmail());
+		
+		return "result";
+	}
+	*/
+	
+	//패스워드 필드 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		Member member = new Member();
+		
+		member.setPassword("1234");
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		logger.info("register");
+		
+		logger.info("member.getPassword() = " + member.getPassword());
+		
+		return "result";
+	}
+	*/
+	
+	//텍스트 영역 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		Member member = new Member();
+		
+		String introduction = "안녕하세요.\n반갑습니다.";
+		
+		member.setIntroduction(introduction);
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		logger.info("register");
+		
+		logger.info("member.getIntroduction() = " + member.getIntroduction());
+
+		return "result";
+	}
+	*/
+	
+	//여러 개의 체크박스 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		Map<String, String> hobbyMap = new HashMap<String, String>();
+		hobbyMap.put("01", "Sports");
+		hobbyMap.put("02", "Music");
+		hobbyMap.put("03", "Movie");
+		
+		model.addAttribute("hobbyMap", hobbyMap);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm01";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		List<CodeLabelValue> hobbyCodeList = new ArrayList<CodeLabelValue>();
+		hobbyCodeList.add(new CodeLabelValue("01", "Sports"));
+		hobbyCodeList.add(new CodeLabelValue("02", "Music"));
+		hobbyCodeList.add(new CodeLabelValue("03", "Movie"));
+		
+		model.addAttribute("hobbyCodeList", hobbyCodeList);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm02";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		logger.info("register");
+		
+		List<String> hobbyList = member.getHobbyList();
+		
+		if(hobbyList != null) {
+			logger.info("hobbyList != null = " + hobbyList.size());
+			
+			for(int i = 0; i< hobbyList.size(); i++) {
+				logger.info("hobbyList(" + i + ") = " + hobbyList.get(i));
+			}
+		}
+		else {
+			logger.info("hobbyList == null");
+		}
+
+		return "result";
+	}
+	*/
+	
+	//체크박스 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		Member member = new Member();
+		
+		member.setDeveloper("Y");
+		member.setForeigner(true);
+		
+		member.setHobby("Movie");
+		
+		String[] hobbyArray = {"Music", "Movie"};
+		
+		member.setHobbyArray(hobbyArray);
+		
+		List<String> hobbyList = new ArrayList<String>();
+		hobbyList.add("Music");
+		hobbyList.add("Movie");
+		
+		member.setHobbyList(hobbyList);
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		logger.info("register");
+		
+		logger.info("member.isForeigner() = " + member.isForeigner());
+		logger.info("member.getDeveloper() = " + member.getDeveloper());
+		logger.info("member.getHobby() = " + member.getHobby());
+		
+		String[] hobbyArray = member.getHobbyArray();
+		
+		if(hobbyArray != null) {
+			logger.info("hobbyArray != null = " + hobbyArray.length);
+			
+			for(int i = 0; i< hobbyArray.length; i++) {
+				logger.info("hobbyArray[" + i + "] = " + hobbyArray[i]);
+			}
+		}
+		else {
+			logger.info("hobbyArray == null");
+		}
+		
+		List<String> hobbyList = member.getHobbyList();
+		
+		if(hobbyList != null) {
+			logger.info("hobbyList != null = " + hobbyList.size());
+			
+			for(int i = 0; i< hobbyList.size(); i++) {
+				logger.info("hobbyList(" + i + ") = " + hobbyList.get(i));
+			}
+		}
+		else {
+			logger.info("hobbyList == null");
+		}
+
+		return "result";
+	}
+	*/
+	
+	//여러 개의 라디오 버튼 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		Map<String, String> genderCodeMap = new HashMap<String, String>();
+		genderCodeMap.put("01", "Male");
+		genderCodeMap.put("02", "Female");
+		genderCodeMap.put("03", "Other");
+		
+		model.addAttribute("genderCodeMap", genderCodeMap);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm01";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		List<CodeLabelValue> genderCodeList = new ArrayList<CodeLabelValue>();
+		genderCodeList.add(new CodeLabelValue("01", "Male"));
+		genderCodeList.add(new CodeLabelValue("02", "Female"));
+		genderCodeList.add(new CodeLabelValue("03", "Other"));
+		
+		model.addAttribute("genderCodeList", genderCodeList);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm02";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member, Model model) {
+		logger.info("register");
+		
+		logger.info("member.getGender() = " + member.getGender());
+		
+		model.addAttribute("gender", member.getGender());
+
+		return "result";
+	}
+	*/
+	
+	//라디오 버튼 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		Member member = new Member();
+		
+		member.setGender("female");
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member, Model model) {
+		logger.info("register");
+		
+		logger.info("member.getGender() = " + member.getGender());
+		
+		model.addAttribute("member", member);
+		
+		return "result";
+	}
+	*/
+	
+	//셀렉트 박스 요소
+	/*
+	@RequestMapping(value = "/registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		Map<String, String> nationalityCodeMap = new HashMap<String, String>();
+		nationalityCodeMap.put("01", "Korea");
+		nationalityCodeMap.put("02", "Germany");
+		nationalityCodeMap.put("03", "Australia");
+		
+		model.addAttribute("nationalityCodeMap", nationalityCodeMap);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm01";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		List<CodeLabelValue> nationalityCodeList = new ArrayList<CodeLabelValue>();
+		nationalityCodeList.add(new CodeLabelValue("01", "Korea"));
+		nationalityCodeList.add(new CodeLabelValue("02", "Germany"));
+		nationalityCodeList.add(new CodeLabelValue("03", "Australia"));
+		
+		model.addAttribute("nationalityCodeList", nationalityCodeList);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm02";
+	}
+	
+	@RequestMapping(value = "/registerForm03", method = RequestMethod.GET)
+	public String registerForm03(Model model) {
+		logger.info("registerForm01");
+		
+		Map<String, String> carCodeMap = new HashMap<String, String>();
+		carCodeMap.put("01", "Volvo");
+		carCodeMap.put("02", "Saab");
+		carCodeMap.put("03", "Opel");
+		
+		model.addAttribute("carCodeMap", carCodeMap);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm03";
+	}
+	
+	@RequestMapping(value = "/registerForm04", method = RequestMethod.GET)
+	public String registerForm04(Model model) {
+		logger.info("registerForm04");
+		
+		List<CodeLabelValue> carCodeList = new ArrayList<CodeLabelValue>();
+		carCodeList.add(new CodeLabelValue("01", "Volvo"));
+		carCodeList.add(new CodeLabelValue("02", "Saab"));
+		carCodeList.add(new CodeLabelValue("03", "Opel"));
+		
+		model.addAttribute("carCodeList", carCodeList);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm04";
+	}
+	
+	@RequestMapping(value = "/registerForm05", method = RequestMethod.GET)
+	public String registerForm05(Model model) {
+		logger.info("registerForm05");
+		
+		List<CodeLabelValue> carCodeList = new ArrayList<CodeLabelValue>();
+		carCodeList.add(new CodeLabelValue("01", "Volvo"));
+		carCodeList.add(new CodeLabelValue("02", "Saab"));
+		carCodeList.add(new CodeLabelValue("03", "Opel"));
+		
+		model.addAttribute("carCodeList", carCodeList);
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm05";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member, Model model) {
+		logger.info("register");
+		
+		logger.info("member.getNationality() = " + member.getNationality());
+		
+		model.addAttribute("nationality", member.getNationality());
+
+		return "result";
+	}
+	*/
+	
+	//숨겨진 필드 요소
+	/*
+	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
+	public String registerForm(Model model) {
+		logger.info("registerForm");
+		
+		Member member = new Member();
+		
+		member.setUserId("hongkd");
+		member.setUserName("홍길동");
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		logger.info("register");
+		
+		logger.info("member.getUserId() = " + member.getUserId());
+		
+		logger.info("member.getUserName() = " + member.getUserName());
+	
+		return "result";
+	}
+	*/
+	
+	//입력값 검증 에러
+	
+	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
+	public String registerForm(Model model) {
+		logger.info("registerForm");
+		
+		Member member = new Member();
+		
+		member.setEmail("aaa@ccc.com");
+		member.setUserName("홍길동");
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(Member member) {
+		logger.info("register");
+		
+		logger.info("member.getUserId() = " + member.getUserId());
+		logger.info("member.getUserName() = " + member.getUserName());
+		logger.info("member.getEmail() = " + member.getEmail());
+		
+		return "result";
+	}
 	
 }
