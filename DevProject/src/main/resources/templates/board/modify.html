@@ -11,8 +11,8 @@
 	$(document).ready(function() {
 		var formObj = $("#board");
 		
-		$("#btnRegister").on("click", function() {
-			formObj.attr("action",  "/board/register");
+		$("#btnModify").on("click", function() {
+			formObj.attr("action",  "/board/modify");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
@@ -25,19 +25,11 @@
 </script>
 
 <body>
-	<h3>REGISTER</h3>
-	
-	<!-- 
-	<form method="post" th:action="@{/board/post}">
-		<button type="submit" name="register">Register</button>
-	</form>
-	
-	<a th:href="@{/board/get?list}">LIST</a>
-	-->
-	
-	<!-- 스프링 JDBC -->
-	
-	<form id="board" action="success.html" th:action="@{register}" th:object="${board}" method="POST">
+	<h3>MODIFY</h3>
+		
+	<form id="board" action="success.html" th:action="@{modify}" th:object="${board}" method="POST">
+		<input type="hidden" name="boardNo" th:field="*{boardNo}" />
+		
 		<table>
 			<tr>
 				<td>Title</td>
@@ -59,8 +51,8 @@
 			</tr>
 			<tr>
 				<td>Content</td>
+				<td><textarea name="content" th:field="*{content}"></textarea></td>
 				<td>
-					<input type="text" name="content" th:field="*{content}" />
 					<font color="red">
 						<span th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content의 에러 메시지</span>
 					</font>	
@@ -70,7 +62,7 @@
 	</form>
 	
 	<div>
-		<button type="submit" id="btnRegister">Register</button>
+		<button type="submit" id="btnModify">Modify</button>
 		<button type="submit" id="btnList">List</button>
 	</div>
 </body>

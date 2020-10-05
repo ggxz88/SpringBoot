@@ -1,8 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<!-- <title>Home</title> -->
-	<title>유저 등록 완료 화면</title>
+	<!-- <title>Home</title> -->
+	<!-- <title>유저 등록 완료 화면</title> -->
+	<title>Board</title>
 </head>
 <body>
 	<!-- 
@@ -18,9 +19,18 @@
 	
 	<!-- 9. 입력 유효성 검증 -->
 	<!-- 입력값 검증 -->
-	
+	<!-- 
 	<h2>유저 등록 완료 화면</h2>
 	
 	<p>유저 등록이 완료되었습니다.</p>
+	-->
+	
+	<!-- 11. 데이터베이스 연동 -->
+	<!-- 스프링 JDBC -->
+	
+	<div>
+		<h2 th:text="${msg}">${msg}</h2>
+		<a href="list.html" th:href="@{list}">List</a>
+	</div>
 </body>
 </html>
