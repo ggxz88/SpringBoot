@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Member implements Serializable {
@@ -64,9 +70,9 @@ public class Member implements Serializable {
 	*/
 	
 	//폼 방식 요청 처리
-	/*
-	private static final long serialVersionUID = 338471121541985467L;
 	
+	private static final long serialVersionUID = 338471121541985467L;
+	/*
 	private String userId;
 	private String password;
 	private String userName;
@@ -307,7 +313,7 @@ public class Member implements Serializable {
 	//모델을 통한 데이터 전달
 	//@ModelAttribute 애너테이션
 	//RedirectAttributes 타입
-
+	/*
 	private String userId;
 	
 	private String password;
@@ -491,7 +497,230 @@ public class Member implements Serializable {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+	*/
 	
+	//9. 입력 유효성 검증
+	//입력값 검증
+	//입력값 검증 결과
+	/*
+	//입력값 검증 규칙을 지정한다.
+	@NotBlank
+	private String userId;
 	
+	private String password;
+	
+	//여러 개의 입력값 검증 규칙을 지정할 수 있다.
+	@NotBlank
+	@Size(max = 3)
+	private String userName;
+	
+	private String email;
+	private String birthDay;
+	private String gender;
+	
+	public String getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getBirthDay() {
+		return birthDay;
+	}
+	
+	public void setBirthDay(String birthDay) {
+		this.birthDay = birthDay;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+	
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	*/
+	
+	//입력값 검증 규픽
+	/*
+	//문자열이 null이 아니고 trim한 길이가 0보다 크다는 것을 검사함다.
+	@NotBlank
+	private String userId;
+	
+	//문자열이 null이 아니고 trim한 길이가 0보다 크다는 것을 검사함다.
+	@NotBlank
+	private String password;
 		
+	//문자열이 null이 아니고 trim한 길이가 3보다 작은 것을 검사함다.
+	@NotBlank
+	@Size(max = 3)
+	private String userName;
+		
+	//이메일 주소 형식인지를 검사한다.
+	@Email
+	private String email;
+	
+	private String gender;
+	
+	//과거 날짜인지를 검사한다.
+	@Past
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dateOfBirth;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	*/
+	
+	//중첩된 자바빈즈 입력값 검증
+	
+	private String userId;
+	private String password;
+	
+	@NotBlank
+	@Size(max = 3)
+	private String userName;
+	
+	private String email;
+	
+	//중첩된 자바빈즈의 입력값 검증을 지정한다.
+	@Valid
+	private Address address;
+	
+	//자바빈즈 컬렉션의 입력값 검증을 지정한다.
+	@Valid
+	private List<Card> cardList;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dateOfBirth;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public List<Card> getCardList() {
+		return cardList;
+	}
+
+	public void setCardList(List<Card> cardList) {
+		this.cardList = cardList;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	
+	
+	
 }

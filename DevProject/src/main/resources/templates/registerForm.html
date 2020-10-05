@@ -876,7 +876,7 @@ $(document).ready(function() {
 	-->
 	
 	<!-- 입력값 검증 에러 -->
-	
+	<!-- 
 	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
 		<table>
 			<tr>
@@ -910,5 +910,268 @@ $(document).ready(function() {
 		
 		<button type="submit">등록</button>
 	</form>
+	-->
+	
+	<!-- 9. 입력 유효성 검증 -->
+	<!-- 입력값 검증 -->
+	<!-- 입력값 검증 결과 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>유저ID</td>
+				<td>
+					<input type="text" name="text" th:field="*{userId}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>패스워드</td>
+				<td>
+					<input type="text" name="text" th:field="*{password}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>E-MAIL</td>
+				<td>
+					<input type="text" name="text" th:field="*{email}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>성별</td>
+				<td>
+					<input type="radio" th:field="*{gender}" th:value="male" />
+					<label th:for="${#ids.prev('gender')}">Male</label>
+					<br />
+					<input type="radio" th:field="*{gender}" th:value="female" />
+					<label th:for="${#ids.prev('gender')}">Female</label>
+					<br />
+					<input type="radio" th:field="*{gender}" th:value="other" />
+					<label th:for="${#ids.prev('gender')}">Other</label>
+					<br />
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 입력값 검증 규칙 -->
+	<!-- 
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>유저ID</td>
+				<td>
+					<input type="text" name="text" th:field="*{userId}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>패스워드</td>
+				<td>
+					<input type="text" name="text" th:field="*{password}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>E-MAIL</td>
+				<td>
+					<input type="text" name="text" th:field="*{email}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>생년월일</td>
+				<td>
+					<input type="date" name="dateOfBirth" th:field="*{dateOfBirth}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">dateOfBirth의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>성별</td>
+				<td>
+					<input type="radio" th:field="*{gender}" th:value="male" />
+					<label th:for="${#ids.prev('gender')}">Male</label>
+					<br />
+					<input type="radio" th:field="*{gender}" th:value="female" />
+					<label th:for="${#ids.prev('gender')}">Female</label>
+					<br />
+					<input type="radio" th:field="*{gender}" th:value="other" />
+					<label th:for="${#ids.prev('gender')}">Other</label>
+					<br />
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit">등록</button>
+	</form>
+	-->
+	
+	<!-- 중첩된 자바빈즈 입력값 -->
+	
+	<form action="result.html" th:action="@{/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>유저ID</td>
+				<td>
+					<input type="text" name="text" th:field="*{userId}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>패스워드</td>
+				<td>
+					<input type="text" name="text" th:field="*{password}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>이름</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>E-MAIL</td>
+				<td>
+					<input type="text" name="text" th:field="*{email}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>생년월일</td>
+				<td>
+					<input type="date" name="dateOfBirth" th:field="*{dateOfBirth}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">dateOfBirth의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>우편번호</td>
+				<td>
+					<input type="text" name="text" th:field="*{address.postCode}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('address.postCode')}" th:errors="*{address.postCode}">address.postCode의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>주소</td>
+				<td>
+					<input type="text" name="text" th:field="*{address.location}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('address.location')}" th:errors="*{address.location}">address.location의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>카드1 - 번호</td>
+				<td>
+					<input type="text" name="text" th:field="*{cardList[0].no}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('cardList[0].no')}" th:errors="{cardList[0].no}">
+							cardList[0].no의 에러 메시지
+						</span>
+					</font>
+				</td>
+			</tr>
+			<tr>
+				<td>카드1 - 유효년월</td>
+				<td>
+					<input type="text" name="text" th:field="*{cardList[0].validMonth}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('cardList[0].validMonth')}" th:errors="{cardList[0].validMonth}">
+							cardList[0].validMonth의 에러 메시지
+						</span>
+					</font>
+				</td>
+			</tr>
+			<tr>
+				<td>카드2 - 번호</td>
+				<td>
+					<input type="text" name="text" th:field="*{cardList[1].no}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('cardList[1].no')}" th:errors="{cardList[1].no}">
+							cardList[1].no의 에러 메시지
+						</span>
+					</font>
+				</td>
+			</tr>
+			<tr>
+				<td>카드2 - 유효년월</td>
+				<td>
+					<input type="text" name="text" th:field="*{cardList[1].validMonth}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('cardList[1].validMonth')}" th:errors="{cardList[1].validMonth}">
+							cardList[1].validMonth의 에러 메시지
+						</span>
+					</font>
+				</td>
+			</tr>
+			<tr>
+				<td>성별</td>
+				<td>
+					<input type="radio" th:field="*{gender}" th:value="male" />
+					<label th:for="${#ids.prev('gender')}">Male</label>
+					<br />
+					<input type="radio" th:field="*{gender}" th:value="female" />
+					<label th:for="${#ids.prev('gender')}">Female</label>
+					<br />
+					<input type="radio" th:field="*{gender}" th:value="other" />
+					<label th:for="${#ids.prev('gender')}">Other</label>
+					<br />
+				</td>
+			</tr>
+		</table>
+		
+		<button type="submit">등록</button>
+	</form>
+	
 </body>
 </html>

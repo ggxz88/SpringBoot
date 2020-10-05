@@ -20,6 +20,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -1868,7 +1872,7 @@ public class MemberController {
 	*/
 	
 	//입력값 검증 에러
-	
+	/*
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
 	public String registerForm(Model model) {
 		logger.info("registerForm");
@@ -1893,5 +1897,245 @@ public class MemberController {
 		
 		return "result";
 	}
+	*/
 	
+	//9. 입력 유효성 검증
+	//입력값 검증
+	//입력값 검증 결과
+	/*
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	//입력값 검증을 할 도메인 클래스에 @Validated를 지정한다.
+	public String register(@Validated Member member, BindingResult result) {
+		logger.info("register");
+		
+		//입력값 검증 에러가 발생한 경우 true를 반환한다.
+		logger.info("result.hasErrors() = " + result.hasErrors());
+		
+		//입력갑 검증 후 BindingResult가 제공하는 메서드를 이용하여 검사 결과를 확인
+		if(result.hasErrors()) {
+			List<ObjectError> allErrors = result.getAllErrors();
+			List<ObjectError> globalErrors = result.getGlobalErrors();
+			List<FieldError> fieldErrors = result.getFieldErrors();
+			
+			logger.info("allError.size() = " + allErrors.size());
+			logger.info("allError.size() = " + globalErrors.size());
+			logger.info("allError.size() = " + fieldErrors.size());
+			
+			for(int i = 0; i < allErrors.size(); i++) {
+				ObjectError objectError = allErrors.get(i);
+				logger.info("allError = " + objectError);
+			}
+			
+			for(int i = 0; i < allErrors.size(); i++) {
+				ObjectError objectError = allErrors.get(i);
+				logger.info("allError = " + objectError);
+			}
+			
+			for(int i = 0; i < globalErrors.size(); i++) {
+				ObjectError objectError = globalErrors.get(i);
+				logger.info("globalErrors = " + globalErrors);
+			}
+			
+			for(int i = 0; i < fieldErrors.size(); i++) {
+				FieldError fieldError = fieldErrors.get(i);
+				
+				logger.info("fieldErrors = " + fieldErrors);
+				logger.info("fieldError.getDefaultMessage() = " + fieldError.getDefaultMessage());
+			}
+			
+			return "registerForm";
+		}
+		
+		logger.info("member.getUserId() = " + member.getUserId());
+		logger.info("member.getGender() = #" + member.getGender() + "#");
+		
+		return "success";
+	}
+	*/
+	
+	//입력값 검증 규픽
+	/*
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	//입력값 검증을 할 도메인 클래스에 @Validated를 지정한다.
+	public String register(@Validated Member member, BindingResult result) {
+		logger.info("register");
+		
+		//입력값 검증 에러가 발생한 경우 true를 반환한다.
+		logger.info("result.hasErrors() = " + result.hasErrors());
+		
+		//입력갑 검증 후 BindingResult가 제공하는 메서드를 이용하여 검사 결과를 확인
+		if(result.hasErrors()) {
+			List<ObjectError> allErrors = result.getAllErrors();
+			List<ObjectError> globalErrors = result.getGlobalErrors();
+			List<FieldError> fieldErrors = result.getFieldErrors();
+			
+			logger.info("allError.size() = " + allErrors.size());
+			logger.info("allError.size() = " + globalErrors.size());
+			logger.info("allError.size() = " + fieldErrors.size());
+			
+			for(int i = 0; i < allErrors.size(); i++) {
+				ObjectError objectError = allErrors.get(i);
+				logger.info("allError = " + objectError);
+			}
+			
+			for(int i = 0; i < allErrors.size(); i++) {
+				ObjectError objectError = allErrors.get(i);
+				logger.info("allError = " + objectError);
+			}
+			
+			for(int i = 0; i < globalErrors.size(); i++) {
+				ObjectError objectError = globalErrors.get(i);
+				logger.info("globalErrors = " + globalErrors);
+			}
+			
+			for(int i = 0; i < fieldErrors.size(); i++) {
+				FieldError fieldError = fieldErrors.get(i);
+				
+				logger.info("fieldErrors = " + fieldErrors);
+				logger.info("fieldError.getDefaultMessage() = " + fieldError.getDefaultMessage());
+			}
+			
+			return "registerForm";
+		}
+		
+		logger.info("member.getUserId() = " + member.getUserId());
+		logger.info("member.getGender() = #" + member.getGender() + "#");
+		
+		return "success";
+	}
+
+	@RequestMapping(value = "registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		Member member = new Member();
+		
+		member.setPassword("1234");
+		member.setEmail("aaa@ccc.com");
+		member.setUserName("홍길동");
+		
+		member.setGender("female");
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 1988);
+		cal.set(Calendar.MONTH, 10);
+		cal.set(Calendar.DAY_OF_MONTH, 7);
+		
+		member.setDateOfBirth(cal.getTime());
+		
+		model.addAttribute("member", member);
+
+		return "registerForm";
+	}
+	*/
+	
+	//중첩된 자바빈즈 입력값 검증
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(@Validated Member member, BindingResult result) {
+		logger.info("register");
+		
+		if(result.hasErrors()) {
+			return "registerForm";
+		}
+		
+		logger.info("member.getUserId() = " + member.getUserId());
+		logger.info("member.getDateOfBirth() = " + member.getDateOfBirth());
+		
+		Address address = member.getAddress();
+		
+		if(address != null) {
+			logger.info("address != null address.getPostCode() = " + address.getPostCode());
+			logger.info("address != null address.getLocation() = " + address.getLocation());
+		}
+		else {
+			logger.info("address == null");
+		}
+		
+		List<Card> cardList = member.getCardList();
+		
+		if(cardList != null) {
+			logger.info("cardList != null = " + cardList.size());
+			
+			for(int i = 0; i <cardList.size(); i++) {
+				Card card = cardList.get(i);
+				logger.info("card.getNo() = " + card.getNo());
+				logger.info("card.getValidMonth() = " + card.getValidMonth());
+			}
+		}
+		
+		return "success";
+	}
+
+	@RequestMapping(value = "registerForm01", method = RequestMethod.GET)
+	public String registerForm01(Model model) {
+		logger.info("registerForm01");
+		
+		model.addAttribute("member", new Member());
+		
+		return "registerForm";
+	}
+	
+	@RequestMapping(value = "/registerForm02", method = RequestMethod.GET)
+	public String registerForm02(Model model) {
+		logger.info("registerForm02");
+		
+		Member member = new Member();
+		
+		member.setPassword("1234");
+		member.setEmail("aaa@ccc.com");
+		member.setUserName("홍길동");
+		
+		Address address = new Address();
+		address.setPostCode("080908");
+		address.setLocation("seoul");
+		
+		member.setAddress(address);
+		
+		List<Card> cardList = new ArrayList<Card>();
+		
+		Card card1 = new Card();
+		card1.setNo("123456");
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, 2020);
+		cal.set(Calendar.MONTH, 9);
+		cal.set(Calendar.DAY_OF_MONTH, 8);
+		
+		card1.setValidMonth(cal.getTime());
+		
+		cardList.add(card1);
+		
+		Card card2 = new Card();
+		card2.setNo("456789");
+		
+		cal.set(Calendar.YEAR, 2022);
+		cal.set(Calendar.MONTH, 11);
+		cal.set(Calendar.DAY_OF_MONTH, 7);
+		
+		card2.setValidMonth(cal.getTime());
+		
+		cardList.add(card2);
+		
+		member.setCardList(cardList);
+		
+		cal.set(Calendar.YEAR, 1988);
+		cal.set(Calendar.MONTH, 10);
+		cal.set(Calendar.DAY_OF_MONTH, 7);
+		
+		member.setDateOfBirth(cal.getTime());		
+		
+		model.addAttribute("member", member);
+		
+		return "registerForm";
+	}
 }
