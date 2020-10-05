@@ -17,6 +17,8 @@ import org.hdcd.domain.Card;
 import org.hdcd.domain.Member;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -758,7 +760,7 @@ public class HomeController {
 	*/
 	
 	//유틸리티 객체
-	
+	/*
 	@RequestMapping(value = "/home0101", method = RequestMethod.GET)
 	public String home0101(Model model) {
 		logger.info("home0101");
@@ -791,8 +793,57 @@ public class HomeController {
 		
 		return "home0301";
 	}
+	*/
+	//10. 메시지 처리
+	//메시지 소스 정의
+	//국제화
+	/*
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+				
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate);
+		
+		return "home";
+	}
+	*/
 	
+	//컨트롤러에서 메시지 소스 사용
 	
+	@Autowired
+	private MessageSource messageSource;
 	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+				
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate);
+		
+		return "home";
+	}
+	
+	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+	public String welcome() {
+		
+		//미리 정의된 메시지에 값을 넘겨준다.
+		String[] args = {"홍길동"};
+		
+		//스프링 프레임워크로 부터 MessageSource를 주입받은 다음 getMessage 메서드를 호출한다.
+		String message = messageSource.getMessage("welcome.message", args, Locale.KOREAN);
+		
+		logger.info("Welcome message : " + message);
+		
+		return "home";
+	}
 	
 }
