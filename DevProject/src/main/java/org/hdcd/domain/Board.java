@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "board")
 public class Board {
 	
-	/*
+	
 	private int boardNo;
 	private String title;
 	private String content;
@@ -59,10 +59,10 @@ public class Board {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	*/
+	
 	
 	//JPA
-	
+	/*
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "board_no")
@@ -119,7 +119,7 @@ public class Board {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
+	*/
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regDate=" + regDate + "]";

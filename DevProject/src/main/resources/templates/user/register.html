@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>User</title>
+</head>
+
+<script src="/js/jQuery-2.1.4.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		var formObj = $("#member");
+		
+		$("#btnRegister").on("click", function() {
+			formObj.attr("action",  "/user/register");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+	
+	});
+</script>
+
+<body>
+	<h3>REGISTER</h3>
+	
+		<form id="member" action="success.html" th:action="@{/user/register}" th:object="${member}" method="POST">
+		<table>
+			<tr>
+				<td>userid</td>
+				<td>
+					<input type="text" name="text" th:field="*{userId}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>userpw</td>
+				<td>
+					<input type="text" name="text" th:field="*{userPw}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}">userPw의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+			<tr>
+				<td>username</td>
+				<td>
+					<input type="text" name="text" th:field="*{userName}" />
+					<font color="red">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
+					</font>	
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	<div>
+		<button type="submit" id="btnRegister">Register</button>
+	</div>
+</body>
+</html>

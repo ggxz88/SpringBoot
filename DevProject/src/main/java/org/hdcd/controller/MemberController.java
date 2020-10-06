@@ -7,14 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.hdcd.domain.Address;
 import org.hdcd.domain.Card;
 import org.hdcd.domain.CodeLabelValue;
 import org.hdcd.domain.FileMember;
 import org.hdcd.domain.Member;
+import org.hdcd.domain.MemberAuth;
 import org.hdcd.domain.MultiFileMember;
+import org.hdcd.mapper.MemberMapper;
+import org.hdcd.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +42,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 @Controller
+@RequestMapping("/user")
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -2039,7 +2046,7 @@ public class MemberController {
 	*/
 	
 	//중첩된 자바빈즈 입력값 검증
-	
+	/*
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Validated Member member, BindingResult result) {
 		logger.info("register");
@@ -2137,5 +2144,71 @@ public class MemberController {
 		model.addAttribute("member", member);
 		
 		return "registerForm";
+	}
+	*/
+	
+	//12. Mybatis
+	//기본키 취득
+	
+	@Autowired
+	private MemberService service;
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public void registerForm(Member member, Model model) throws Exception {
+		logger.info("registerForm");
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register(Member member, Model model) throws Exception {
+		logger.info("register");
+		
+		service.register(member);
+		
+		model.addAttribute("msg", "등록이 완료되었습니다.");
+		
+		return "user/success";
+	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void list(Model model) throws Exception {
+		logger.info("list");
+		
+		model.addAttribute("list", service.list());
+	}
+	
+	@RequestMapping(value = "read", method = RequestMethod.GET)
+	public void read(int userNo, Model model) throws Exception{
+		logger.info("read");
+		
+		model.addAttribute(service.read(userNo));
+	}
+	
+	@RequestMapping(value = "remove", method = RequestMethod.POST)
+	public String remove(int userNo, Model model) throws Exception {
+		logger.info("remove");
+		
+		service.remove(userNo);
+		
+		model.addAttribute("msg", "삭제가 완료되었습니다.");
+		
+		return "user/success";
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public void modifyForm(int userNo, Model model) throws Exception {
+		logger.info("modifyForm");
+		
+		model.addAttribute(service.read(userNo));
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(Member member, Model model) throws Exception {
+		logger.info("modify");
+		
+		service.modify(member);
+		
+		model.addAttribute("msg", "수정이 완료되었습니다.");
+		
+		return "user/success";
 	}
 }

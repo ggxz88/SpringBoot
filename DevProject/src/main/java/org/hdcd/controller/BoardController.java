@@ -284,9 +284,26 @@ public class BoardController {
 	//11. 데이터베이스 연동
 	//스프링 JDBC
 	//JPA
+	//12. Mybatis
+	//Mapper 인터페이스
+	//별칭 적용
+	//_로 구분된 컬럼명 자동 매핑
+	//동적 SQL
 	
 	@Autowired
 	private BoardService service;
+	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String search(String title, Model model) throws Exception {
+		Board board = new Board();
+		board.setTitle(title);
+		
+		model.addAttribute("board", board);
+		
+		model.addAttribute("list", service.search(title));
+		
+		return "board/list";
+	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void registerForm(Board board, Model model) throws Exception {
