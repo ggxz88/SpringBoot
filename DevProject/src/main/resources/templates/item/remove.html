@@ -22,9 +22,6 @@
 		});
 		
 		//비동기 방식 업로드
-		$(".uploadedList").on("click", "span", function(event){
-			$(this).parent("div").remove();
-		});
 		
 		function getOriginalName(fileName) {
 			if(checkImageType(fileName)) {
@@ -52,68 +49,33 @@
 			return fileName.match(pattern);
 		}
 		
-		$("#item").submit(function(event) {
-			event.preventDefault();
-		});
+		var itemId = [[${item.itemId}]];
 		
-		var that = $(this);
+		console.log("itemId : " + itemId);
 		
-		var str = "";
-		
-		$(".uploadedList a").each(function(index){
-			var value = $(this).attr("href");
-			value = value.substr(27);
-			
-			str += "<input type='hidden' name='files["+index+"]' value='"+ value +"'> ";
-			
-		});
-		
-		console.log("str + " + str);
-		
-		that.append(str);
-		
-		that.get(0).submit();
-	});
-	
-		$("#inputFile").on("change", function(event){
-			console.log("change");
-			
-			var files = event.target.files;
-	
-			var file = files[0];
-			    
-			console.log(file);
-	
-			var formData = new FormData();
-		    
-			formData.append("file", file);
-	
-			$.ajax({
-		    	url: "/item/uploadAjax",
-			    data: formData,
-		    	dataType:"text",
-			    processData: false,
-			    contentType: false,
-			    type: "POST",
-			    success: function(data){
-			    console.log(data);
-	
-				var str ="";
-			    if(checkImageType(data)){
-			    	
-			    	str = "<div><a href='/item/displayFile?fileName=" + data + "'>" + "<img src='/item/displayFile?fileName=" + getThumbnailName(data) + "'/>"  + "</a><span>X</span></div>";
+		$.getJSON("/item/getAttach/" + itemId, function(list) {
+			$(list).each(function() {
+				console.log("data : " + this);
+				
+				var data = this;
+				
+				var str = "";
+				
+				if(checkImageType(data)){
+			    	str = "<div><a href='/item/displayFile?fileName=" + data + "'>" 
+			    			+ "<img src='/item/displayFile?fileName=" 
+			    			+ getThumbnailName(data) 
+			    			+ "'/>"  + "</a><span>X</span></div>";
 			    }
 			    else {
 					str = "<div><a href='/item/displayFile?fileName=" + data + "'>"
-			        + getOriginalName(data) + "</a>"
-			        + "<span>X</span></div></div>";
+							+ getOriginalName(data) + "</a>" 
+							+ "<span>X</span></div></div>";
 			    }
-	
+				
 				$(".uploadedList").append(str);
-		      
-		    });
+			});
 		});
-	
 	});
 </script>
 
@@ -134,6 +96,7 @@
 				<td>가격</td>
 				<td><input type="text" name="price" th:field="*{price}" disabled="disabled"/>&nbsp;원</td>
 			</tr>
+			<!-- 
 			<tr>
 				<td>파일</td>
 				<td><img src="display?itemId=${itemId=${item.itemId}" th:src="@{|display?itemId=${item.itemId}|}" width="210" height="240"></td>
@@ -141,6 +104,13 @@
 			<tr>
 				<td>파일</td>
 				<td><img src="display2?itemId=${itemId=${item.itemId}" th:src="@{|display2?itemId=${item.itemId}|}" width="210" height="240"></td>
+			</tr>
+			-->
+			<tr>
+				<td>파일</td>
+				<td>
+					<div class="uploadedList"></div>
+				</td>
 			</tr>
 			<tr>
 				<td>개요</td>
