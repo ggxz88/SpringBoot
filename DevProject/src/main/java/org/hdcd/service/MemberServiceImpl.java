@@ -16,6 +16,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberMapper mapper;
 	
+	//메서드에 @Transactional 애너테이션을 부여
 	@Transactional
 	@Override
 	public void register(Member member) throws Exception {
@@ -34,6 +35,7 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.read(userNo);
 	}
 	
+	//메서드에 @Transactional 애너테이션을 부여
 	@Transactional
 	@Override
 	public void modify(Member member) throws Exception {
@@ -64,6 +66,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
+	//메서드에 @Transactional 애너테이션을 부여
 	@Transactional
 	@Override
 	public void remove(int userNo) throws Exception {
