@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -292,9 +294,11 @@ public class BoardController {
 	
 	//14. AOP
 	
+	//15 .트랜잭션
+	
 	@Autowired
 	private BoardService service;
-	
+	/*
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(String title, Model model) throws Exception {
 		Board board = new Board();
@@ -312,7 +316,7 @@ public class BoardController {
 		logger.info("registerForm");
 	}
 	
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(Board board, Model model) throws Exception {
 		logger.info("register");
 		
@@ -341,6 +345,169 @@ public class BoardController {
 	public String remove(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
 		logger.info("remove");
 		
+		service.remove(boardNo);
+		
+		model.addAttribute("msg", "삭제가 완료되었습니다.");
+		
+		return "board/success";
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public void modifyForm(int boardNo, Model model) throws Exception {
+		logger.info("modifyForm");
+		
+		model.addAttribute(service.read(boardNo));
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(Board board, Model model) throws Exception {
+		logger.info("modify");
+		
+		service.modify(board);
+		
+		model.addAttribute("msg", "수정이 완료되었습니다.");
+		
+		return "board/success";
+	}
+	*/
+	
+	//16. 예외 처리
+	//예외 상황
+	/*
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String search(String title, Model model) throws Exception {
+		Board board = new Board();
+		board.setTitle(title);
+		
+		model.addAttribute("board", board);
+		
+		model.addAttribute("list", service.search(title));
+		
+		return "board/list";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public void registerForm(Board board, Model model) throws Exception {
+		logger.info("registerForm");
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	//제목에 빈값을 입력하여 유효값 검증 예외 발생
+	public String register(@Validated Board board, Model model) throws Exception {
+		logger.info("register");
+		
+		service.register(board);
+		
+		model.addAttribute("msg", "등록이 완료되었습니다.");
+		
+		return "board/success";
+	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void list(Model model) throws Exception {
+		logger.info("list");
+		
+		model.addAttribute("list", service.list());
+	}
+	
+	@RequestMapping(value = "read", method = RequestMethod.GET)
+	public void read(int boardNo, Model model) throws Exception{
+		logger.info("read");
+		
+		//게시판의 글이 존재하지 않으면 사용자가 정의한 예외를 발생시킨다.
+		Board board = service.read(boardNo);
+		
+		model.addAttribute(board);
+	}
+	
+	@RequestMapping(value = "remove", method = RequestMethod.POST)
+	public String remove(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
+		logger.info("remove");
+		
+		//매필 파일에서 예외 발생
+		service.remove(boardNo);
+		
+		model.addAttribute("msg", "삭제가 완료되었습니다.");
+		
+		return "board/success";
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public void modifyForm(int boardNo, Model model) throws Exception {
+		logger.info("modifyForm");
+		
+		model.addAttribute(service.read(boardNo));
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(Board board, Model model) throws Exception {
+		logger.info("modify");
+		
+		service.modify(board);
+		
+		model.addAttribute("msg", "수정이 완료되었습니다.");
+		
+		return "board/success";
+	}
+	*/
+	
+	//입력값 검증 예외 처리
+	
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String search(String title, Model model) throws Exception {
+		Board board = new Board();
+		board.setTitle(title);
+		
+		model.addAttribute("board", board);
+		
+		model.addAttribute("list", service.search(title));
+		
+		return "board/list";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public void registerForm(Board board, Model model) throws Exception {
+		logger.info("registerForm");
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	//BindingResult에는 요청 데이터의 바인딩 에러와 검사 에러 정보가 저장된다.
+	public String register(@Validated Board board, BindingResult result,  Model model) throws Exception {
+		logger.info("register");
+		
+		if(result.hasErrors()) {
+			return "board/register";
+		}
+		
+		service.register(board);
+		
+		model.addAttribute("msg", "등록이 완료되었습니다.");
+		
+		return "board/success";
+	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void list(Model model) throws Exception {
+		logger.info("list");
+		
+		model.addAttribute("list", service.list());
+	}
+	
+	@RequestMapping(value = "read", method = RequestMethod.GET)
+	public void read(int boardNo, Model model) throws Exception{
+		logger.info("read");
+		
+		//게시판의 글이 존재하지 않으면 사용자가 정의한 예외를 발생시킨다.
+		Board board = service.read(boardNo);
+		
+		model.addAttribute(board);
+	}
+	
+	@RequestMapping(value = "remove", method = RequestMethod.POST)
+	public String remove(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
+		logger.info("remove");
+		
+		//매필 파일에서 예외 발생
 		service.remove(boardNo);
 		
 		model.addAttribute("msg", "삭제가 완료되었습니다.");

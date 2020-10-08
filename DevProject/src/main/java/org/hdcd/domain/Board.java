@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "board")
@@ -15,7 +16,14 @@ public class Board {
 	
 	
 	private int boardNo;
+	//private String title;
+	
+	//15. 예외 처리
+	//입력값 검증 예외 처리
+	//입력값의 검사 규칙을 지정한다.
+	@NotBlank
 	private String title;
+	
 	private String content;
 	private String writer;
 	private Date regDate;

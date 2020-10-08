@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+</head>
+
+<body>
+	<!-- 16. 예외 처리 ->
+	<!-- 예외 처리 애너테이션 -->
+	<!-- 
+	<h1>Error!</h1>	
+	-->
+	
+	<!-- 예외 정보 출력 -->
+	
+	<h4 th:text="${exception.getMessage()}">${exception.getMessage()}</h4>
+	
+	<ul>
+		<li th:each="stack : ${exception.getStackTrace()}" th:text="${stack.toString()}"></li>
+	</ul>
+</body>
+</html>
