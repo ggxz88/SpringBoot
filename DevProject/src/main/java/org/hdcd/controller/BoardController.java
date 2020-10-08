@@ -290,6 +290,8 @@ public class BoardController {
 	//_로 구분된 컬럼명 자동 매핑
 	//동적 SQL
 	
+	//14. AOP
+	
 	@Autowired
 	private BoardService service;
 	
