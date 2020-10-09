@@ -727,6 +727,7 @@ public class Member implements Serializable {
 	private int userNo;
 	private String userId;
 	private String userPw;
+	private String email;
 	private String userName;
 	private Date regDate;
 	private Date updDate;
@@ -786,6 +787,14 @@ public class Member implements Serializable {
 	
 	public void setAuthList(List<MemberAuth> authList) {
 		this.authList = authList;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

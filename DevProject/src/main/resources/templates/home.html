@@ -21,7 +21,7 @@
 	
 	<!-- 10. 메시지 처리 -->
 	<!-- 메시지 소스 정의 -->
-	
+	<!-- 
 	<h1>
 		Hello world!<br>
 		<span th:text="#{welcome.message}"></span>
@@ -30,6 +30,17 @@
 	</h1>
 	
 	<p th:text="${serverTime}"> The time is on the server is ${serverTime}. </p>
+	-->
+	
+	<!-- 17. 인터셉터 -->
+	
+	<h1>Hello world!</h1>
+	
+	<P th:text="|The time on the server is ${serverTime}.|">The time on the server is ${serverTime}</P>
+	
+	<div th:text="${session.userInfo.userId}" th:unless="${session == null}">${userInfo.userId}</div>
+	<div th:text="${session.userInfo.userName}" th:unless="${session == null}">${userInfo.userName}</div>
+	
 	
 </body>
 </html>
