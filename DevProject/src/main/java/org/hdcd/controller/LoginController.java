@@ -11,12 +11,14 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
+	/*
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm() {
 		logger.info("loginForm");
 		
 		return "loginForm";
 	}
+	*/
 	
 	//인터셉터 설정
 	/*
@@ -34,7 +36,7 @@ public class LoginController {
 	*/
 	
 	//인터셉터 활용 - 세션 처리
-	
+	/*
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public void login(String userId, String userPw, Model model) {
 		logger.info("login");
@@ -52,4 +54,24 @@ public class LoginController {
 		model.addAttribute("user", member);
 		
 	}
+	*/
+	
+	//18. 스프링 시큐리티
+	//사용자 정의 로그인 페이지
+	@RequestMapping("/login")
+	public String loginForm(String error, String logout, Model model) {
+		logger.info("error: " + error);
+		logger.info("logout: " + logout);
+		
+		if(error != null) {
+			model.addAttribute("error", "Login Error!!!");
+		}
+		
+		if(logout != null) {
+			model.addAttribute("logout", "Logout!!!");
+		}
+		
+		return "loginForm";
+	}
+		
 }

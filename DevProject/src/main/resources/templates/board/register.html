@@ -1,9 +1,11 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	
 
 <head>
 	<title>BOARD</title>
 </head>
-
+<!-- 
 <script src="/js/jQuery-2.1.4.min.js"></script>
 
 <script type="text/javascript">
@@ -23,16 +25,20 @@
 	
 	});
 </script>
+-->
 
 <body>
+	<!-- 
 	<h3>REGISTER</h3>
 	
 		<form id="board" action="success.html" th:action="@{register}" th:object="${board}" method="POST">
 		<table>
 			<tr>
 				<td>Title</td>
+				-->
 				<!-- 15. 예외 처리 - 입력값 검증 예외 처리 -->
 				<!-- 입력값 검증 에러가 발생하면 <form:errors> 요소에 출력한다. -->
+				<!-- 
 				<td>
 					<input type="text" name="title" th:field="*{title}" />
 					<font color="red">
@@ -65,5 +71,19 @@
 		<button type="submit" id="btnRegister">Register</button>
 		<button type="submit" id="btnList">List</button>
 	</div>
+	-->
+	
+	<!-- 18. 스프링 시큐리티 - 스프링 시큐리티 설정 -->
+	
+	<h3>BOARD REGISTER : access to member</h3>
+	
+	<!-- 스프링 시큐리티 표현식 -->
+	<!-- 사용자 정보 -->
+	<p>principal : <span sec:authentication="principal"></span></p>
+	<p>Member : <span sec:authentication="principal.member"></span></p>
+	<p>사용자 이름 : <span sec:authentication="principal.member.userName"></span></p>
+	<p>사용자 아이디 : <span sec:authentication="principal.username"></span></p>
+	<p>사용자 권한 리스트 : <span sec:authentication="principal.member.authList"></span></p>
+	
 </body>
 </html>

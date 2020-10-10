@@ -3,7 +3,7 @@
 <head>
 	<title>BOARD</title>
 </head>
-
+<!--
 <script src="/js/jQuery-2.1.4.min.js"></script>
 
 <script type="text/javascript">
@@ -30,8 +30,9 @@
 	
 	});
 </script>
-
+-->
 <body>
+	<!-- 
 	<h3>READ</h3>
 		
 	<form id="board" th:object="${board}" method="POST">
@@ -61,6 +62,19 @@
 		<button type="submit" id="btnModify">Modify</button>
 		<button type="submit" id="btnRemove">Remove</button>
 		<button type="submit" id="btnList">List</button>
+	</div>
+	-->
+	
+	<!-- 18. 스프링 시큐리티 - 스프링 시큐리티 설정 -->
+	
+	<h3>BOARD READ : access to authenticated user</h3>
+	
+	<div>
+		<a href="/board/modify">modify</a>
+	</div>
+	
+	<div>
+		<a href="/">home</a>
 	</div>
 </body>
 </html>

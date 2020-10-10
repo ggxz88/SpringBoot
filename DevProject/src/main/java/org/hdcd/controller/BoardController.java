@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -452,7 +453,7 @@ public class BoardController {
 	*/
 	
 	//입력값 검증 예외 처리
-	
+	/*
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(String title, Model model) throws Exception {
 		Board board = new Board();
@@ -532,4 +533,35 @@ public class BoardController {
 		
 		return "board/success";
 	}
+	*/
+	
+	//18. 스프링 시큐리티
+	
+	@RequestMapping("/list")
+	public void list() {
+		logger.info("list : access to all");
+	}
+	
+	//회원권한을 가진 사용자만 접근이 가능하다.
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@RequestMapping("/register")
+	public void registerForm() {
+		logger.info("reigsterForm : access to member");
+	}
+	
+	//로그인한 사용자만 접근이 가능한다.
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping("/read")
+	public void read() {
+		logger.info("read : access to authenticated user");
+	}
+	
+	
+	//관리자나 회원권한을 가진 사용자만 접근이 가능하다.
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	@RequestMapping("/modify")
+	public void modifyForm() {
+		logger.info("modifyForm : access to member or admin");
+	}
+	
 }
