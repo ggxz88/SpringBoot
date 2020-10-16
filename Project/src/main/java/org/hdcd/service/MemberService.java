@@ -17,4 +17,10 @@ public interface MemberService {
 	public List<Member> list() throws Exception;
 	
 	public int getPoint(String userId) throws Exception;
+	
+	public int countAll() throws Exception;
+	
+	public void setupAdmin(Member member) throws Exception;
+	
+	public Member idChk(String userId) throws Exception;
 }

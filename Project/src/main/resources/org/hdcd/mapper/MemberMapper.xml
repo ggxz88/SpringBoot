@@ -111,4 +111,15 @@
 		DELETE FROM member_auth
 		WHERE user_id = #{userId}
 	</delete>
+	
+	<select id="countAll">
+		SELECT count(*)
+		FROM member
+	</select>
+	
+	<select id="idChk" resultType="Member">
+		SELECT user_id
+		FROM member
+		WHERE user_id = #{userId} 
+	</select>
 </mapper>
