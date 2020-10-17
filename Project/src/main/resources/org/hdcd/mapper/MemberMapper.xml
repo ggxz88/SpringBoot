@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="org.hdcd.mapper.MemberMapper">
 
 	<resultMap type="Member" id="memberMap">
@@ -32,7 +34,8 @@
 			reg_date,
 			upd_date,
 			auth
-		FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_id = auth.user_id
+		FROM member mem LEFT OUTER JOIN member_auth auth 
+		ON mem.user_id = auth.user_id
 		WHERE mem.user_id = #{userId}
 	</select>
 	
@@ -65,7 +68,8 @@
 			reg_date,
 			upd_date,
 			auth
-		FROM member mem LEFT OUTER JOIN member_auth auth ON mem.user_id = auth.user_id
+		FROM member mem LEFT OUTER JOIN member_auth auth 
+		ON mem.user_id = auth.user_id
 		WHERE mem.user_id = #{userId}
 	</select>
 
@@ -112,7 +116,7 @@
 		WHERE user_id = #{userId}
 	</delete>
 	
-	<select id="countAll">
+	<select id="countAll" resultType="int">
 		SELECT count(*)
 		FROM member
 	</select>

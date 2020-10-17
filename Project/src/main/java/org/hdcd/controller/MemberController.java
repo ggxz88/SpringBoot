@@ -3,6 +3,7 @@ package org.hdcd.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.service.MemberService;
 import org.slf4j.Logger;
@@ -39,6 +40,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@Validated Member member, BindingResult result, Model model, RedirectAttributes rttr) throws Exception {
+		logger.info("register");
+		
 		String inputPassword = member.getUserPw();
 		member.setUserPw(passwordEncoder.encode(inputPassword));
 		
@@ -56,16 +59,22 @@ public class MemberController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void list(Model model) throws Exception {
+		logger.info("list");
+		
 		model.addAttribute("list", service.list());
 	}
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(String userId, Model model) throws Exception {
+		logger.info("read");
+		
 		model.addAttribute(service.read(userId));
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public String remove(String userId, RedirectAttributes rttr) throws Exception {
+		logger.info("remove");
+		
 		service.remove(userId);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
@@ -75,11 +84,15 @@ public class MemberController {
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void modifyForm(String userId, Model model) throws Exception {
+		logger.info("modifyForm");
+		
 		model.addAttribute(service.read(userId));
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modify(Member member, RedirectAttributes rttr) throws Exception {
+		logger.info("modify");
+		
 		service.modify(member);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
@@ -89,6 +102,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "setup", method = RequestMethod.GET)
 	public String setupAdminForm(Member member, Model model) throws Exception {
+		logger.info("setupAdminForm");
+		
 		if(service.countAll() == 0) {
 			return "user/setup";
 		}
@@ -98,6 +113,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "setup", method = RequestMethod.POST)
 	public String setupAdmin(Member member, RedirectAttributes rttr) throws Exception {
+		logger.info("setupAdmin");
+		
 		if(service.countAll() == 0) {
 			String inputPassword = member.getUserPw();
 			member.setUserPw(passwordEncoder.encode(inputPassword));
@@ -115,6 +132,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value = "/idChk", method = RequestMethod.POST)
 	public int idChk(HttpServletRequest req) throws Exception {
+		logger.info("idChk");
 		
 		String userId = req.getParameter("userId");
 		Member idChk = service.idChk(userId);

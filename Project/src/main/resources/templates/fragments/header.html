@@ -1,11 +1,18 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
 	<div align="right" th:fragment="header">
 		<table>
-			<tr>
-				<td width="80"></td>
+			<tr sec:authorize="!isAuthenticated()">
+				<td width="80"><a href="../user/register.html" th:href="@{/user/register}" th:text="#{header.joinMember}">회원가입</a></td>
+				<td width="80"><a href="../auth/loginForm.html" th:href="@{/auth/login}" th:text="#{header.login}">로그인</a></td>
 			</tr>
+			
+			<tr sec:authorize="isAuthenticated()">
+				<td width="180"><span sec:authentication="principal.username"><a href="../auth/logoutForm.html" th:href="@{/auth/logout}" th:text="#{header.logout}">로그아웃</a></span></td>
+			</tr>
+			
 		</table>
 	</div>
 </body>

@@ -24,6 +24,8 @@ public class Member implements Serializable {
 	private String email;
 	private String phone;
 	
+	private boolean enabled;
+	
 	private Date regDate;
 	private Date updDate;
 	
@@ -100,5 +102,12 @@ public class Member implements Serializable {
 	public void setAuthList(List<MemberAuth> authList) {
 		this.authList = authList;
 	}
-		
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 }
