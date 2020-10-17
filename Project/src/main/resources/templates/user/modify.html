@@ -13,13 +13,6 @@
 		
 		<form id="memberReg" action="list.html" th:action="@{/user/modify}" th:object="${member}" method="POST">
 			
-			<div class="input_area">
-				<label for="userId">아이디</label>
-				<input type="text" name="userId" th:field="*{userId}" />
-				<span class="error_message" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
-			</div>
-			
-			
 			<table>
 				<tr>
 					<td>아이디</td>

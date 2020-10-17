@@ -38,6 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.loginProcessingUrl("/login")
 		.successHandler(createAuthenticationSuccessHandler());
 		
+		http.logout()
+		.logoutUrl("/auth/logout")
+		.invalidateHttpSession(true)
+		.deleteCookies("remember-me", "JSESSION_ID");
+		
 		http.exceptionHandling()
 		.accessDeniedHandler(createAccessDeniedHandler());
 		
