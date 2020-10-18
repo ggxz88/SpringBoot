@@ -10,7 +10,7 @@
 <body>
 	<div layout:fragment="content">
 		<h2>회원 목록</h2>
-		<a href="register.html" th:href="@{/user/register}" th:text="#{action.new}">새로만들디</a>
+		<a href="register.html" th:href="@{/user/register}" th:text="#{user.new}">회원 등록</a>
 		
 		<table border="1">
 			<tr>
@@ -27,9 +27,9 @@
 			
 			<tr th:each="member : ${list}">
 				<td align="center"><a href="read.html" th:href="'/user/read?userId=' + ${member.userId}" th:text="${member.userId}">${member.userId}</a></td>
-				<td align="center" th:text="#{member.userName}">${member.userName}</td>
-				<td align="center" th:text="#{member.email}">${member.email}</td>
-				<td align="center" th:text="#{member.phone}">${member.phone}</td>
+				<td align="center" th:text="${member.userName}">${member.userName}</td>
+				<td align="center" th:text="${member.email}">${member.email}</td>
+				<td align="center" th:text="${member.phone}">${member.phone}</td>
 				<td align="center" th:text="${#dates.format(member.regDate, 'yyyy-MM-dd HH:mm')}">${member.regDate}</td>
 			</tr>
 		</table>

@@ -9,6 +9,7 @@ import org.hdcd.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void list(Model model) throws Exception {
 		logger.info("list");
 		
@@ -72,6 +74,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String remove(String userId, RedirectAttributes rttr) throws Exception {
 		logger.info("remove");
 		
@@ -83,6 +86,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void modifyForm(String userId, Model model) throws Exception {
 		logger.info("modifyForm");
 		
@@ -90,6 +94,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String modify(Member member, RedirectAttributes rttr) throws Exception {
 		logger.info("modify");
 		
@@ -135,6 +140,8 @@ public class MemberController {
 		logger.info("idChk");
 		
 		String userId = req.getParameter("userId");
+		logger.info(userId);
+		
 		Member idChk = service.idChk(userId);
 		
 		int result = 0;

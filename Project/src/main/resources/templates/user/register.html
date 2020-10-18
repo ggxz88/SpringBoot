@@ -92,7 +92,7 @@
 
 			$(".idChk").click(function() {
 				var userIdVal = $("#userId").val();
-				var query = {userId : userIdVal};
+				var query = {"userId" : $("#userId").val()};
 				
 				if(userIdVal == '') {
 					alert('아이디를 입력해주세요.');
