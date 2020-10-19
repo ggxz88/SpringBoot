@@ -4,19 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Board implements Serializable {
-
-	private static final long serialVersionUID = -3195144465140529449L;
 	
+	private static final long serialVersionUID = -5223351127139237936L;
+
 	private int boardNo;
 	
 	private String title;
-	
 	private String content;
-	
 	private String writer;
 	
 	private Date regDate;
 	
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -59,11 +58,7 @@ public class Board implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo 
-				+ ", title=" + title 
-				+ ", content=" + content 
-				+ ", writer=" + writer 
-				+ ", regdate=" + regDate + "]";
+		return "Board [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ",writer=" + writer + ", regdate=" + regDate + "]";
 	}
-
+	
 }

@@ -1,5 +1,9 @@
 package org.hdcd.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hdcd.common.domain.CodeLabelValue;
 import org.hdcd.common.domain.PageRequest;
 import org.hdcd.common.domain.Pagination;
 import org.hdcd.common.security.domain.CustomUser;
@@ -32,7 +36,7 @@ public class BoardController {
 	public void registerForm(Model model, Authentication authentication) throws Exception {
 		logger.info("Board RegisterForm");
 		
-		CustomUser customUser = (CustomUser) authentication.getPrincipal();
+		CustomUser customUser = (CustomUser)authentication.getPrincipal();
 		Member member = customUser.getMember();
 		
 		Board board = new Board();
@@ -58,23 +62,48 @@ public class BoardController {
 	public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 		logger.info("Board List");
 		
-		model.addAttribute("list", service.list());
+		model.addAttribute("list", service.list(pageRequest));
+		
+		Pagination pagination = new Pagination();
+		pagination.setPageRequest(pageRequest);
+		
+		pagination.setTotalCount(service.count(pageRequest));
+		
+		model.addAttribute("pagination", pagination);
+		
+		List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>();
+		searchTypeCodeValueList.add(new CodeLabelValue("n", "---"));
+		searchTypeCodeValueList.add(new CodeLabelValue("t", "Title"));
+		searchTypeCodeValueList.add(new CodeLabelValue("c", "Content"));
+		searchTypeCodeValueList.add(new CodeLabelValue("w", "Writer"));
+		searchTypeCodeValueList.add(new CodeLabelValue("tc", "Title OR Content"));
+		searchTypeCodeValueList.add(new CodeLabelValue("cw", "Content OR Writer"));
+		searchTypeCodeValueList.add(new CodeLabelValue("tcw", "Title OR Content OR Writer"));
+
+		model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
 		
 	}
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void read(int boardNo, Model model) throws Exception {
+	public void read(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 		logger.info("Board Read");
 		
-		model.addAttribute(service.read(boardNo));
+		Board board = service.read(boardNo);
+				
+		model.addAttribute(board);
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-	public String remove(int boardNo, RedirectAttributes rttr) throws Exception {
+	public String remove(int boardNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
 		logger.info("Board Remove");
 		
 		service.remove(boardNo);
+		
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addAttribute("searchType", pageRequest.getSearchType());
+		rttr.addAttribute("keyword", pageRequest.getKeyword());
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
@@ -83,19 +112,26 @@ public class BoardController {
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-	public void modifyForm(int boardNo, Model model) throws Exception {
+	public void modifyForm(int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
 		logger.info("Board ModifyForm");
 		
-		model.addAttribute(service.read(boardNo));
+		Board board = service.read(boardNo);
+								
+		model.addAttribute(board);
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
-	public String modify(Board board, RedirectAttributes rttr) throws Exception {
+	public String modify(Board board, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
 		logger.info("Board Modify");
 		
 		service.modify(board);
 		
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addAttribute("searchType", pageRequest.getSearchType());
+		rttr.addAttribute("keyword", pageRequest.getKeyword());
+				
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/board/list";

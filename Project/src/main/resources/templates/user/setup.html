@@ -84,12 +84,12 @@
 				if(pw1 == pw2) {
 					document.getElementById('check').innerHTML='비밀번호 일치';
 					document.getElementById('check').style.color='blue';
-					document.getElementById("submit").disabled = false
+					document.getElementById("btnRegister").disabled = false
 				}
 				else {
 					document.getElementById('check').innerHTML='비밀번호 불일치';
 					document.getElementById('check').style.color='red';
-					document.getElementById("submit").disabled = true
+					document.getElementById("btnRegister").disabled = true
 					document.getElementById("userPwconfirm").value = '';
 					document.getElementById("userPwconfirm").focus();
 				}

@@ -2,13 +2,16 @@ package org.hdcd.service;
 
 import java.util.List;
 
+import org.hdcd.common.domain.PageRequest;
 import org.hdcd.domain.Board;
 import org.hdcd.mapper.BoardMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 	
+	@Autowired
 	private BoardMapper mapper;
 	
 	@Override
@@ -32,8 +35,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public List<Board> list() throws Exception {
-		return mapper.list();
+	public List<Board> list(PageRequest pageRequest) throws Exception {
+		return mapper.list(pageRequest);
 	}
 	
+	@Override
+	public int count(PageRequest pageRequest) throws Exception {
+		return mapper.count(pageRequest);
+	}
 }
