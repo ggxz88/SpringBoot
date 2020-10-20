@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.NoticeMapper">
+
+	<!-- 검색 유형과 검색어의 조합으로 다양한 쿼리를 동적으로 생성 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				AND content LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				AND (	title LIKE CONCAT('%', #{keyword}, '%')
+						OR content LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+		</if>
+	</sql>
+
+	<insert id="create">
+		INSERT INTO notice
+			(
+			title,
+			content
+			)
+		VALUES
+			(
+			#{title},
+			#{content}
+			)
+	</insert>
+	
+	<select id="read" resultType="Notice">
+		SELECT notice_no,
+			title,
+			content,
+			reg_date
+		  FROM notice
+		 WHERE notice_no = #{noticeNo}
+	</select>
+
+	<update id="update">
+		UPDATE notice 
+		   SET title = #{title},
+		   	content = #{content}
+		 WHERE notice_no = #{noticeNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM notice
+		 WHERE notice_no = #{noticeNo}
+	</delete>
+	
+	<select id="list" resultType="Notice">
+		<![CDATA[
+			SELECT notice_no,
+				title,
+				content,
+				reg_date
+			  FROM notice
+			 WHERE notice_no > 0
+		]]>	 
+		
+		<include refid="search"></include>
+		
+		<![CDATA[
+			 ORDER BY notice_no DESC,
+			 	reg_date DESC
+			  LIMIT #{pageStart}, #{sizePerPage}	
+		]]>
+	</select>
+	
+	<!-- 검색 처리된 게시글 건수를 조회 -->
+	<select id="count" resultType="int">
+		<![CDATA[
+			SELECT count(notice_no)
+			  FROM notice
+			 WHERE notice_no > 0
+		]]>	 
+		
+		<include refid="search"></include>
+		
+	</select>
+</mapper>
