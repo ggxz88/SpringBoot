@@ -38,7 +38,7 @@
 			
 			<tr th:each="notice : ${list}">
 				<td align="center"  th:text="${notice.noticeNo}">${notice.noticeNo}</td>
-				<td align="center"><a href="read.html" th:href="@{|/notice/read${pgrq.toUriString(pgrq.page)}&noticeNo=${notice.noticeNo}|}" th:text="${notice.title}">${notice.title}</a></td>
+				<td align="center"><a href="read.html" th:href="@{|/notice/read${pgrq.toUriString(pgrq.page)}&amp;noticeNo=${notice.noticeNo}|}" th:text="${notice.title}">${notice.title}</a></td>
 				<td align="center" th:text="${#dates.format(notice.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 			</tr>
 		</table>
