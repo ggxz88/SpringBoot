@@ -1,0 +1,63 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Inquiry</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>1:1 문의 목록</h2>
+		
+		<form id="pgrq" action="list.html" th:action="@{|/inquiry/list${pgrq.toUriStringByPage(1)}|}" th:object="${pgrq}" method="GET">
+			<select th:field="*{searchType}">
+				<option th:each="element : ${searchTypeCodeValueList}" th:value="${element.value}" th:text="${element.label}">제목</option>
+			</select>
+			
+			<input type="text" name="keyword" th:field="*{keyword}" />
+			<button id="searchBtn" th:tex="#{action.search}">검색</button>
+		</form>
+		
+		<table border="1">
+			<tr>
+				<th align="center" width="80" th:text="#{inquiry.no}">문의 번호</th>
+				<th align="center" width="320" th:text="#{inquiry.title}">제목</th>
+				<th align="center" width="100" th:text="#{inquiry.writer}">글쓴이</th>
+				<th align="center" width="180" th:text="#{inquiry.regDate}">등록일자</th>
+			</tr>
+			
+			<tr th:if="${#lists.isEmpty(list)}">
+				<td colspan="4" th:text="#{common.listEmpty}">List is empty.</td>
+			</tr>
+			
+			<tr th:each="inquiry : ${list}">
+				<td align="center"  th:text="${inquiry.inquiryNo}">${inquiry.inquiryNo}</td>
+				<td align="center"><a href="read.html" th:href="@{|/inquiry/read${pgrq.toUriString(pgrq.page)}&inquiryNo=${inquiry.inquiryNo}|}" th:text="${inquiry.title}">${inquiry.title}</a></td>
+				<td align="center" th:text="${inquiry.writer}">${inquiry.writer}</td>
+				<td align="center" th:text="${#dates.format(inquiry.regDate, 'yyyy-MM-dd HH:mm')}"></td>
+			</tr>
+		</table>
+		
+		<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+			<a href="register.html" th:href="@{/inquiry/register}" th:text="#{inquiry.new}">글쓰기</a>
+		</th:block>
+		
+		
+		
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+				var result = "[[${msg}]]";
+			
+			
+				if(result === "SUCCESS") {
+					alert(/*[[#{common.processSuccess}]]*/);
+				}
+			/*]]>*/
+		</script>
+		
+	</div>
+</body>
+</html>

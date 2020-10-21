@@ -1,0 +1,94 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Inquiry</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>1:1 문의 상세보기</h2>
+		
+		<form id="inquiry" action="list.html" th:action="@{/inquiry/remove}" th:object="${inquiry}" method="POST">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" id="inquiryNo" th:field="*{inquiryNo}" />
+			<input type="hidden" name="page" th:value="${pgrq.page}" />
+			<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}" />
+			<input type="hidden" name="searchType" th:value="${pgrq.searchType}" />
+			<input type="hidden" name="keyword" th:value="${pgrq.keyword}" />
+			
+			<table>
+				<tr>
+					<td th:text="#{inquiry.title}">제목</td>
+					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{inquiry.writer}">작성자</td>
+					<td><input type="text" id="writer" th:field="*{writer}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{inquiry.content}">내용</td>
+					<td><textarea id="content" th:field="*{content}" readonly="readonly" ></textarea></td>
+				</tr>
+			</table>
+			
+		</form>
+		
+		<div th:with="pinfo=${#authentication.principal}">
+		
+			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+				<button type="submit" id="btnEdit" th:text="#{action.edit}">편집</button>
+				<button type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
+			</th:block>		
+			
+			<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+				<th:block th:if="${pinfo.username eq inquiry.writer}">
+					<button type="submit" id="btnEdit" th:text="#{action.edit}">편집</button>
+					<button type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
+				</th:block>	
+			</th:block>		
+			
+			<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+			
+		</div>
+		
+		<div>
+		
+			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+				<a href="adminregister.html" th:href="@{/inquiry/adminregister}" th:text="#{inquiry.replynew}">글쓰기</a>
+			</th:block>
+			
+		</div>
+		
+		
+		<script>
+			$(document).ready(function() {
+				
+				var formObj = $("#inquiry");
+				
+				$("#btnEdit").on("click", function() {
+					var inquiryNo = $("#inquiryNo");
+					var inquiryNoVal = inquiryNo.val();
+					
+					self.location = "/inquiry/modify[(${pgrq.toUriString()})]" + "&inquiryNo=" + inquiryNoVal;
+				});
+				
+				$("#btnRemove").on("click", function() {
+					formObj.attr("action", "/inquiry/remove");
+					formObj.submit();
+				});
+				
+				$("#btnList").on("click", function() {
+					self.location = "/inquiry/list[(${pgrq.toUriString()})]";
+				});
+				
+			});
+		</script>
+		
+	</div>
+</body>
+</html>
