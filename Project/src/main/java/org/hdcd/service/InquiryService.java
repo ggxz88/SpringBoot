@@ -11,6 +11,8 @@ public interface InquiryService {
 	
 	public void adminregister(Inquiry inquiry) throws Exception;
 	
+	public void modgroupOrd(Inquiry inquiry) throws Exception;
+	
 	public Inquiry read(Integer inquiryNo) throws Exception;
 	
 	public void modify(Inquiry inquiry) throws Exception;

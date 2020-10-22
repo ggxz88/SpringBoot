@@ -1,0 +1,93 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Inquiry</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<h2>1:1 문의 등록</h2>
+		
+		<form id="inquiry" action="list.html" th:action="@{/inquiry/adminregister}" th:object="${inquiry}" method="POST">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+			<table>
+				<tr>
+					<td th:text="#{inquiry.replyinquiryno}">문의 번호</td>
+					<td><input type="text" id="originNo" th:field="*{originNo}"/></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('originNo')}" th:errors="*{originNo}">originNo의 에러 메시지</span></td>
+				</tr>
+				<tr>
+					<td th:text="#{inquiry.title}">제목</td>
+					<td><input type="text" id="title" th:field="*{title}" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title의 에러 메시지</span></td>
+				</tr>
+				<tr>
+					<td th:text="#{inquiry.writer}">작성자</td>
+					<td><input type="text" id="writer" th:field="*{writer}" readonly="readonly" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('writer')}" th:errors="*{writer}">writer의 에러 메시지</span></td>
+				</tr>
+				<tr>
+					<td th:text="#{inquiry.content}">내용</td>
+					<td><textarea id="content" th:field="*{content}" ></textarea></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content의 에러 메시지</span></td>
+				</tr>
+			</table>
+			
+		</form>
+		
+		<div>
+			<th:block sec:authorize="isAuthenticated()">
+				<button type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
+			</th:block>
+			
+			<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+		</div>
+		
+		<script th:inline="javascript">
+			
+			$(document).ready(function() {
+				
+				function getParam(sname) {
+					var previousUrl = parent.document.referrer;
+					
+					var params = previousUrl.substr(previousUrl.indexOf("?") + 1);
+					var sval = "";
+					params = params.split("&");
+					
+					for (var i = 0; i < params.length; i++) {
+						temp = params[i].split("=");
+						if([temp[0]] == sname) {
+							sval = temp[1];
+						}
+					}
+					return sval;
+				}
+				
+				document.getElementById('originNo').value = getParam("inquiryNo");
+				document.getElementById('title').value = "RE : 답변입니다. '^'";
+				
+				var formObj = $("#inquiry");
+				
+				$("#btnRegister").on("click", function() {
+					formObj.submit();
+				});
+				
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+				
+				
+			});
+			
+		</script>
+		
+	</div>
+</body>
+</html>

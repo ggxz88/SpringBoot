@@ -7,6 +7,7 @@ import org.hdcd.domain.Inquiry;
 import org.hdcd.mapper.InquiryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class InquiryServiceImpl implements InquiryService {
@@ -21,7 +22,12 @@ public class InquiryServiceImpl implements InquiryService {
 	
 	@Override
 	public void adminregister(Inquiry inquiry) throws Exception {
-		mapper.admincreate(inquiry);
+		mapper.admincreate(inquiry);		
+	}
+	
+	@Override
+	public void modgroupOrd(Inquiry inquiry) throws Exception {
+		mapper.updgroupOrd(inquiry);
 	}
 	
 	

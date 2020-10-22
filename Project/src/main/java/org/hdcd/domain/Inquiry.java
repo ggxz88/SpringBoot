@@ -18,6 +18,17 @@ public class Inquiry implements Serializable {
 	private Date regDate;
 	
 	private String title_plus;		
+	
+	//계층형 게시판 
+	
+	// 원글 번호
+	private int originNo;
+	
+	// 원글(답글 포함)에 대한 순서
+	private int groupOrd;
+	
+	// 답글 계층
+	private int groupLayer;
 
 	public String getTitle_plus() {
 		return title_plus;
@@ -69,4 +80,27 @@ public class Inquiry implements Serializable {
 		this.regDate = regDate;
 	}
 
+	public int getOriginNo() {
+		return originNo;
+	}
+
+	public void setOriginNo(int originNo) {
+		this.originNo = originNo;
+	}
+
+	public int getGroupOrd() {
+		return groupOrd;
+	}
+
+	public void setGroupOrd(int groupOrd) {
+		this.groupOrd = groupOrd;
+	}
+
+	public int getGroupLayer() {
+		return groupLayer;
+	}
+
+	public void setGroupLayer(int groupLayer) {
+		this.groupLayer = groupLayer;
+	}
 }

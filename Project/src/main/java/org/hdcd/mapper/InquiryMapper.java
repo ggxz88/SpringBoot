@@ -11,6 +11,8 @@ public interface InquiryMapper {
 	
 	public void admincreate(Inquiry inquiry) throws Exception;
 	
+	public void updgroupOrd(Inquiry inquiry) throws Exception;
+	
 	public Inquiry read(Integer inquiryNo) throws Exception;
 	
 	public void update(Inquiry inquiry) throws Exception;

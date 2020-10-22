@@ -23,17 +23,47 @@
 	<insert id="create">
 		INSERT INTO inquiry
 			(
+			origin_no,
 			title,
 			writer,
 			content
 			)
 		VALUES
 			(
+			(SELECT no FROM (SELECT IFNULL(max(inquiry_no) + 1, '1') AS no FROM inquiry) AS inq),
 			#{title},
 			#{writer},
 			#{content}
 			)
 	</insert>
+	
+	<insert id="admincreate">
+		INSERT INTO inquiry
+			(
+			origin_no,
+			group_ord,
+			group_layer,
+			title,
+			writer,
+			content
+			)
+		VALUES
+			(
+			#{originNo},
+			group_ord + 1,
+			group_layer + 1,
+			#{title},
+			#{writer},
+			#{content}
+			)
+	</insert>
+	
+	<update id="updgroupOrd">
+		UPDATE inquiry 
+		   SET group_ord = group_ord + 1 
+		 WHERE origin_no = #{originNo} 
+		   AND group_ord > #{groupOrd}
+	</update>
 	
 	<select id="read" resultType="Inquiry">
 		SELECT inquiry_no,
@@ -72,8 +102,8 @@
 		<include refid="search"></include>
 		
 		<![CDATA[
-			 ORDER BY inquiry_no DESC,
-			 	reg_date DESC
+			 ORDER BY origin_no DESC,
+			 	group_ord ASC
 			  LIMIT #{pageStart}, #{sizePerPage}	
 		]]>
 	</select>

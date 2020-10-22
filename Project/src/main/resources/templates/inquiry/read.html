@@ -15,7 +15,12 @@
 		<form id="inquiry" action="list.html" th:action="@{/inquiry/remove}" th:object="${inquiry}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" id="inquiryNo" th:field="*{inquiryNo}" />
+			
+			<input type="hidden" name="inquiryNo" th:field="*{inquiryNo}" />
+			<input type="hidden" name="originNo" th:field="*{originNo}" />
+			<input type="hidden" name="groupOrd" th:field="*{groupOrd}" />
+			<input type="hidden" name="groupLayer" th:field="*{groupLayer}" />
+			
 			<input type="hidden" name="page" th:value="${pgrq.page}" />
 			<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}" />
 			<input type="hidden" name="searchType" th:value="${pgrq.searchType}" />
@@ -59,7 +64,7 @@
 		<div>
 		
 			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-				<a href="adminregister.html" th:href="@{/inquiry/adminregister}" th:text="#{inquiry.replynew}">글쓰기</a>
+				<button type="submit" id="btnReply" th:text="#{inquiry.replynew}">답변 등록</button>
 			</th:block>
 			
 		</div>
@@ -85,6 +90,11 @@
 				$("#btnList").on("click", function() {
 					self.location = "/inquiry/list[(${pgrq.toUriString()})]";
 				});
+				
+				$("#btnReply").on("click", function() {
+					self.location = "/inquiry/adminregister"
+				});
+				
 				
 			});
 		</script>

@@ -47,11 +47,45 @@ public class InquiryController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	public String register(Inquiry inquiry, RedirectAttributes rttr) throws Exception {
 		logger.info("Inquiry Register");
 		
 		service.register(inquiry);
+		
+		int inquiryNo = inquiry.getInquiryNo();
+		
+		logger.info("inquiryNo : " + inquiryNo);
+		
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/inquiry/list";
+	}
+	
+	@RequestMapping(value = "/adminregister", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public void adminregisterForm(Model model, Authentication authentication) throws Exception {
+		logger.info("Inquiry Admin RegisterForm");
+		
+		CustomUser customUser = (CustomUser)authentication.getPrincipal();
+		Member member = customUser.getMember();
+		
+		Inquiry inquiry = new Inquiry();
+		
+		inquiry.setWriter(member.getUserId());
+				
+		model.addAttribute(inquiry);
+	}
+	
+	
+	@RequestMapping(value = "/adminregister", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String adminregister(Inquiry inquiry, RedirectAttributes rttr) throws Exception {
+		logger.info("Inquiry Register");
+		
+		service.adminregister(inquiry);
+		
+		service.modgroupOrd(inquiry);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
