@@ -2,7 +2,7 @@
 CREATE TABLE member (
 	user_id VARCHAR(50) NOT NULL, /*아이디*/
 	user_pw VARCHAR(100) NOT NULL, /*비밀번호*/
-	user_name VARCHAR(3) NOT NULL DEFAULT '00', /*닉네임*/
+	user_name VARCHAR(10) NOT NULL DEFAULT '00', /*닉네임*/
 	point INT(10) DEFAULT 0, /*예약 페이지 화폐*/
     email VARCHAR(50) NOT NULL, /*이메일 주소*/
 	phone VARCHAR(50) NOT NULL, /*휴대폰 번호*/
@@ -119,7 +119,6 @@ CREATE TABLE reply (
 
 ALTER TABLE reply ADD CONSTRAINT fk_reply_board_no FOREIGN KEY (board_no) REFERENCES board(board_no) ON DELETE CASCADE;
 
-
 /*공지사항 테이블*/
 CREATE TABLE notice (
 	notice_no INT NOT NULL AUTO_INCREMENT,
@@ -132,21 +131,14 @@ CREATE TABLE notice (
 /*1:1문의 테이블*/
 CREATE TABLE inquiry (
 	inquiry_no INT NOT NULL AUTO_INCREMENT,
+	origin_no INT(10),
+	group_ord INT(10) DEFAULT 0,
+	group_layer INT(10) DEFAULT 0,
 	title VARCHAR(200) NOT NULL,
 	content TEXT,
 	writer VARCHAR(50) NOT NULL,
 	reg_date TIMESTAMP NOT NULL DEFAULT now(),
 	PRIMARY KEY (inquiry_no)
-);
-
-/*문의 답글 테이블*/
-CREATE TABLE inquiry_reply (
-	inquiry_reply_no INT(5) NOT NULL AUTO_INCREMENT,
-    inquiry_no INT NOT NULL,
-	inquiry_reply_content VARCHAR(150) NOT NULL,
-	inquiry_reply_writer VARCHAR(50) NOT NULL,
-	reg_date TIMESTAMP DEFAULT now(),
-	PRIMARY KEY (inquiry_reply_no, inquiry_no)
 );
 
 /*충전 내역 테이블*/
