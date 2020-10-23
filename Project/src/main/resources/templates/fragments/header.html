@@ -15,6 +15,12 @@
 			
 			<tr sec:authorize="isAuthenticated()">
 				<td width="180"><span sec:authentication="principal.username">홍길동</span>님 <a href="../auth/logoutForm.html" th:href="@{/auth/logout}" th:text="#{action.logout}">로그아웃</a></td>
+				<td sec:authorize="hasRole('ROLE_ADMIN')">
+					<a href="../mypage/admin.html" th:href="@{/mypage/admin}" th:text="#{header.adminpage}">관리자 페이지</a>
+				</td>
+				<td sec:authorize="hasRole('ROLE_MEMBER')">
+					<a href="../mypage/my.html" th:href="@{/mypage/my}" th:text="#{header.mypage}">관리자 페이지</a>
+				</td>
 			</tr>
 			
 		</table>
