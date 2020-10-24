@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.PointMapper">
+
+	<insert id="create">
+		INSERT INTO charge_point_history
+			(
+			user_id,
+			amount
+			)
+		VALUES
+			(
+			#{userId},
+			#{amount}
+			)
+	</insert>
+	
+	<update id="charge">
+		UPDATE member
+		   SET point = (point + #{amount}),
+		   	upd_date = now()
+		 WHERE user_id = #{userId}
+	</update>	
+
+	<select id="list" resultType="ChargePoint">
+		<![CDATA[
+			SELECT history_no,
+				user_id,
+				amount,
+				reg_date
+			  FROM charge_point_history
+			 WHERE history_no > 0
+			   AND user_id = #{userId}
+			ORDER BY history_no DESC
+		]]>
+	</select>
+	
+</mapper>

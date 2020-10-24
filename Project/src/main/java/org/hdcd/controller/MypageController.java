@@ -18,6 +18,9 @@ public class MypageController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	
+	@Autowired
+	private MemberService memberService;
+	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String admin() {
 		logger.info("Adminpage");
@@ -33,6 +36,8 @@ public class MypageController {
 		Member member = customUser.getMember();
 		
 		String userId = member.getUserId();
+		
+		model.addAttribute("mypoint", memberService.getPoint(userId));
 		
 		return "mypage/my";
 	}

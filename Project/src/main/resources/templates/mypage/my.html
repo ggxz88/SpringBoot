@@ -27,16 +27,24 @@
 					<tr>
 						<td><span sec:authentication="principal.username"></span>님</td>
 					</tr>
+					<tr>
+						<td>포인트 : </td>
+						<td th:text="${mypoint}"></td>
+					</tr>
 				</table>
 				<br>
 				<br>
 				<th:block sec:authorize="hasRole('ROLE_MEMBER')">
 					<div align="left">
-						<a href="../board/list.html" th:href="@{/board/list}" th:text="#{board.list}">로그인</a>
+						<a href="../board/list.html" th:href="@{/board/list}" th:text="#{board.list}">회원 게시판 목록</a>
 						<br><br>
-						<a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{notice.list}">로그인</a>
+						<a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{notice.list}">공지사항 목록</a>
 						<br><br>
-						<a href="../inquiry/list.html" th:href="@{/inquiry/list}" th:text="#{inquiry.list}">로그인</a>
+						<a href="../inquiry/list.html" th:href="@{/inquiry/list}" th:text="#{inquiry.list}">1:1 문의 목록</a>
+						<br><br>
+						<a href="../point/charge.html" th:href="@{/point/charge}" th:text="#{point.charge}">포인트 충전</a>
+						<br><br>
+						<a href="../point/list.html" th:href="@{/point/list}" th:text="#{point.list}">충전 내역</a>
 						<br>
 					</div>
 				</th:block>
