@@ -1,0 +1,116 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Movie</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>영화 삭제</h2>
+		
+		<form id="movie" action="list.html" th:action="@{/movie/remove}" th:object="${movie}" method="POST">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" id="movieNo" th:field="*{movieNo}" />
+			<input type="hidden" name="page" th:value="${pgrq.page}" />
+			<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}" />
+			<input type="hidden" name="searchType" th:value="${pgrq.searchType}" />
+			<input type="hidden" name="keyword" th:value="${pgrq.keyword}" />
+			
+			<table>
+				<tr>
+					<td th:text="#{movie.title}">영화 제목</td>
+					<td><input type="text" id="title" th:field="*{title}" disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.ratings}">심의 등급</td>
+					<td><input type="text" id="ratings" th:field="*{ratings}" disabled="disabled" ></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.director}">감독</td>
+					<td><input type="text" id="director" th:field="*{director}" disabled="disabled" ></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.actors}">출연</td>
+					<td><input type="text" id="actors" th:field="*{actors}" disabled="disabled" ></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.genre}">장르</td>
+					<td><input type="text" id="genre" th:field="*{genre}" disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.runningTime}">상영시간</td>
+					<td><input type="number" id="runningTime" th:field="*{runningTime}" disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.openningDays}">개봉일자</td>
+					<td><input type="date" id="openningDays" disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.nation}">국가</td>
+					<td><input type="text" id="nation" th:field="*{nation}" disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.poster}">포스터</td>
+					<td><img src="display1?movieNo=${movie.movieNo}" th:src="|display1?movieNo=${movie.movieNo}|" width="210" height="240"></td>
+					
+				</tr>
+				<tr>
+					<td th:text="#{movie.still1}">스틸컷1</td>
+					<td><img src="display2?movieNo=${movie.movieNo}" th:src="|display2?movieNo=${movie.movieNo}|" width="210" height="240"></td>
+					
+				</tr>
+				<tr>
+					<td th:text="#{movie.still2}">스틸컷2</td>
+					<td><img src="display3?movieNo=${movie.movieNo}" th:src="|display3?movieNo=${movie.movieNo}|" width="210" height="240"></td>
+						
+				</tr>
+				<tr>
+					<td th:text="#{movie.still3}">스틸컷3</td>
+					<td><img src="display4?movieNo=${movie.movieNo}" th:src="|display4?movieNo=${movie.movieNo}|" width="210" height="240"></td>
+					
+				</tr>
+				<tr>
+					<td th:text="#{movie.still4}">스틸컷4</td>
+					<td><img src="display5?movieNo=${movie.movieNo}" th:src="|display5?movieNo=${movie.movieNo}|" width="210" height="240"></td>
+					
+				</tr>
+				<tr>
+					<td th:text="#{movie.summary}">내용</td>
+					<td><textarea id="summary" th:field="*{summary}" disabled="disabled" ></textarea></td>
+				</tr>
+				
+			</table>
+			
+		</form>
+		
+		<div>
+			<button type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
+			<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+		</div>
+		
+		<script th:inline="javascript">
+			
+			$(document).ready(function() {
+				
+				var formObj = $("#movie");
+				
+				$("#btnRemove").on("click", function() {
+					formObj.submit();
+				});
+				
+				$("#btnList").on("click", function() {
+					self.location = "list[(${pgrq.toUriString()})]";
+				});
+			
+			});
+			
+		</script>
+		
+	</div>
+</body>
+</html>

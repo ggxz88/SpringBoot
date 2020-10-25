@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.MovieMapper">
+
+	<!-- 검색 유형과 검색어의 조합으로 다양한 쿼리를 동적으로 생성 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				AND director LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				AND (	title LIKE CONCAT('%', #{keyword}, '%')
+						OR director LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+		</if>
+	</sql>
+
+	<insert id="create">
+		INSERT INTO movie
+			(
+			title,
+			ratings,
+			director,
+			genre,
+			actors,
+			running_time,
+			openning_days,
+			nation,
+			poster_url,
+			still1_url,
+			still2_url,
+			still3_url,
+			still4_url,
+			summary
+			)
+		VALUES
+			(
+			#{title},
+			#{ratings},
+			#{director},
+			#{genre},
+			#{actors},
+			#{runningTime},
+			#{openningDays},
+			#{nation},
+			#{posterUrl},
+			#{still1Url},
+			#{still2Url},
+			#{still3Url},
+			#{still4Url},
+			#{summary}
+			)
+	</insert>
+	
+	<select id="read" resultType="Movie">
+		SELECT movie_no,
+			title,
+			genre,
+			nation,
+			running_time,
+			openning_days,
+			director,
+			actors,
+			ratings,
+			summary,
+			poster_url,
+			still1_url,
+			still2_url,
+			still3_url,
+			still4_url,
+			reg_date,
+			enabled
+		  FROM movie
+		 WHERE movie_no = #{movieNo}
+	</select>
+
+	<update id="update">
+		UPDATE movie 
+		   SET title = #{title},
+			genre = #{genre},
+			nation = #{nation},
+			running_time = #{runningTime},
+			openning_days = #{openningDays},
+			director = #{director},
+			actors = #{actors},
+			ratings = #{ratings},
+			summary = #{summary},
+			poster_url = #{posterUrl},
+			still1_url = #{still1Url},
+			still2_url = #{still2Url},
+			still3_url = #{still3Url},
+			still4_url = #{still4Url},
+			reg_date = #{regDate}
+		 WHERE movie_no = #{movieNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM movie
+		 WHERE movie_no = #{movieNo}
+	</delete>
+	
+	<select id="list" resultType="Movie">
+		<![CDATA[
+			SELECT movie_no,
+				title,
+				genre,
+				running_time,
+				openning_days,
+				director,
+				actors,
+				ratings
+			  FROM movie
+			 WHERE movie_no > 0
+		]]>	 
+		
+		<include refid="search"></include>
+		
+		<![CDATA[
+			 ORDER BY movie_no DESC,
+			 	reg_date DESC
+			  LIMIT #{pageStart}, #{sizePerPage}	
+		]]>
+	</select>
+	
+	<!-- 검색 처리된 게시글 건수를 조회 -->
+	<select id="count" resultType="int">
+		<![CDATA[
+			SELECT count(movie_no)
+			  FROM movie
+			 WHERE movie_no > 0
+		]]>	 
+		
+		<include refid="search"></include>
+		
+	</select>
+	
+	<select id="getPoster" resultType="String">
+		SELECT poster_url
+		  FROM movie
+		 WHERE movie_no = #{movieNo}
+	</select>
+	
+	<select id="getStill1" resultType="String">
+		SELECT still1_url
+		  FROM movie
+		 WHERE movie_no = #{movieNo}
+	</select>
+	
+	<select id="getStill2" resultType="String">
+		SELECT still2_url
+		  FROM movie
+		 WHERE movie_no = #{movieNo}
+	</select>
+	
+	<select id="getStill3" resultType="String">
+		SELECT still3_url
+		  FROM movie
+		 WHERE movie_no = #{movieNo}
+	</select>
+	
+	<select id="getStill4" resultType="String">
+		SELECT still4_url
+		  FROM movie
+		 WHERE movie_no = #{movieNo}
+	</select>
+	
+</mapper>
