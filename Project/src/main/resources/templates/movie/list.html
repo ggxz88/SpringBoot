@@ -35,6 +35,15 @@
 				<th align="center" width="180" th:text="#{movie.genre}">장르</th>
 				<th align="center" width="80" th:text="#{movie.runningTime}">상영 시간</th>
 				<th align="center" width="180" th:text="#{movie.openningDays}">개봉 일자</th>
+			
+				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+					<th align="center" width="80" th:text="#{action.edit}">편집</th>
+					<th align="center" width="80" th:text="#{action.remove}">제거</th>
+				</th:block>
+				
+				<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+					<th align="center" width="80" th:text="#{action.read}">보기</th>
+				</th:block>
 			</tr>
 			
 			<tr th:if="${#lists.isEmpty(list)}">

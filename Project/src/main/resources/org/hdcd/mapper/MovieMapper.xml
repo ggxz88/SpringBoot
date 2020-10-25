@@ -95,7 +95,8 @@
 			still2_url = #{still2Url},
 			still3_url = #{still3Url},
 			still4_url = #{still4Url},
-			reg_date = #{regDate}
+			reg_date = #{regDate},
+			enabled = #{enabled}
 		 WHERE movie_no = #{movieNo}
 	</update>
 	

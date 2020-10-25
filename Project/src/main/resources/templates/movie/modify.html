@@ -112,11 +112,14 @@
 					<td><input type="file" id="still4" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{movie.summary}">내용</td>
+					<td th:text="#{movie.summary}">줄거리</td>
 					<td><textarea id="summary" th:field="*{summary}" ></textarea></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}">summary의 에러 메시지</span></td>
 				</tr>
-				
+				<tr>
+					<td th:text="#{movie.enabled}">내용</td>
+					<td><input type="checkbox" id="enabled" name="enabled" th:field="*{enabled}" th:value="true" /></td>
+				</tr>
 			</table>
 			
 		</form>
