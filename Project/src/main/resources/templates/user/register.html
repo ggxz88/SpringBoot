@@ -6,6 +6,8 @@
 <head>
 	<title>User</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
@@ -18,8 +20,8 @@
 			
 			<table>
 				<tr>
-					<td><span th:text="#{user.userId}"></span><button type="button" class="idChk">아이디 확인</button></td>
-					<td><input type="text" id="userId" th:field="*{userId}" required="required"/></td>
+					<td><span th:text="#{user.userId}"></span><button type="button" class="idChk" id="idChk">아이디 확인</button></td>
+					<td><input type="text" id="userId" name="userId" th:field="*{userId}" required="required"/></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span></td>
 				</tr>
 				<tr>
@@ -64,11 +66,11 @@
 			
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
-			$(function() {
-			    $(document).ajaxSend(function(e, xhr, options) {
-			        xhr.setRequestHeader(header, token);
-			    });
-			});
+			if(token && header) {
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+			}
 			
 			$(document).ready(function() {
 				var formObj = $("#member");
@@ -87,7 +89,6 @@
 			
 
 			$(".idChk").click(function() {
-				var userIdVal = $("#userId").val();
 				var query = {"userId" : $("#userId").val()};
 				
 				if(userIdVal == '') {

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/point")
 public class PointController {
+	
 	private static final Logger logger = LoggerFactory.getLogger(PointController.class);
 	
 	@Autowired
@@ -80,5 +81,11 @@ public class PointController {
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String success() throws Exception {
 		return "point/success";
+	}
+	
+	@RequestMapping(value = "/notEnoughPoint", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void notEnoughPoint(Model model) throws Exception {
+		logger.info("notEnoughPoint");
 	}
 }

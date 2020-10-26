@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Point</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2 th:text="#{point.header.chargePoint}">포인트 충전</h2>
+		
+		<p th:text="#{point.notEnoughPoint}">포인트가 부족합니다.</p>
+		
+		<a href="charge.html" th:href="@{/point/charge}" th:text="#{point.charge}">충전</a>
+	</div>
+</body>
+</html>
