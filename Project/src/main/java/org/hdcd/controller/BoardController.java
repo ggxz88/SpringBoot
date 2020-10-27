@@ -9,7 +9,9 @@ import org.hdcd.common.domain.Pagination;
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Board;
 import org.hdcd.domain.Member;
+import org.hdcd.domain.Reply;
 import org.hdcd.service.BoardService;
+import org.hdcd.service.ReplyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -30,6 +33,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService service;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
@@ -91,6 +97,15 @@ public class BoardController {
 		Board board = service.read(boardNo);
 				
 		model.addAttribute(board);
+		
+		//댓글
+		logger.info("Board Replylist");
+		
+		List<Reply> replyList = replyService.list(boardNo);
+		
+		model.addAttribute("replyList", replyList);
+		
+		model.addAttribute("reply", new Reply());
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -136,4 +151,75 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	//댓글
+	
+	@RequestMapping(value = "/replyregister", method = RequestMethod.POST)
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	public String replyregister(Reply reply, @RequestParam int boardNo, PageRequest pageRequest, Model model, Authentication authentication, RedirectAttributes rttr) throws Exception {
+		logger.info("Board Replyregister");
+		
+		CustomUser customUser = (CustomUser)authentication.getPrincipal();
+		Member member = customUser.getMember();
+		reply.setReplyWriter(member.getUserId());
+		
+		replyService.register(reply);
+
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addAttribute("searchType", pageRequest.getSearchType());
+		rttr.addAttribute("keyword", pageRequest.getKeyword());
+		rttr.addAttribute("boardNo", boardNo);
+		
+		
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/board/read";
+	}
+	
+	@RequestMapping(value = "/replyremove", method = RequestMethod.POST)
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	public String replyremove(@RequestParam int replyNo, int boardNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+		logger.info("Board Replyremove");
+		
+		replyService.remove(replyNo);
+		
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addAttribute("searchType", pageRequest.getSearchType());
+		rttr.addAttribute("keyword", pageRequest.getKeyword());
+		rttr.addAttribute("boardNo", boardNo);
+		
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/board/read";
+	}
+	
+	@RequestMapping(value = "/replymodify", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	public void replymodifyForm(@RequestParam int replyNo, @RequestParam int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+		logger.info("Board ReplymodifyForm");
+		
+		Reply reply = replyService.read(replyNo);
+				
+		model.addAttribute(reply);
+	}
+	
+	@RequestMapping(value = "/replymodify", method = RequestMethod.POST)
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	public String replymodify(Reply reply, @RequestParam int boardNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+		logger.info("Board Replymodify");
+		
+		replyService.modify(reply);
+				
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addAttribute("searchType", pageRequest.getSearchType());
+		rttr.addAttribute("keyword", pageRequest.getKeyword());
+				
+		rttr.addFlashAttribute("msg", "SUCCESS");
+				
+		return "redirect:/board/list";
+	}
+	
 }

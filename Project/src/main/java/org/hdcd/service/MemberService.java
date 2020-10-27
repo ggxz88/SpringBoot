@@ -23,4 +23,5 @@ public interface MemberService {
 	public void setupAdmin(Member member) throws Exception;
 	
 	public Member idChk(String userId) throws Exception;
+	
 }

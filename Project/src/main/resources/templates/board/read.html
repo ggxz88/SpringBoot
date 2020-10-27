@@ -37,7 +37,7 @@
 			</table>
 			
 		</form>
-		
+			
 		<div th:with="pinfo=${#authentication.principal}">
 		
 			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
@@ -56,10 +56,45 @@
 			
 		</div>
 		
+		<!-- 댓글 -->
+		<h3 align="center" th:text=#{reply.list}>댓글</h3>
+		
+		<div align="center">
+
+			<form id="reply" th:action="@{/board/replyregister}" th:object="${reply}" method="POST">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+				<div align="center">
+					<th:block sec:authorize="isAuthenticated()">
+						<input type="hidden" id="reply_boardNo" th:field="*{boardNo}">
+						<input type="text" id="replyContent" th:field="*{replyContent}" />
+						
+						<button type="submit" id="replyRegister" th:text="#{action.register}">등록</button>
+					</th:block>
+				</div>
+				
+			</form>
+			
+		</div>	
+		
+		<table>
+			<tr th:if="${#lists.isEmpty(replyList)}">
+				<td colspan="4" th:text="#{common.listEmpty}">List is empty.</td>
+			</tr>
+			
+			<tr th:each="reply : ${replyList}">
+				<td align="center" class="replyNo" th:value="${reply.replyNo}" th:text="${reply.replyNo}">${reply.replyNo}</td>
+				<td align="center" th:text="${reply.replyWriter}">${reply.replyWriter}</td>
+				<td align="center" th:text="${reply.replyContent}">${reply.replyContent}</td>
+				<td align="center" th:text="${#dates.format(reply.regDate, 'yyyy-MM-dd HH:mm')}">${reply.regDate}</td>
+			</tr>
+		</table>
+		
 		<script>
 			$(document).ready(function() {
 				
 				var formObj = $("#board");
+				var formObj2 = $("#reply");
 				
 				$("#btnEdit").on("click", function() {
 					var boardNo = $("#boardNo");
@@ -76,7 +111,32 @@
 				$("#btnList").on("click", function() {
 					self.location = "/board/list[(${pgrq.toUriString()})]";
 				});
-			
+				
+				//댓글
+				function getParam(sname) {
+					var presentUrl = document.location.href;
+					
+					var params = presentUrl.substr(presentUrl.indexOf("?") + 1);
+					var sval = "";
+					params = params.split("&");
+					
+					for (var i = 0; i < params.length; i++) {
+						temp = params[i].split("=");
+						if([temp[0]] == sname) {
+							sval = temp[1];
+						}
+					}
+					return sval;
+				}
+				
+				
+				document.getElementById('reply_boardNo').value = getParam("boardNo");
+				
+				$("#replyRegister").on("click", function() {
+					formObj2.attr("action", "/board/replyregister");
+					formObj2.submit();
+				});
+				
 			});
 		</script>
 		

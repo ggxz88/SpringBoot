@@ -21,15 +21,11 @@
 			<button id="searchBtn" th:tex="#{action.search}">검색</button>
 		</form>
 		
-		<th:block sec:authorize="hasRole('ROLE_MEMBER')">
-			<a href="register.html" th:href="@{/board/register}" th:text="#{board.new}">글쓰기</a>
-		</th:block>
-		
 		<table border="1">
 			<tr>
 				<th align="center" width="80" th:text="#{board.no}">게시판 번호</th>
 				<th align="center" width="320" th:text="#{board.title}">제목</th>
-				<th align="center" width="100" th:text="#{board.writer}">이메일</th>
+				<th align="center" width="100" th:text="#{board.writer}">글쓴이</th>
 				<th align="center" width="180" th:text="#{board.regDate}">등록일자</th>
 			</tr>
 			
@@ -45,6 +41,9 @@
 			</tr>
 		</table>
 		
+		<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+			<a href="register.html" th:href="@{/board/register}" th:text="#{board.new}">글쓰기</a>
+		</th:block>
 		
 		<script th:inline="javascript">
 			/*<![CDATA[*/

@@ -53,10 +53,6 @@ public class InquiryController {
 		
 		service.register(inquiry);
 		
-		int inquiryNo = inquiry.getInquiryNo();
-		
-		logger.info("inquiryNo : " + inquiryNo);
-		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/inquiry/list";
