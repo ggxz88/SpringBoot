@@ -84,7 +84,7 @@
 			</tr>
 			
 			<tr th:each="reply : ${replyList}">
-				<td align="center" class="replyNo" th:value="${reply.replyNo}" th:text="${reply.replyNo}">${reply.replyNo}</td>
+				<td align="center" th:text="${reply.replyNo}">${reply.replyNo}</td>
 				<td align="center" th:text="${reply.replyWriter}">${reply.replyWriter}</td>
 				<td align="center" th:text="${reply.replyContent}">${reply.replyContent}</td>
 				<td align="center" th:text="${#dates.format(reply.regDate, 'yyyy-MM-dd HH:mm')}">${reply.regDate}</td>

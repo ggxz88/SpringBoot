@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.ReviewMapper">
+	
+	<insert id="create">
+		INSERT INTO review 
+			(
+			movie_no,
+			review_writer,
+			review_content
+			)
+		VALUES
+			(
+			#{movieNo},
+			#{reviewWriter},
+			#{reviewContent}
+			)
+	</insert>
+
+	<select id="read" resultType="Review">
+		SELECT review_no,
+			review_writer,
+			review_content,
+			reg_date
+		FROM review 
+		WHERE review_no = #{reviewNo}
+	</select>
+
+	<update id="update">
+		UPDATE review
+		   SET review_content = #{reviewContent}
+		 WHERE review_no = #{reviewNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM review
+		WHERE review_no = #{reviewNo}
+	</delete>
+	
+	<select id="list" resultType="Review">
+		SELECT review_no,
+			review_writer,
+			review_content,
+			reg_date
+		FROM review 
+		WHERE movie_no = #{movieNo}
+		ORDER BY reg_date DESC
+	</select>
+	
+</mapper>

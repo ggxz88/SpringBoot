@@ -24,7 +24,7 @@
 			
 			<div align="center">
 				<label for="replyContent" th:text="#{action.remove}"></label>
-				<input type="text" id="replyContent" th:field="*{replyContent}" />
+				<input type="text" id="replyContent" th:field="*{replyContent}" disabled="disabled" />
 			</div>
 			
 			<div th:with="pinfo=${#authentication.principal}">
@@ -34,7 +34,7 @@
 				</th:block>		
 				
 				<th:block sec:authorize="hasRole('ROLE_MEMBER')">
-					<th:block th:if="${pinfo.username eq reply.writer}">
+					<th:block th:if="${pinfo.username eq reply.replyWriter}">
 						<button type="submit" id="replyRemove" th:text="#{action.remove}">삭제</button>
 					</th:block>	
 				</th:block>		

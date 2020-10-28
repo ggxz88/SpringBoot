@@ -11,8 +11,13 @@ import org.apache.commons.io.IOUtils;
 import org.hdcd.common.domain.CodeLabelValue;
 import org.hdcd.common.domain.PageRequest;
 import org.hdcd.common.domain.Pagination;
+import org.hdcd.common.security.domain.CustomUser;
+import org.hdcd.domain.Member;
 import org.hdcd.domain.Movie;
+import org.hdcd.domain.Reply;
+import org.hdcd.domain.Review;
 import org.hdcd.service.MovieService;
+import org.hdcd.service.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +34,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,6 +47,9 @@ public class MovieController {
 	
 	@Autowired
 	private MovieService movieService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@Value("${upload.path}")
 	private String uploadPath;
@@ -119,6 +128,15 @@ public class MovieController {
 		Movie movie = movieService.read(movieNo);
 				
 		model.addAttribute(movie);
+		
+		//댓글
+		logger.info("Movie Reviewlist");
+		
+		List<Review> reviewList = reviewService.list(movieNo);
+		
+		model.addAttribute("reviewList", reviewList);
+			
+		model.addAttribute("review", new Review());
 		
 		return "movie/read";
 		
@@ -445,4 +463,82 @@ public class MovieController {
 		return null;
 	}
 	
+	//리뷰
+	
+	@RequestMapping(value = "/reviewregister", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public String reviewregister(Review review, @RequestParam int movieNo, PageRequest pageRequest, Model model, Authentication authentication, RedirectAttributes rttr) throws Exception {
+		logger.info("Movie Reviewregister");
+		
+		CustomUser customUser = (CustomUser)authentication.getPrincipal();
+		Member member = customUser.getMember();
+		review.setReviewWriter(member.getUserId());
+		
+		reviewService.register(review);
+
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addAttribute("searchType", pageRequest.getSearchType());
+		rttr.addAttribute("keyword", pageRequest.getKeyword());
+		rttr.addAttribute("movieNo", movieNo);
+		
+		
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/movie/read";
+	}
+	
+	@RequestMapping(value = "/reviewremove", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	public void reviewremoveForm(@RequestParam int reviewNo, @RequestParam int movieNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+		logger.info("Movie ReviewremoveForm");
+		
+		Review review = reviewService.read(reviewNo);
+				
+		model.addAttribute(review);
+	}
+	
+	@RequestMapping(value = "/reviewremove", method = RequestMethod.POST)
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	public String reviewremove(@RequestParam int reviewNo, int movieNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+		logger.info("Movie Reviewremove");
+		
+		reviewService.remove(reviewNo);
+		
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addAttribute("searchType", pageRequest.getSearchType());
+		rttr.addAttribute("keyword", pageRequest.getKeyword());
+		
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/movie/list";
+	}
+	
+	@RequestMapping(value = "/reviewmodify", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void reviewmodifyForm(@RequestParam int reviewNo, @RequestParam int movieNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+		logger.info("Movie ReviewmodifyForm");
+		
+		Review review = reviewService.read(reviewNo);
+				
+		model.addAttribute(review);
+	}
+	
+	@RequestMapping(value = "/reviewmodify", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public String reviewmodify(Review review, @RequestParam int movieNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
+		logger.info("Movie Reviewmodify");
+		
+		reviewService.modify(review);
+				
+		rttr.addAttribute("page", pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		rttr.addAttribute("searchType", pageRequest.getSearchType());
+		rttr.addAttribute("keyword", pageRequest.getKeyword());
+				
+		rttr.addFlashAttribute("msg", "SUCCESS");
+				
+		return "redirect:/movie/list";
+	}
 }

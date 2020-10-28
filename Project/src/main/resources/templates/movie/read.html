@@ -92,6 +92,64 @@
 			<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
 		</div>
 		
+		<!-- 후기 -->
+		<h3 align="center" th:text=#{review.list}>댓글</h3>
+		
+		<div align="center">
+
+			<form id="review" th:action="@{/movie/reviewyregister}" th:object="${review}" method="POST">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+				<div align="center">
+					
+					<th:block sec:authorize="isAuthenticated()">
+						<input type="hidden" id="review_movieNo" th:field="*{movieNo}">
+						<label for="reviewContent" th:text="#{review.register}"></label>
+						<input type="text" id="reviewContent" th:field="*{reviewContent}" />
+						
+						<button type="submit" id="reviewRegister" th:text="#{action.register}">등록</button>
+					</th:block>
+				</div>
+				
+			</form>
+			
+		</div>	
+		
+		<table>
+			<tr th:if="${#lists.isEmpty(reviewList)}">
+				<td colspan="5" th:text="#{common.listEmpty}">List is empty.</td>
+			</tr>
+			
+			<tr th:each="review : ${reviewList}">
+				<td align="center" th:text="${review.reviewNo}">${review.reviewNo}</td>
+				<td align="center" th:text="${review.reviewWriter}">${review.reviewyWriter}</td>
+				<td align="center" th:text="${review.reviewContent}">${review.reviewContent}</td>
+				<td align="center" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd HH:mm')}">${review.regDate}</td>
+				<td>
+					<div th:with="pinfo=${#authentication.principal}">
+				
+						<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+							<a href="reviewremove.html" th:href="@{|/movie/reviewremove${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">	
+								<button type="button" th:text="#{action.remove}">삭제</button>
+							</a>
+						</th:block>		
+						
+						<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+							<th:block th:if="${pinfo.username eq review.reviewWriter}">
+								<a href="reviewmodify.html" th:href="@{|/movie/reviewmodify${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">
+									<button type="button" th:text="#{action.modify}">편집</button>
+								</a>
+								<a href="reviewremove.html" th:href="@{|/movie/reviewremove${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">	
+									<button type="button" th:text="#{action.remove}">삭제</button>
+								</a>
+							</th:block>	
+						</th:block>		
+										
+					</div>
+				</td>
+			</tr>
+		</table>
+		
 		<script th:inline="javascript">
 			
 			$(document).ready(function() {
@@ -99,7 +157,34 @@
 				$("#btnList").on("click", function() {
 					self.location = "list[(${pgrq.toUriString()})]";
 				});
-			
+				
+				//댓글
+				function getParam(sname) {
+					var presentUrl = document.location.href;
+					
+					var params = presentUrl.substr(presentUrl.indexOf("?") + 1);
+					var sval = "";
+					params = params.split("&");
+					
+					for (var i = 0; i < params.length; i++) {
+						temp = params[i].split("=");
+						if([temp[0]] == sname) {
+							sval = temp[1];
+						}
+					}
+					return sval;
+				}
+				
+				
+				document.getElementById('review_movieNo').value = getParam("movieNo");
+				
+				var formObj = $("#review");
+				
+				$("#reviewRegister").on("click", function() {
+					formObj.attr("action", "/movie/reviewregister");
+					formObj.submit();
+				});
+				
 			});
 			
 		</script>

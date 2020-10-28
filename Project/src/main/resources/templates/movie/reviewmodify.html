@@ -4,38 +4,34 @@
 	layout:decorate="~{/layouts/main_template}">
 
 <head>
-	<title>Reply</title>
+	<title>Review</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>댓글 수정</h2>
+		<h2>후기 수정</h2>
 		
-		<form id="reply" action="list.html" th:action="@{/board/replymodify}" th:object="${reply}" method="POST">
+		<form id="review" action="list.html" th:action="@{/movie/reviewmodify}" th:object="${review}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" name="boardNo" th:field="*{boardNo}" />
-			<input type="hidden" name="replyNo" th:field="*{replyNo}" />
+			<input type="hidden" name="movieNo" th:field="*{movieNo}" />
+			<input type="hidden" name="reviewNo" th:field="*{reviewNo}" />
 			<input type="hidden" name="page" th:value="${pgrq.page}" />
 			<input type="hidden" name="sizePerPage" th:value="${pgrq.sizePerPage}" />
 			<input type="hidden" name="searchType" th:value="${pgrq.searchType}" />
 			<input type="hidden" name="keyword" th:value="${pgrq.keyword}" />
 			
 			<div align="center">
-				<label for="replyContent" th:text="#{action.modify}"></label>
-				<input type="text" id="replyContent" th:field="*{replyContent}" />
+				<label for="reviewContent" th:text="#{action.modify}"></label>
+				<input type="text" id="reviewContent" th:field="*{reviewContent}" />
 			</div>
 			
 			<div th:with="pinfo=${#authentication.principal}">
 			
-				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-					<button type="submit" id="replyModify" th:text="#{action.modify}">수정</button>
-				</th:block>		
-				
 				<th:block sec:authorize="hasRole('ROLE_MEMBER')">
-					<th:block th:if="${pinfo.username eq reply.replyWriter}">
-						<button type="submit" id="replyModify" th:text="#{action.modify}">수정</button>
+					<th:block th:if="${pinfo.username eq review.reviewWriter}">
+						<button type="submit" id="reviewModify" th:text="#{action.modify}">수정</button>
 					</th:block>	
 				</th:block>		
 						
