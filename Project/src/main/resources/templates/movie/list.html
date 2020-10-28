@@ -21,10 +21,6 @@
 			<button id="searchBtn" th:tex="#{action.search}">검색</button>
 		</form>
 		
-		<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-			<a href="register.html" th:href="@{/movie/register}" th:text="#{movie.new}">영화 등록</a>
-		</th:block>
-		
 		<table border="1">
 			<tr>
 				<th align="center" width="80" th:text="#{movie.no}">영화 번호</th>
@@ -80,7 +76,13 @@
 				</th:block>
 			</tr>
 		</table>
+		<br />
 		
+		<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+			<a href="register.html" th:href="@{/movie/register}">
+				<button type="button" th:text="#{movie.new}">영화 등록</button>
+			</a>
+		</th:block>
 		
 		<script th:inline="javascript">
 			/*<![CDATA[*/

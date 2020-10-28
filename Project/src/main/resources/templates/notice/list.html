@@ -21,10 +21,6 @@
 			<button id="searchBtn" th:tex="#{action.search}">검색</button>
 		</form>
 		
-		<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-			<a href="register.html" th:href="@{/notice/register}" th:text="#{notice.new}">글쓰기</a>
-		</th:block>
-		
 		<table border="1">
 			<tr>
 				<th align="center" width="80" th:text="#{notice.no}">게시판 번호</th>
@@ -42,7 +38,13 @@
 				<td align="center" th:text="${#dates.format(notice.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 			</tr>
 		</table>
+		<br />
 		
+		<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+			<a href="register.html" th:href="@{/notice/register}">
+				<button type="button" th:text="#{notice.new}">글쓰기</button>
+			</a>
+		</th:block>
 		
 		<script th:inline="javascript">
 			/*<![CDATA[*/

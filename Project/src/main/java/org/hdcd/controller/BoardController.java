@@ -177,6 +177,16 @@ public class BoardController {
 		return "redirect:/board/read";
 	}
 	
+	@RequestMapping(value = "/replyremove", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	public void replyremoveForm(@RequestParam int replyNo, @RequestParam int boardNo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model) throws Exception {
+		logger.info("Board ReplyremoveForm");
+		
+		Reply reply = replyService.read(replyNo);
+				
+		model.addAttribute(reply);
+	}
+	
 	@RequestMapping(value = "/replyremove", method = RequestMethod.POST)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
 	public String replyremove(@RequestParam int replyNo, int boardNo, PageRequest pageRequest, RedirectAttributes rttr) throws Exception {
@@ -188,11 +198,10 @@ public class BoardController {
 		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
 		rttr.addAttribute("searchType", pageRequest.getSearchType());
 		rttr.addAttribute("keyword", pageRequest.getKeyword());
-		rttr.addAttribute("boardNo", boardNo);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
-		return "redirect:/board/read";
+		return "redirect:/board/list";
 	}
 	
 	@RequestMapping(value = "/replymodify", method = RequestMethod.GET)

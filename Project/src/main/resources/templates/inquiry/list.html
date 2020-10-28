@@ -40,16 +40,17 @@
 				<td align="center" th:text="${#dates.format(inquiry.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 			</tr>
 		</table>
+		<br />
 		
 		<th:block sec:authorize="hasRole('ROLE_MEMBER')">
-			<a href="register.html" th:href="@{/inquiry/register}" th:text="#{inquiry.new}">글쓰기</a>
-		</th:block>
-		
-		
+			<a href="register.html" th:href="@{/inquiry/register}">
+				<button type="button" th:text="#{inquiry.new}">문의 하기</button>
+			</a>
+		</th:block>	
 		
 		<script th:inline="javascript">
 			/*<![CDATA[*/
-				var result = "[[${msg}]]";
+				var result = "[${msg}]";
 			
 			
 				if(result === "SUCCESS") {

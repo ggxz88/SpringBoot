@@ -10,9 +10,9 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>댓글 수정</h2>
+		<h2>댓글 삭제</h2>
 		
-		<form id="reply" action="list.html" th:action="@{/board/replymodify}" th:object="${reply}" method="POST">
+		<form id="reply" action="list.html" th:action="@{/board/replyremove}" th:object="${reply}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<input type="hidden" name="boardNo" th:field="*{boardNo}" />
@@ -23,19 +23,19 @@
 			<input type="hidden" name="keyword" th:value="${pgrq.keyword}" />
 			
 			<div align="center">
-				<label for="replyContent" th:text="#{action.modify}"></label>
+				<label for="replyContent" th:text="#{action.remove}"></label>
 				<input type="text" id="replyContent" th:field="*{replyContent}" />
 			</div>
 			
 			<div th:with="pinfo=${#authentication.principal}">
 			
 				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-					<button type="submit" id="replyModify" th:text="#{action.modify}">수정</button>
+					<button type="submit" id="replyRemove" th:text="#{action.remove}">삭제</button>
 				</th:block>		
 				
 				<th:block sec:authorize="hasRole('ROLE_MEMBER')">
 					<th:block th:if="${pinfo.username eq reply.writer}">
-						<button type="submit" id="replyModify" th:text="#{action.modify}">수정</button>
+						<button type="submit" id="replyRemove" th:text="#{action.remove}">삭제</button>
 					</th:block>	
 				</th:block>		
 						
