@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.BannerMapper">
+
+	<insert id="create">
+		INSERT INTO banner
+			(
+			movie_no,
+			banner_name,
+			banner_picture_url
+			)
+		VALUES
+			(
+			#{movieNo},
+			#{bannerName},
+			#{bannerPictureUrl}
+			)
+	</insert>
+	
+	<select id="read" resultType="Banner">
+		SELECT b.banner_no,
+			b.banner_name,
+			m.movie_no,
+			m.title
+		  FROM banner b LEFT OUTER JOIN movie m
+		    ON b.movie_no = m.movie_no
+		 WHERE banner_no = #{bannerNo}
+	</select>
+
+	<update id="update">
+		UPDATE banner 
+		   SET movie_no = #{movieNo},
+			banner_name = #{bannerName},
+			banner_picture_url = #{bannerPictureUrl}
+		 WHERE banner_no = #{bannerNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM banner
+		 WHERE banner_no = #{bannerNo}
+	</delete>
+	
+	<select id="list" resultType="Banner">
+		<![CDATA[
+			SELECT b.banner_no,
+				b.banner_name,
+				m.movie_no,
+				m.title
+			  FROM banner b LEFT OUTER JOIN movie m
+			    ON b.movie_no = m.movie_no
+			 WHERE banner_no > 0
+			ORDER BY banner_no DESC
+		]]>
+	</select>
+	
+	<select id="getBannerPic" resultType="String">
+		SELECT banner_picture_url
+		  FROM banner
+		 WHERE banner_no = #{bannerNo}
+	</select>
+	
+</mapper>

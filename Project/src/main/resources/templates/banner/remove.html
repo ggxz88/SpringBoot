@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Banner</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>홍보 배너 삭제</h2>
+		
+		<form id="banner" action="list.html" th:action="@{/banner/remove}" th:object="${banner}" method="POST">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" id="bannerNo" th:field="*{bannerNo}" />
+			
+			<table>
+				<tr>
+					<td th:text="#{banner.movieNo}">영화 번호</td>
+					<td><input type="text" id="movieNo" th:field="*{movieNo}" disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{banner.bannerName}">홍보 배너 이름</td>
+					<td><input type="text" id="bannerName" th:field="*{bannerName}" disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{banner.bannerPicture}">배너 사진</td>
+					<td><img src="display?bannerNo=${banner.bannerNo}" th:src="|display?bannerNo=${banner.bannerNo}|" width="210" height="240"></td>
+				</tr>
+			</table>
+			
+		</form>
+		
+		<div>
+			<button type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
+			<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+		</div>
+		
+		<script th:inline="javascript">
+			
+			$(document).ready(function() {
+				
+				var formObj = $("#banner");
+				
+				$("#btnRemove").on("click", function() {
+					formObj.submit();
+				});
+				
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+			
+			});
+			
+		</script>
+		
+	</div>
+</body>
+</html>

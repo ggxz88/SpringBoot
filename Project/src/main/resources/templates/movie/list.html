@@ -68,7 +68,7 @@
 				
 				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
 					<td align="center"><a href="modify.html" th:href="|modify${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}|" th:text="#{action.edit}">편집</a></td>
-					<td align="center"><a href="modify.html" th:href="|remove${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}|" th:text="#{action.remove}">제거</a></td>
+					<td align="center"><a href="remove.html" th:href="|remove${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}|" th:text="#{action.remove}">제거</a></td>
 				</th:block>
 				
 				<th:block sec:authorize="hasRole('ROLE_MEMBER')">

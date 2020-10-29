@@ -60,7 +60,7 @@
 					
 				</tr>
 				<tr>
-					<td th:text="#{movie.still1}">스틸컷1일</td>
+					<td th:text="#{movie.still1}">스틸컷1</td>
 					<td><img src="display2?movieNo=${movie.movieNo}" th:src="|display2?movieNo=${movie.movieNo}|" width="210" height="240"></td>
 					
 				</tr>
@@ -101,7 +101,6 @@
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
 				<div align="center">
-					
 					<th:block sec:authorize="isAuthenticated()">
 						<input type="hidden" id="review_movieNo" th:field="*{movieNo}">
 						<label for="reviewContent" th:text="#{review.register}"></label>

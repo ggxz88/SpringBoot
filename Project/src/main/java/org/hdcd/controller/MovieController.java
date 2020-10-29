@@ -14,7 +14,6 @@ import org.hdcd.common.domain.Pagination;
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.Movie;
-import org.hdcd.domain.Reply;
 import org.hdcd.domain.Review;
 import org.hdcd.service.MovieService;
 import org.hdcd.service.ReviewService;

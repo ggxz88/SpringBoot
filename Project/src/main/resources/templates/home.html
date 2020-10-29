@@ -6,10 +6,35 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
+
+
 <body>
 	<div layout:fragment="content">
-		<h1 th:text="#{common.welcome}"></h1>
-		<p th:text="${serverTime}">시간 표시</p>
+		
+		<th:block th:each="banner : ${banner}">
+			<a href="read.html" th:href="@{|/movie/read?movieNo=${banner.movieNo}|}">
+				<img class="mySlides" src="/banner/display?bannerNo=${banner.bannerNo}"  th:src="|/banner/display?bannerNo=${banner.bannerNo}|"  width="210" height="240" id="bannerPicture" name="bannerPicture">
+			</a>
+		</th:block>
+	
+		<script>
+			var slideIndex = 0;
+			carousel();
+			
+			function carousel() {
+			  var i;
+			  var x = document.getElementsByClassName("mySlides");
+			  for (i = 0; i < x.length; i++) {
+			    x[i].style.display = "none";
+			  }
+			  slideIndex++;
+			  if (slideIndex > x.length) {slideIndex = 1}
+			  x[slideIndex-1].style.display = "block";
+			  setTimeout(carousel, 4000); // Change image every 4 seconds
+			}
+		</script>
+	
 	</div>
-</body>
+</body>	
+	
 </html>
