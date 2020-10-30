@@ -24,4 +24,7 @@ public interface MemberService {
 	
 	public Member idChk(String userId) throws Exception;
 	
+	public Member findEmail(String email) throws Exception;
+
+	public void modifyPw(Member member) throws Exception;
 }

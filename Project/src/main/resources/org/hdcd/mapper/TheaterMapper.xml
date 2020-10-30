@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.TheaterMapper">
+
+	<insert id="create">
+		INSERT INTO movie_theater
+			(
+			city,
+			theater
+			)
+		VALUES
+			(
+			#{city},
+			#{theater}
+			)
+	</insert>
+	
+	<select id="read" resultType="Theater">
+		SELECT theater_no,
+			city,
+			theater,
+		  FROM movie_theater
+		 WHERE theater_no = #{theaterNo}
+	</select>
+
+	<update id="update">
+		UPDATE movie_theater 
+		   SET city = #{city},
+			theater = #{theater}
+		 WHERE theater_no = #{theaterNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM movie_theater
+		 WHERE theater_no = #{theaterNo}
+	</delete>
+	
+	<select id="list" resultType="Theater">
+		<![CDATA[
+			SELECT theater_no,
+				city,
+				theater,
+			  FROM movie_theater
+			 WHERE theater_no > 0
+			ORDER BY theater_no DESC
+		]]>
+	</select>
+	
+</mapper>

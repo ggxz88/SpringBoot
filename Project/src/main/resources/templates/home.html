@@ -7,13 +7,12 @@
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 
-
 <body>
 	<div layout:fragment="content">
-		
+		<!-- 홍보 배너 -->
 		<th:block th:each="banner : ${banner}">
 			<a href="read.html" th:href="@{|/movie/read?movieNo=${banner.movieNo}|}">
-				<img class="mySlides" src="/banner/display?bannerNo=${banner.bannerNo}"  th:src="|/banner/display?bannerNo=${banner.bannerNo}|"  width="210" height="240" id="bannerPicture" name="bannerPicture">
+				<img class="mySlides" src="/banner/display?bannerNo=${banner.bannerNo}" th:src="|/banner/display?bannerNo=${banner.bannerNo}|"  width="210" height="240" id="bannerPicture" name="bannerPicture">
 			</a>
 		</th:block>
 	

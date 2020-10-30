@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.hdcd.mapper.MemberMapper">
-
+<mapper namespace="org.hdcd.mapper.ScreenMapper">
+<!-- 	
 	<resultMap type="Member" id="memberMap">
 		<id property="userId" column="user_id" />
 		<result property="userId" column="user_id" />
@@ -38,55 +38,50 @@
 		ON mem.user_id = auth.user_id
 		WHERE mem.user_id = #{userId}
 	</select>
-	
-	<insert id="create" useGeneratedKeys="true" keyProperty="userId">
-		INSERT INTO member 
+-->	
+	<insert id="create" useGeneratedKeys="true" keyProperty="screenName">
+		INSERT INTO movie_screen 
 			(
-			user_id,
-			user_pw,
-			user_name,
-			email,
-			phone
+			city,
+			theater,
+			screen_name,
+			screen_col,
+			screen_row
 			)
 		VALUES
 			(
-			#{userId},
-			#{userPw},
-			#{userName},
-			#{email},
-			#{phone}
+			#{city},
+			#{theater},
+			#{screenName},
+			#{screenCol},
+			#{screenRow}
 			)
 	</insert>
 
-	<select id="read" resultMap="memberMap">
-		SELECT mem.user_id,
-			user_pw,
-			user_name,
-			email,
-			phone,
-			point,
-			reg_date,
-			upd_date,
-			auth
-		FROM member mem LEFT OUTER JOIN member_auth auth 
-		ON mem.user_id = auth.user_id
-		WHERE mem.user_id = #{userId}
+	<select id="read" resultType="Screen">
+		SELECT city,
+			theater_no,
+			theater,
+			screen_name,
+			screen_col,
+			screen_row
+		  FROM movie_screen 
+		 WHERE theater_no = #{theaterNo}
 	</select>
 
 	<update id="update">
-		UPDATE member
-		SET user_name = #{userName},
-			email = #{email},
-			phone = #{phone}
-		WHERE user_id = #{userId}
+		UPDATE movie_screen
+		SET screen_col = #{screenCol},
+			screen_row = #{screenRow}
+		WHERE screen_name = #{screenName}
 	</update>
 	
 	<delete id="delete">
-		DELETE FROM member
+		DELETE FROM movie_screen
 		WHERE user_id = #{userId}
 	</delete>
 	
-	<select id="list" resultType="Member">
+	<select id="list" resultType="Screen">
 		SELECT user_id,
 			user_pw,
 			user_name,
@@ -98,7 +93,7 @@
 		ORDER BY reg_date DESC
 	</select>
 	
-	<insert id="createAuth">
+	<insert id="createSeat">
 		INSERT INTO member_auth
 			(
 			user_id,
@@ -111,31 +106,9 @@
 			)
 	</insert>
 	
-	<delete id="deleteAuth">
+	<delete id="deleteSeat">
 		DELETE FROM member_auth
 		WHERE user_id = #{userId}
 	</delete>
 	
-	<select id="countAll" resultType="int">
-		SELECT count(*)
-		FROM member
-	</select>
-	
-	<select id="idChk" resultType="Member">
-		SELECT user_id
-		FROM member
-		WHERE user_id = #{userId} 
-	</select>
-	
-	<select id="finaEmail" resultType="Member">
-		SELECT userId
-		  FROM member
-		 WHERE email = #{email}
-	</select>
-	
-	<update id="updatePw">
-		UPDATE member
-		  SET user_pw = #{userPw}
-		 WHERE user_id = #{userId}
-	</update>
 </mapper>

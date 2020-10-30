@@ -1,13 +1,16 @@
 package org.hdcd.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -147,6 +151,134 @@ public class MemberController {
 		}
 		
 		return result;
+	}
+	
+	//회원용
+	@RequestMapping(value = "/userread", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void userread(String userId, Model model) throws Exception {
+		logger.info("userread");
+		
+		model.addAttribute(service.read(userId));
+	}
+
+	@RequestMapping(value = "/usermodify", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void usermodifyForm(String userId, Model model) throws Exception {
+		logger.info("usermodifyForm");
+		
+		model.addAttribute(service.read(userId));
+	}
+	
+	@RequestMapping(value = "/usermodify", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public String usermodify(Member member, RedirectAttributes rttr) throws Exception {
+		logger.info("usermodify");
+		
+		service.modify(member);
+
+		rttr.addFlashAttribute("msg", "SUCCESS");
+
+		return "redirect:/mypage/my";
+	}
+	
+	@RequestMapping(value = "/userremove", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void userremoveForm(String userId, Model model) throws Exception {
+		logger.info("userremoveForm");
+		
+	}
+	
+	@RequestMapping(value = "/userremove", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public String userremove(Member mem, HttpSession session, Authentication authentication, RedirectAttributes rttr) throws Exception {
+		logger.info("userremove");
+		
+		CustomUser customUser = (CustomUser)authentication.getPrincipal();
+		Member member = customUser.getMember();
+		
+		String userId = member.getUserId();
+		String oldpass = member.getUserPw();
+		String newpass = mem.getUserPw();
+
+		
+		if(!(passwordEncoder.matches(newpass, oldpass))) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/user/userremove";
+		}
+		
+		service.remove(userId);
+		
+		session.invalidate();
+		
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/findId", method = RequestMethod.GET)
+	public void findIdForm() throws Exception {
+		logger.info("findIdForm");
+		
+	}
+	
+	@RequestMapping(value = "/findPass", method = RequestMethod.GET)
+	public void findPassForm() throws Exception {
+		logger.info("findPassForm");
+		
+	}
+	
+	@RequestMapping(value = "/checkPw", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void checkPwForm(Member member, Model model) throws Exception {
+		logger.info("checkPwForm");
+		
+	}
+	
+	@RequestMapping(value = "/checkPw", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public String checkPw(Member mem, Authentication authentication, RedirectAttributes rttr) throws Exception {
+		logger.info("checkPw");
+		
+		CustomUser customUser = (CustomUser)authentication.getPrincipal();
+		Member member = customUser.getMember();
+		
+		String oldpass = member.getUserPw();
+		String newpass = mem.getUserPw();
+		
+		if(!(passwordEncoder.matches(newpass, oldpass))) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/user/checkPw";
+		}
+				
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/user/modifyPw";
+	}
+	
+	@RequestMapping(value = "/modifyPw", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void modifyPwForm(Member member, Model model) throws Exception {
+		logger.info("modifyPwForm");
+		
+	}
+	
+	@RequestMapping(value = "/modifyPw", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public String modifyPw(@RequestParam String newPw, HttpSession session, Authentication authentication, RedirectAttributes rttr) throws Exception {
+		logger.info("modifyPw");
+		
+		CustomUser customUser = (CustomUser)authentication.getPrincipal();
+		Member member = customUser.getMember();
+
+		String newpass = passwordEncoder.encode(newPw);
+		member.setUserPw(newpass);
+
+		service.modifyPw(member);
+
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		
+		return "redirect:/auth/logout";
 	}
 	
 }
