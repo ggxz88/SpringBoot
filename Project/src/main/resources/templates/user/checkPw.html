@@ -17,25 +17,18 @@
 			
 			<table>
 				<tr>
-					<td>현재 비밀번호</td>
-					<td>
-						<input type="text" name="userPw" th:field="*{userPw}" />
-					</td>
-					<td>
-						<span class="error_message" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}">userPw의 에러 메시지</span>
-					</td>	
-					
+					<td th:text="#{user.userPw}"></td>
+					<td><input type="password" id="userPw" th:field="*{userPw}" required="required" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}">userPw의 에러 메시지</span></td>
 				</tr>
 			</table>
 			
 			<div>
 				<button type="submit" id="submit">확인</button>	
 			</div>
-		</form>
 			
-		<th:block th:if test="{msg == false}">
-			<p>비밀번호를 다시 입력해주세요.</p>
-		</th:block>
+		</form>
+		
 	</div>
 </body>
 </html>

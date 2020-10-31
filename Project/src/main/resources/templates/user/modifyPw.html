@@ -18,12 +18,12 @@
 			<table>
 				<tr>
 					<td th:text="#{user.newUserPw}"></td>
-					<td><input type="password" id="newPw" th:field="*{userPw}" required="required" /></td>
+					<td><input type="password" id="userPw" th:field="*{userPw}" required="required" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}">userPw의 에러 메시지</span></td>
 				</tr>
 				<tr>
 					<td th:text="#{user.userPwConfirm}"></td>
-					<td><input type="password" id="newPwconfirm" onchange="checkPw()" />&nbsp;</td>
+					<td><input type="password" id="newPwconfirm" name="newPwconfirm" onchange="checkPw()" />&nbsp;</td>
 					<td><br></td>
 					<td><span id="check"></span></td>
 				</tr>
@@ -42,25 +42,26 @@
 					formObj.submit();
 				});
 				
-				function checkPw() {
-					var pw1 = document.getElementById('userPw').value;
-					var pw2 = document.getElementById('userPwconfirm').value;
-					
-					if(pw1 == pw2) {
-						document.getElementById('check').innerHTML='비밀번호 일치';
-						document.getElementById('check').style.color='blue';
-						document.getElementById("btnRegister").disabled = false
-					}
-					else {
-						document.getElementById('check').innerHTML='비밀번호 불일치';
-						document.getElementById('check').style.color='red';
-						document.getElementById("btnRegister").disabled = true
-						document.getElementById("userPwconfirm").value = '';
-						document.getElementById("userPwconfirm").focus();
-					}
-				}
-			
 			});
+			
+			function checkPw() {
+				var pw1 = document.getElementById('userPw').value;
+				var pw2 = document.getElementById('newPwconfirm').value;
+				
+				if(pw1 == pw2) {
+					document.getElementById('check').innerHTML='비밀번호 일치';
+					document.getElementById('check').style.color='blue';
+					document.getElementById("btnRegister").disabled = false
+				}
+				else {
+					document.getElementById('check').innerHTML='비밀번호 불일치';
+					document.getElementById('check').style.color='red';
+					document.getElementById("btnRegister").disabled = true
+					document.getElementById("newPwconfirm").value = '';
+					document.getElementById("newPwconfirm").focus();
+				}
+			}
+		
 		</script>
 		
 	</div>

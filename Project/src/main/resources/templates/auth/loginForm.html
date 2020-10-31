@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layouts/main_template}">
+	layout:decorate="~{/layouts/common_template}">
 
 <head>
 	<title>Login</title>
@@ -37,6 +37,11 @@
 		
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 		</form>	
+		
+		<div>
+			<a href="../user/findId.html" th:href="@{/user/findId}" th:><button type="button" th:text="#{user.findId}"></button></a>
+			<a href="../user/findPass.html"  th:href="@{/user/findPass}"><button type="button" th:text="#{user.findPw}"></button></a>
+		</div>
 	</div>
 </body>
 </html>

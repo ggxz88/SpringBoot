@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -184,7 +185,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/userremove", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	public void userremoveForm(String userId, Model model) throws Exception {
+	public void userremoveForm(@ModelAttribute("member") Member member, Model model) throws Exception {
 		logger.info("userremoveForm");
 		
 	}
@@ -209,11 +210,12 @@ public class MemberController {
 		
 		service.remove(userId);
 		
+		session.setAttribute("member", null);
 		session.invalidate();
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
-		return "redirect:/";
+		return "redirect:/auth/logout";
 	}
 	
 	@RequestMapping(value = "/findId", method = RequestMethod.GET)
@@ -265,13 +267,13 @@ public class MemberController {
 	
 	@RequestMapping(value = "/modifyPw", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	public String modifyPw(@RequestParam String newPw, HttpSession session, Authentication authentication, RedirectAttributes rttr) throws Exception {
+	public String modifyPw(@RequestParam String userPw, HttpSession session, Authentication authentication, RedirectAttributes rttr) throws Exception {
 		logger.info("modifyPw");
 		
 		CustomUser customUser = (CustomUser)authentication.getPrincipal();
 		Member member = customUser.getMember();
 
-		String newpass = passwordEncoder.encode(newPw);
+		String newpass = passwordEncoder.encode(userPw);
 		member.setUserPw(newpass);
 
 		service.modifyPw(member);

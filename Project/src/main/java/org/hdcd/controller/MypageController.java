@@ -39,6 +39,8 @@ public class MypageController {
 		
 		model.addAttribute("mypoint", memberService.getPoint(userId));
 		
+		model.addAttribute("member", memberService.read(userId));
+		
 		return "mypage/my";
 	}
 

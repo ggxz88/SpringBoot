@@ -9,22 +9,22 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>비밀번호 확인</h2>
+		<h2>비밀번호 찾기</h2>
 		
-		<form id="checkPw" action="list.html" th:action="@{/user/checkPw}" th:object="${member}" method="POST">
+		<form id="findPass" action="list.html" th:action="@{/user/findPass}" th:object="${member}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
 			<table>
 				<tr>
-					<td>이메일</td>
-					<td>
-						<input type="text" name="email" th:field="*{email}" />
-					</td>
-					<td>
-						<span class="error_message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span>
-					</td>	
-					
+					<td th:text="#{user.userId}"></td>
+					<td><input type="text" id="userId" name="userId" th:field="*{userId}" required="required"/></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span></td>
+				</tr>
+				<tr>
+					<td th:text="#{user.userEmail}"></td>
+					<td><input type="email" id="email" th:field="*{email}" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span></td>
 				</tr>
 			</table>
 			
