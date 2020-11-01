@@ -37,8 +37,8 @@ private static final Logger logger = LoggerFactory.getLogger(MailController.clas
 		logger.info("find ID");
 		
 		Member member = memberService.findEmail(email);
+		
 		logger.info(email);
-		logger.info(member.getUserId());
 		
 		if(member != null) {
 			String subject = "아이디 찾기 안내 메일입니다.";
@@ -63,6 +63,9 @@ private static final Logger logger = LoggerFactory.getLogger(MailController.clas
 		logger.info("Find Pw");		
 		Member member = memberService.read(userId);
 		Member user = memberService.findEmail(email);
+		
+		logger.info(email);
+		logger.info(member.getUserId());
 		
 		if(user != null) {
 			if(!member.getUserId().equals(userId)) {

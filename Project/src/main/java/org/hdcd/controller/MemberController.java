@@ -219,13 +219,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/findId", method = RequestMethod.GET)
-	public void findIdForm() throws Exception {
+	public void findIdForm(@ModelAttribute("member") Member member, Model model) throws Exception {
 		logger.info("findIdForm");
 		
 	}
 	
 	@RequestMapping(value = "/findPass", method = RequestMethod.GET)
-	public void findPassForm() throws Exception {
+	public void findPassForm(@ModelAttribute("member") Member member, Model model) throws Exception {
 		logger.info("findPassForm");
 		
 	}

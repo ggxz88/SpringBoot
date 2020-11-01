@@ -127,8 +127,8 @@
 		WHERE user_id = #{userId} 
 	</select>
 	
-	<select id="finaEmail" resultType="Member">
-		SELECT userId
+	<select id="findEmail" resultType="Member">
+		SELECT user_id
 		  FROM member
 		 WHERE email = #{email}
 	</select>

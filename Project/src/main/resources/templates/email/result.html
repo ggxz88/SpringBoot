@@ -9,8 +9,8 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>${msg}</h2>
-		<a href="/auth/login"><button type="button" th:text="{action.login}"></button></a>
+		<h2>발송에 성공하였습니다.</h2>
+		<a href="../auth/login.html" th:href="@{/auth/login}"><button type="button" th:text="#{action.login}"></button></a>
 	</div>
 </body>
 </html>
