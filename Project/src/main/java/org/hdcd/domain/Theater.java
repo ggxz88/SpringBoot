@@ -6,11 +6,21 @@ public class Theater implements Serializable {
 
 	private static final long serialVersionUID = 1713906936947141859L;
 	
+	private String province;
+	
 	private String city;
 	
 	private int theaterNo;
 	
 	private String theater;
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
 
 	public String getCity() {
 		return city;

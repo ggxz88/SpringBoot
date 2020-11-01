@@ -7,11 +7,13 @@
 	<insert id="create">
 		INSERT INTO movie_theater
 			(
+			province,
 			city,
 			theater
 			)
 		VALUES
 			(
+			#{province},
 			#{city},
 			#{theater}
 			)
@@ -19,15 +21,17 @@
 	
 	<select id="read" resultType="Theater">
 		SELECT theater_no,
+			province,
 			city,
-			theater,
+			theater
 		  FROM movie_theater
 		 WHERE theater_no = #{theaterNo}
 	</select>
 
 	<update id="update">
 		UPDATE movie_theater 
-		   SET city = #{city},
+		   SET province = #{province}, 
+		   	city = #{city},
 			theater = #{theater}
 		 WHERE theater_no = #{theaterNo}
 	</update>
@@ -40,6 +44,7 @@
 	<select id="list" resultType="Theater">
 		<![CDATA[
 			SELECT theater_no,
+				province,
 				city,
 				theater,
 			  FROM movie_theater

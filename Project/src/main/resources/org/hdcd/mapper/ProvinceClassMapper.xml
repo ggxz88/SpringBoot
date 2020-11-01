@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.ProvinceClassMapper">
+
+	<insert id="create">
+		INSERT INTO province_class
+			(
+			province_name
+			)
+		VALUES
+			(
+			#{provinceName}
+			)
+	</insert>
+	
+	<select id="read" resultType="ProvinceClass">
+		SELECT province_no,
+			province_name
+		  FROM province_class
+		 WHERE province_no = #{provinceNo}
+	</select>
+
+	<update id="update">
+		UPDATE province_class 
+		   SET province_name = #{provinceName}
+		 WHERE province_no = #{provinceNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM province_class
+		 WHERE province_no = #{provinceNo}
+	</delete>
+	
+	<select id="list" resultType="ProvinceClass">
+		<![CDATA[
+			SELECT province_no,
+				province_name
+			  FROM province_class
+			 WHERE province_no > 0
+			ORDER BY province_no DESC
+		]]>
+	</select>
+	
+</mapper>
