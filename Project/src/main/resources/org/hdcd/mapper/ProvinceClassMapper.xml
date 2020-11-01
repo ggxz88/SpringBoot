@@ -39,7 +39,7 @@
 				province_name
 			  FROM province_class
 			 WHERE province_no > 0
-			ORDER BY province_no DESC
+			ORDER BY province_no ASC
 		]]>
 	</select>
 	

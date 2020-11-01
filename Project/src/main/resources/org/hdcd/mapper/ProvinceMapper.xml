@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.ProvinceMapper">
+
+	<select id="getProvinceClassList" resultType="org.hdcd.common.domain.CodeLabelValue">
+		SELECT province_no AS value,
+			province_name AS label
+		  FROM province_class
+	</select>
+	
+	<select id="getProvinceList" resultType="org.hdcd.common.domain.CodeLabelValue">
+		SELECT city_no AS value,
+			city AS label
+		  FROM province_detail
+		 WHERE province_name = #{provinceName}
+	</select>
+	
+</mapper>

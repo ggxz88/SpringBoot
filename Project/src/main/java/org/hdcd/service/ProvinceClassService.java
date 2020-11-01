@@ -8,11 +8,11 @@ public interface ProvinceClassService {
 	
 	public void register(ProvinceClass provinceClass) throws Exception;
 	
-	public ProvinceClass read(int provinceNo) throws Exception;
+	public ProvinceClass read(Integer provinceNo) throws Exception;
 	
 	public void modify(ProvinceClass provinceClass) throws Exception;
 	
-	public void remove(int provinceNo) throws Exception;
+	public void remove(Integer provinceNo) throws Exception;
 	
 	public List<ProvinceClass> list() throws Exception;
 }

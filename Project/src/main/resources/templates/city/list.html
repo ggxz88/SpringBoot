@@ -4,7 +4,7 @@
 	layout:decorate="~{/layouts/main_template}">
 
 <head>
-	<title>ProvinceClass</title>
+	<title>City</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
@@ -14,24 +14,24 @@
 		
 		<table border="1">
 			<tr>
-				<th align="center" width="80" th:text="#{province.no}">번호</th>
-				<th align="center" width="320" th:text="#{province.name}">이름</th>
+				<th align="center" width="180" th:text="#{province.name}">도시</th>
+				<th align="center" width="180" th:text="#{city.name}">상세 도시</th>
 			</tr>
 			
 			<tr th:if="${#lists.isEmpty(list)}">
 				<td colspan="2" th:text="#{common.listEmpty}">List is empty.</td>
 			</tr>
 			
-			<tr th:each="provinceClass : ${list}">
-				<td align="center"  th:text="${provinceClass.provinceNo}">${provinceClass.provinceNo}</td>
-				<td align="center"><a href="read.html" th:href="@{|/province/read?provinceNo=${provinceClass.provinceNo}|}" th:text="${provinceClass.provinceName}">${provinceClass.provinceName}</a></td>
+			<tr th:each="provinceDetail : ${list}">
+				<td align="center" th:text="${provinceDetail.provinceName}">${provinceDetail.provinceName}</td>
+				<td align="center"><a href="read.html" th:href="@{|/city/read?cityNo=${provinceDetail.cityNo}|}" th:text="${provinceDetail.city}">${provinceDetail.city}</a></td>
 			</tr>
 		</table>
 		<br />
 		
 		<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-			<a href="register.html" th:href="@{/province/register}">
-				<button type="button" th:text="#{province.new}">도시 등록</button>
+			<a href="register.html" th:href="@{/city/register}">
+				<button type="button" th:text="#{city.new}">도시 등록</button>
 			</a>
 		</th:block>
 		

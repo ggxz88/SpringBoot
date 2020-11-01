@@ -1,18 +1,13 @@
 package org.hdcd.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hdcd.domain.ProvinceClass;
 import org.hdcd.service.ProvinceClassService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -48,6 +43,7 @@ public class ProvinceClassController {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void list(Model model) throws Exception {
 		logger.info("ProvinceClass List");
 		
@@ -56,6 +52,7 @@ public class ProvinceClassController {
 	}
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void read(int provinceNo, Model model) throws Exception {
 		logger.info("ProvinceClass Read");
 		

@@ -19,7 +19,7 @@ public class ProvinceClassServiceImpl implements ProvinceClassService {
 	}
 	
 	@Override
-	public ProvinceClass read(int provinceNo) throws Exception {
+	public ProvinceClass read(Integer provinceNo) throws Exception {
 		return mapper.read(provinceNo);
 	}
 	
@@ -29,7 +29,7 @@ public class ProvinceClassServiceImpl implements ProvinceClassService {
 	}
 	
 	@Override
-	public void remove(int provinceNo) throws Exception {
+	public void remove(Integer provinceNo) throws Exception {
 		mapper.delete(provinceNo);
 	}
 	
