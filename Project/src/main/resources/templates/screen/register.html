@@ -1,0 +1,83 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Screen</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>상영관 등록</h2>
+		
+		<form id="screen" action="list.html" th:action="@{/screen/register}" th:object="${screen}" method="POST">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+			<table>
+				<tr>
+					<td th:text="#{province.name}">도시</td>
+					<td>
+						<select class="province" th:field="*{provinceName}">
+							<option th:each="province : ${provinceNameList}" th:value="${province.label}" th:text="${province.label}">province</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{city.name}">극장</td>
+					<td>
+						<select id="city" th:field="*{city}">
+							<option th:each="cityList : ${cityList}" th:value="${city.value}" th:text="${city.label}">theater</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td th:text="#{screen.name}">상영관 이름</td>
+					<td><input type="text" id="screenName" th:field="*{screenName}" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('screenName')}" th:errors="*{screenName}">screenName의 에러 메시지</span></td>
+				</tr>
+				<tr>
+					<td th:text="#{screen.col}">상영관 행</td>
+					<td><input type="number" id="screenCol" th:field="*{screenCol}" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('screenCol')}" th:errors="*{screenCol}">screenCol의 에러 메시지</span></td>
+				</tr>
+				<tr>
+					<td th:text="#{screen.row}">상영관 열</td>
+					<td><input type="number" id="screenRow" th:field="*{screenRow}" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('screenRow')}" th:errors="*{screenRow}">screenRow의 에러 메시지</span></td>
+				</tr>
+			</table>
+			
+		</form>
+		
+		<div>
+			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+				<button type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
+				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+			</th:block>
+		</div>
+		
+		<script th:inline="javascript">
+			
+			$(document).ready(function() {
+				
+				var formObj = $("#screen");
+				
+				
+				$("#btnRegister").on("click", function() {
+					formObj.submit();
+				});
+				
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+			
+			});
+			
+		</script>
+		
+	</div>
+</body>
+</html>

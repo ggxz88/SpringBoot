@@ -8,6 +8,6 @@ public interface ProvinceMapper {
 
 	public List<CodeLabelValue> getProvinceClassList() throws Exception;
 	
-	public List<CodeLabelValue> getProvinceList(Integer provinceNo) throws Exception;
+	public List<CodeLabelValue> getProvinceList(String provinceName) throws Exception;
 
 }

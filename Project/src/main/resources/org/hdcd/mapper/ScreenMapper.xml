@@ -3,55 +3,20 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.hdcd.mapper.ScreenMapper">
-<!-- 	
-	<resultMap type="Member" id="memberMap">
-		<id property="userId" column="user_id" />
-		<result property="userId" column="user_id" />
-		<result property="userPw" column="user_pw" />
-		<result property="userName" column="user_name" />
-		<result property="email" column="email" />
-		<result property="phone" column="phone" />
-		<result property="point" column="point" />
-		<result property="enabled" column="enabled" />
-		<result property="regDate" column="reg_date" />
-		<result property="updDate" column="upd_date" />
-		<collection property="authList" resultMap="authMap"></collection>
-	</resultMap>
-	
-	<resultMap type="MemberAuth" id="authMap">
-		<result property="userId" column="user_id" />
-		<result property="auth" column="auth" />
-	</resultMap>
 
-	<select id="readByUserId" resultMap="memberMap">
-		SELECT mem.user_id,
-			user_pw,
-			user_name,
-			email,
-			phone,
-			point,
-			enabled,
-			reg_date,
-			upd_date,
-			auth
-		FROM member mem LEFT OUTER JOIN member_auth auth 
-		ON mem.user_id = auth.user_id
-		WHERE mem.user_id = #{userId}
-	</select>
--->	
-	<insert id="create" useGeneratedKeys="true" keyProperty="screenName">
+	<insert id="create">
 		INSERT INTO movie_screen 
 			(
+			province_name,
 			city,
-			theater,
 			screen_name,
 			screen_col,
 			screen_row
 			)
 		VALUES
 			(
+			#{provinceName},
 			#{city},
-			#{theater},
 			#{screenName},
 			#{screenCol},
 			#{screenRow}
@@ -59,56 +24,36 @@
 	</insert>
 
 	<select id="read" resultType="Screen">
-		SELECT city,
-			theater_no,
-			theater,
+		SELECT screen_no,
+			province_name,
+			city,
 			screen_name,
 			screen_col,
 			screen_row
 		  FROM movie_screen 
-		 WHERE theater_no = #{theaterNo}
+		 WHERE screen_no = #{screenNo}
 	</select>
 
 	<update id="update">
 		UPDATE movie_screen
-		SET screen_col = #{screenCol},
+		SET screen_name = #{screenName},
+			screen_col = #{screenCol},
 			screen_row = #{screenRow}
-		WHERE screen_name = #{screenName}
+		WHERE screen_no = #{screenNo}
 	</update>
 	
 	<delete id="delete">
 		DELETE FROM movie_screen
-		WHERE user_id = #{userId}
+		WHERE screen_no = #{screenNo}
 	</delete>
 	
 	<select id="list" resultType="Screen">
-		SELECT user_id,
-			user_pw,
-			user_name,
-			email,
-			phone,
-			point,
-			reg_date
-		FROM member
-		ORDER BY reg_date DESC
+		SELECT province_name,
+			city,
+			screen_no,
+			screen_name
+		  FROM movie_screen 
+		ORDER BY city ASC
 	</select>
-	
-	<insert id="createSeat">
-		INSERT INTO member_auth
-			(
-			user_id,
-			auth
-			)
-		VALUES
-			(
-			#{userId},
-			#{auth}
-			)
-	</insert>
-	
-	<delete id="deleteSeat">
-		DELETE FROM member_auth
-		WHERE user_id = #{userId}
-	</delete>
 	
 </mapper>

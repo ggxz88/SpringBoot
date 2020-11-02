@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="getProvinceList" resultType="org.hdcd.common.domain.CodeLabelValue">
-		SELECT city_no AS value,
+		SELECT province_name AS value,
 			city AS label
 		  FROM province_detail
 		 WHERE province_name = #{provinceName}

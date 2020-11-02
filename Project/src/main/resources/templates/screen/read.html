@@ -4,18 +4,18 @@
 	layout:decorate="~{/layouts/main_template}">
 
 <head>
-	<title>Theater</title>
+	<title>Screen</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>극장 상세보기</h2>
+		<h2>상영관 상세보기</h2>
 		
-		<form id="provinceDetail" action="list.html" th:action="@{/city/remove}" th:object="${provinceDetail}" method="POST">
+		<form id="screen" action="list.html" th:action="@{/screen/remove}" th:object="${screen}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" id="cityNo" th:field="*{cityNo}" />
+			<input type="hidden" id="screenNo" th:field="*{screenNo}" />
 			
 			<table>
 				<tr>
@@ -23,8 +23,12 @@
 					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{city.name}">도시</td>
+					<td th:text="#{city.name}">극장</td>
 					<td><input type="text" id="city" th:field="*{city}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{screen.name}">상영관 이름</td>
+					<td><input type="text" id="screenName" th:field="*{screenName}" readonly="readonly" /></td>
 				</tr>
 			</table>
 			
@@ -41,22 +45,22 @@
 		<script>
 			$(document).ready(function() {
 				
-				var formObj = $("#provinceDetail");
+				var formObj = $("#screen");
 				
 				$("#btnEdit").on("click", function() {
-					var cityNo = $("#cityNo");
-					var cityNoVal = cityNo.val();
+					var screenNo = $("#screenNo");
+					var screenNoVal = screenNo.val();
 					
-					self.location = "/city/modify" + "?cityNo=" + cityNoVal;
+					self.location = "/screen/modify" + "?screenNo=" + screenNoVal;
 				});
 				
 				$("#btnRemove").on("click", function() {
-					formObj.attr("action", "/city/remove");
+					formObj.attr("action", "/screen/remove");
 					formObj.submit();
 				});
 				
 				$("#btnList").on("click", function() {
-					self.location = "/city/list";
+					self.location = "/screen/list";
 				});
 				
 			});

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hdcd.domain.Screen;
 
-
 public interface ScreenMapper {
 		
 	public void create(Screen screen) throws Exception;

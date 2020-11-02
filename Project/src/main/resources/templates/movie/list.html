@@ -64,7 +64,7 @@
 				<td align="center" th:text="${movie.actors}">${movie.actors}</td>
 				<td align="center" th:text="${movie.genre}">${movie.genre}</td>
 				<td align="center" th:text="${movie.runningTime}">${movie.runningTime}</td>
-				<td align="center" th:text="${#dates.format(movie.openningDays, 'yyyy-MM-dd HH:mm')}">${movie.openningDays}</td>
+				<td align="center" th:text="${#dates.format(movie.openningDays, 'yyyy-MM-dd')}">${movie.openningDays}</td>
 				
 				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
 					<td align="center"><a href="modify.html" th:href="|modify${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}|" th:text="#{action.edit}">편집</a></td>
@@ -86,7 +86,7 @@
 		
 		<script th:inline="javascript">
 			/*<![CDATA[*/
-				var result = "[[${msg}]]";
+				var result = "[${msg}]";
 			
 			
 				if(result === "SUCCESS") {

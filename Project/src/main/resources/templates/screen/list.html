@@ -4,7 +4,7 @@
 	layout:decorate="~{/layouts/main_template}">
 
 <head>
-	<title>Theater</title>
+	<title>Screen</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
@@ -16,28 +16,30 @@
 			<tr>
 				<th align="center" width="180" th:text="#{province.name}">도시</th>
 				<th align="center" width="180" th:text="#{city.name}">상세 도시</th>
+				<th align="center" width="180" th:text="#{screen.name}">상영관 이름</th>
 			</tr>
 			
 			<tr th:if="${#lists.isEmpty(list)}">
-				<td colspan="2" th:text="#{common.listEmpty}">List is empty.</td>
+				<td colspan="4" th:text="#{common.listEmpty}">List is empty.</td>
 			</tr>
 			
-			<tr th:each="provinceDetail : ${list}">
-				<td align="center" th:text="${provinceDetail.provinceName}">${provinceDetail.provinceName}</td>
-				<td align="center"><a href="read.html" th:href="@{|/city/read?cityNo=${provinceDetail.cityNo}|}" th:text="${provinceDetail.city}">${provinceDetail.city}</a></td>
+			<tr th:each="screen : ${list}">
+				<td align="center" th:text="${screen.provinceName}">${screen.provinceName}</td>
+				<td align="center" th:text="${screen.city}">${screen.city}</td>
+				<td align="center"><a href="read.html" th:href="@{|/screen/read?screenNo=${screen.screenNo}|}" th:text="${screen.screenName}">${screen.screenName}</a></td>
 			</tr>
 		</table>
 		<br />
 		
 		<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-			<a href="register.html" th:href="@{/city/register}">
-				<button type="button" th:text="#{city.new}">도시 등록</button>
+			<a href="register.html" th:href="@{/screen/register}">
+				<button type="button" th:text="#{screen.new}">상영관 등록</button>
 			</a>
 		</th:block>
 		
 		<script th:inline="javascript">
 			/*<![CDATA[*/
-				var result = "[[${msg}]]";
+				var result = "[${msg}]";
 			
 			
 				if(result === "SUCCESS") {

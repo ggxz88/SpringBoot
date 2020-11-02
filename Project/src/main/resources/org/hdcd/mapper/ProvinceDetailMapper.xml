@@ -44,7 +44,7 @@
 				city
 			  FROM province_detail
 			 WHERE city_no > 0
-			ORDER BY city_no ASC
+			ORDER BY province_name ASC
 		]]>
 	</select>
 	

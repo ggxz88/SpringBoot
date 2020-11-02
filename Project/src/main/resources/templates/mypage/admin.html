@@ -32,6 +32,7 @@
 				<br>
 				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
 					<div align="left">
+						<hr><br>
 						<a href="../user/list.html" th:href="@{/user/list}" th:text="#{user.list}">회원 목록</a>
 						<br><br>
 						<a href="../board/list.html" th:href="@{/board/list}" th:text="#{board.list}">회원 게시판 목록</a>
@@ -40,14 +41,16 @@
 						<br><br>
 						<a href="../inquiry/list.html" th:href="@{/inquiry/list}" th:text="#{inquiry.list}">1:1 문의 목록</a>
 						<br><br>
+						<a href="../banner/list.html" th:href="@{/banner/list}" th:text="#{banner.list}">홍보 배너 목록</a>
+						<br><br><hr>
+						<a href="../movie/list.html" th:href="@{/movie/list}" th:text="#{movie.list}">영화 목록</a>
+						<br><br>
 						<a href="../province/list.html" th:href="@{/province/list}" th:text="#{province.list}">영화관 도시 목록</a>
 						<br><br>
 						<a href="../city/list.html" th:href="@{/city/list}" th:text="#{city.list}">영화관 상세 도시 목록</a>
 						<br><br>
-						<a href="../movie/list.html" th:href="@{/movie/list}" th:text="#{movie.list}">영화 목록</a>
+						<a href="../screen/list.html" th:href="@{/screen/list}" th:text="#{screen.list}">상영관 목록</a>
 						<br><br>
-						<a href="../banner/list.html" th:href="@{/banner/list}" th:text="#{banner.list}">홍보 배너 목록</a>
-						<br>
 					</div>
 				</th:block>
 			</th:block>

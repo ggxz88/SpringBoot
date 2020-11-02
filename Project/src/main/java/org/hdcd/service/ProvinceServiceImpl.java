@@ -19,8 +19,8 @@ public class ProvinceServiceImpl implements ProvinceService {
 	}
 	
 	@Override
-	public List<CodeLabelValue> getProvinceList(Integer provinceNo) throws Exception {
-		return mapper.getProvinceList(provinceNo);
+	public List<CodeLabelValue> getProvinceList(String provinceName) throws Exception {
+		return mapper.getProvinceList(provinceName);
 	}
 
 
