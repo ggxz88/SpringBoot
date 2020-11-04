@@ -28,75 +28,6 @@ CREATE TABLE persistent_logins (
     PRIMARY KEY (series)
 );
 
-/*영화 테이블*/
-CREATE TABLE movie (
-	movie_no INT NOT NULL AUTO_INCREMENT, /*영화 번호*/
-    title VARCHAR(100) NOT NULL, /*영화 제목*/
-    genre VARCHAR(50) NOT NULL, /*영화 장르*/
-    nation VARCHAR(50) NOT NULL, /*영화 국가*/
-    runnung_time INT(5) NOT NULL, /*영화 상영 시간*/
-    opennig_days VARCHAR(50) NOT NULL, /*영화 개봉일*/
-    director VARCHAR(50) NOT NULL, /*영화 감독*/
-    actors VARCHAR(200) NOT NULL, /*영화 출연 배우*/
-    ratings VARCHAR(5), /*영화 심의 등급*/
-    summary TEXT, /*영화 소개*/
-    poster_url VARCHAR(200), /*영화 포스터*/
-    still1_url VARCHAR(200), /*영화 스틸컷1*/
-    still2_url VARCHAR(200), /*영화 스틸컷2*/
-    still3_url VARCHAR(200), /*영화 스틸컷3*/
-    still4_url VARCHAR(200), /*영화 스틸컷4*/
-    enabled CHAR(1) DEFAULT '1', /*영화 상영 상태*/
-    PRIMARY KEY (movie_no)
-);
-
-/*영화 후기 테이블*/
-CREATE TABLE review (
-	review_no INT(5) NOT NULL AUTO_INCREMENT,
-    movie_no INT(5) NOT NULL,
-    review_content VARCHAR(150) NOT NULL,
-    review_writer VARCHAR(50) NOT NULL,
-    reg_date TIMESTAMP DEFAULT now(),
-    PRIMARY KEY (review_no, movie_no)
-);
-
-ALTER TABLE review ADD CONSTRAINT fk_review_movie_no FOREIGN KEY (movie_no) REFERENCES movie(movie_no) ON DELETE CASCADE;
-
-/*영화 상영관 테이블*/
-CREATE TABLE movie_screen (
-	screen_no INT NOT NULL, /*영화 상영관 번호*/
-    screen_name VARCHAR(5) NOT NULL, /*영화 상영관 이름*/
-    screen_column INT(3) NOT NULL, /*영화 상영관 이름*/
-    screen_row INT(3) NOT NULL, /*영화 상영관 이름*/
-    seat_class VARCHAR(5) NOT NULL, /*좌석 등급*/
-    price INT(6), /*가격*/
-    PRIMARY KEY (screen_no)
-);
-
-
-/*영화 예약 정보 테이블*/
-CREATE TABLE movie_booking_info (
-	movie_no INT NOT NULL, /*영화 번호*/
-    screen_no INT(5) NOT NULL, /*영화 상영관*/
-    seat_class VARCHAR(5) NOT NULL, /*좌석 등급*/
-    price INT(6), /*가격*/
-    PRIMARY KEY (movie_no)
-);
-
-ALTER TABLE movie_booking_info ADD CONSTRAINT fk_movie_booking_info_movie_no FOREIGN KEY (movie_no) REFERENCES movie(movie_no) ON DELETE CASCADE;
-ALTER TABLE movie_booking_info ADD CONSTRAINT fk_movie_booking_info_screen_no FOREIGN KEY (screen_no) REFERENCES movie_screen(screen_no) ON DELETE CASCADE;
-
-/*나의 예약 정보 테이블*/
-CREATE TABLE book (
-	book_no INT AUTO_INCREMENT,
-	user_no INT(5) NOT NULL,
-	movie_no INT(5) NOT NULL,
-	reg_date TIMESTAMP DEFAULT now(),
-	PRIMARY KEY (book_no)
-);
-
-ALTER TABLE book ADD CONSTRAINT fk_book_movie_no FOREIGN KEY (movie_no) REFERENCES movie(movie_no) ON DELETE CASCADE;
-ALTER TABLE book ADD CONSTRAINT fk_book_user_no FOREIGN KEY (user_no) REFERENCES member(user_no) ON DELETE CASCADE;
-
 /*회원 게시판 테이블*/
 CREATE TABLE board (
 	board_no INT NOT NULL AUTO_INCREMENT,
@@ -142,19 +73,9 @@ CREATE TABLE inquiry (
 );
 
 /*충전 내역 테이블*/
-CREATE TABLE change_point_history (
+CREATE TABLE charge_point_history (
 	history_no INT AUTO_INCREMENT,
-    user_no INT(5) NOT NULL,
-    amount INT(5) NOT NULL,
-    reg_date TIMESTAMP DEFAULT now(),
-    PRIMARY KEY (history_no)
-);
-
-/*지급 내역 테이블*/
-CREATE TABLE pay_point_history (
-	history_no INT AUTO_INCREMENT,
-    user_no INT(5) NOT NULL,
-    item_id INT(5) NOT NULL,
+    user_id VARCHAR(50) NOT NULL,
     amount INT(5) NOT NULL,
     reg_date TIMESTAMP DEFAULT now(),
     PRIMARY KEY (history_no)
@@ -170,3 +91,103 @@ CREATE TABLE banner (
 );
 
 ALTER TABLE banner ADD CONSTRAINT fk_banner_movie_no FOREIGN KEY (movie_no) REFERENCES movie(movie_no) ON DELETE CASCADE;
+
+/*영화 테이블*/
+CREATE TABLE movie (
+	movie_no INT NOT NULL AUTO_INCREMENT, /*영화 번호*/
+    title VARCHAR(100) NOT NULL, /*영화 제목*/
+    genre VARCHAR(50) NOT NULL, /*영화 장르*/
+    nation VARCHAR(50) NOT NULL, /*영화 국가*/
+    running_time INT(5) NOT NULL, /*영화 상영 시간*/
+    openning_days DATE, /*영화 개봉일*/
+    director VARCHAR(50) NOT NULL, /*영화 감독*/
+    actors VARCHAR(200) NOT NULL, /*영화 출연 배우*/
+    ratings VARCHAR(5), /*영화 심의 등급*/
+    summary TEXT, /*영화 소개*/
+    poster_url VARCHAR(200), /*영화 포스터*/
+    still1_url VARCHAR(200), /*영화 스틸컷1*/
+    still2_url VARCHAR(200), /*영화 스틸컷2*/
+    still3_url VARCHAR(200), /*영화 스틸컷3*/
+    still4_url VARCHAR(200), /*영화 스틸컷4*/
+	reg_date TIMESTAMP DEFAULT now(), /*등록 일자*/
+	enabled CHAR(1) DEFAULT '1', /*영화 상영 상태*/
+    PRIMARY KEY (movie_no)
+);
+
+/*영화 후기 테이블*/
+CREATE TABLE review (
+	review_no INT(5) NOT NULL AUTO_INCREMENT,
+    movie_no INT(5) NOT NULL,
+    review_content VARCHAR(150) NOT NULL,
+    review_writer VARCHAR(50) NOT NULL,
+    reg_date TIMESTAMP DEFAULT now(),
+    PRIMARY KEY (review_no, movie_no)
+);
+
+ALTER TABLE review ADD CONSTRAINT fk_review_movie_no FOREIGN KEY (movie_no) REFERENCES movie(movie_no) ON DELETE CASCADE;
+
+/*도시 그룹 테이블*/
+CREATE TABLE province_class (
+	province_no INT NOT NULL AUTO_INCREMENT, /*도시 코드*/
+    province_name VARCHAR(20) NOT NULL, /*도시 이름*/
+    PRIMARY KEY (province_no)
+);
+
+/*도시 상세 테이블*/
+CREATE TABLE province_detail (
+    province_name VARCHAR(20) NOT NULL, /*도시 이름*/
+    city_no INT NOT NULL AUTO_INCREMENT,
+    city VARCHAR(20) NOT NULL, /*상세 도시*/
+    PRIMARY KEY (city_no)
+);
+
+/*영화 상영관 테이블*/
+CREATE TABLE movie_screen (
+	province_name VARCHAR(20) NOT NULL, /*도시 이름*/
+    city VARCHAR(20) NOT NULL, /*상세 도시*/
+	screen_no INT NOT NULL AUTO_INCREMENT, /*영화 상영관 번호*/
+	screen_name VARCHAR(5) NOT NULL, /*영화 상영관 이름*/
+	screen_col INT(3) NOT NULL, /*영화 상영관 행*/
+    screen_row INT(3) NOT NULL, /*영화 상영관 열*/
+	PRIMARY KEY (screen_no)  
+);
+
+CREATE TABLE movie_seat (
+	screen_no INT(5) NOT NULL, /*영화 상영관 번호*/
+	seat_id VARCHAR(10) NOT NULL, /*영화 좌석*/
+    price INT(6), /*영화 가격*/
+    PRIMARY KEY (screen_no, seat)
+);
+
+ALTER TABLE movie_seat ADD CONSTRAINT fk_movie_seat_screen_no FOREIGN KEY (screen_no) REFERENCES movie_screen(screen_no) ON DELETE CASCADE;
+
+/*영화 예약 정보 테이블*/
+CREATE TABLE movie_booking_info (
+	book_movie_no INT NOT NULL AUTO_INCREMENT,
+	movie_no INT NOT NULL, /*영화 번호*/
+    screen_no INT(5) NOT NULL, /*영화 상영관*/
+    price INT(6), /*가격*/
+    PRIMARY KEY (movie_no)
+);
+
+/*나의 예약 정보 테이블*/
+CREATE TABLE book (
+	book_no INT AUTO_INCREMENT,
+	user_id VARCHAR(50) NOT NULL,
+	movie_no INT(5) NOT NULL,
+	reg_date TIMESTAMP DEFAULT now(),
+	PRIMARY KEY (book_no)
+);
+
+ALTER TABLE book ADD CONSTRAINT fk_book_user_id FOREIGN KEY (user_id) REFERENCES member(user_id) ON DELETE CASCADE;
+
+/*지급 내역 테이블*/
+CREATE TABLE pay_point_history (
+	history_no INT AUTO_INCREMENT,
+    user_id VARCHAR(50) NOT NULL,
+    movie_no INT(5) NOT NULL,
+    amount INT(5) NOT NULL,
+    reg_date TIMESTAMP DEFAULT now(),
+    PRIMARY KEY (history_no)
+);
+
