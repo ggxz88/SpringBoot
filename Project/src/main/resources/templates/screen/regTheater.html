@@ -19,12 +19,8 @@
 			<table>
 				<tr>
 					<td th:text="#{province.name}">도시</td>
-					<td>
-						<select class="provinceget" th:field="*{provinceName}">
-							<option value="">--선택--</option>
-							<option th:each="province : ${provinceNameList}" th:value="${province.label}" th:text="${province.label}">province</option>
-						</select>
-					</td>
+					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
+					
 				</tr>
 				<tr>
 					<td th:text="#{city.name}">극장</td>
@@ -65,24 +61,28 @@
 			
 			$(document).ready(function() {
 				
-				var formObj = $("#screen");
-				
-				$(".provinceget").change(function() {
-					var query = {"provinceName" : $("#provinceName").val()};
+				function getParam(sname) {
+					var presentUrl = window.location.href;
 					
-					$.ajax({
-						url : "/screen/regTheater",
-						json : "json",
-						type : "post",
-						data : query,
-						success : function(data) {
-							console.log($("#provinceName").val());	
-							self.location = "/screen/regTheater" + "?provinceName=" + $("#provinceName").val();
+					var params = presentUrl.substr(presentUrl.indexOf("?") + 1);
+					var sval = "";
+					params = params.split("&");
+					
+					for (var i = 0; i < params.length; i++) {
+						temp = params[i].split("=");
+						if([temp[0]] == sname) {
+							sval = temp[1];
 						}
-					});
+					}
+					sval = decodeURI(sval);
 					
-				});
+					return sval;
+				}
 				
+				document.getElementById('provinceName').value = getParam("provinceName");
+				
+				
+				var formObj = $("#screen");
 				
 				$("#btnRegister").on("click", function() {
 					formObj.submit();
