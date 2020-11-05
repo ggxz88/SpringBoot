@@ -10,6 +10,9 @@ public class Review implements Serializable {
 	private int reviewNo;
 	
 	private int movieNo;
+	
+	private float scores;
+	
 	private String reviewContent;
 	private String reviewWriter;
 	
@@ -29,6 +32,14 @@ public class Review implements Serializable {
 
 	public void setMovieNo(int movieNo) {
 		this.movieNo = movieNo;
+	}
+	
+	public float getScores() {
+		return scores;
+	}
+
+	public void setScores(float scores) {
+		this.scores = scores;
 	}
 
 	public String getReviewContent() {

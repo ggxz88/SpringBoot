@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>상영관 변경</h2>
+		<h2>상영관 수정</h2>
 		
 		<form id="screen" action="list.html" th:action="@{/screen/modify}" th:object="${screen}" method="POST">
 			
@@ -21,7 +21,8 @@
 				<tr>
 					<td th:text="#{province.name}">지역</td>
 					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
-					<td><span class="error_message" th:if="${#fields.hasErrors('provinceName')}" th:errors="*{provinceName}">provinceName의 에러 메시지</span></td>				</tr>
+					<td><span class="error_message" th:if="${#fields.hasErrors('provinceName')}" th:errors="*{provinceName}">provinceName의 에러 메시지</span></td>
+				</tr>
 				<tr>
 					<td th:text="#{city.name}">도시</td>
 					<td><input type="text" id="city" th:field="*{city}" readonly="readonly" /></td>
@@ -31,6 +32,16 @@
 					<td th:text="#{screen.name}">상영관 이름</td>
 					<td><input type="text" id="screenName" th:field="*{screenName}" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('screenName')}" th:errors="*{screenName}">screenName의 에러 메시지</span></td>				
+				</tr>
+				<tr>
+					<td th:text="#{screen.col}">상영관 행</td>
+					<td><input type="number" id="screenCol" th:field="*{screenCol}" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('screenCol')}" th:errors="*{screenCol}">screenCol의 에러 메시지</span></td>
+				</tr>
+				<tr>
+					<td th:text="#{screen.row}">상영관 열</td>
+					<td><input type="number" id="screenRow" th:field="*{screenRow}" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('screenRow')}" th:errors="*{screenRow}">screenRow의 에러 메시지</span></td>
 				</tr>
 			</table>
 			

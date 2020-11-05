@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.SeatMapper">
+	
+	<select id="read" resultType="Seat">
+		SELECT screen_name,
+			seat_no,
+			seat_id,
+			price
+		  FROM movie_seat 
+		 WHERE seat_no = #{seatNo}
+	</select>
+
+	<update id="update">
+		UPDATE movie_seat
+		   SET seat_id = #{seatId},
+		   	price = #{price}
+		 WHERE seat_no = #{seatNo}
+	</update>
+	
+	<delete id="deleteall">
+		DELETE FROM movie_seat
+		WHERE screen_name = #{screenName}
+	</delete>
+	
+	<select id="list" resultType="Seat">
+		SELECT seat_no, 
+			seat_id,
+			price
+		  FROM movie_seat
+		 WHERE screen_name = #{screenName}
+	</select>
+	
+</mapper>

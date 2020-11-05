@@ -1,10 +1,8 @@
 package org.hdcd.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.hdcd.common.domain.CodeLabelValue;
 import org.hdcd.domain.Screen;
@@ -18,8 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -35,7 +31,7 @@ public class ScreenController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void registerForm(Model model, HttpServletRequest req) throws Exception {
+	public void registerForm(Model model) throws Exception {
 		logger.info("Screen RegisterForm");
 		
 		Screen screen = new Screen();
@@ -44,10 +40,6 @@ public class ScreenController {
 		
 		List<CodeLabelValue> provinceNameList = provinceService.getProvinceClassList();
 		model.addAttribute("provinceNameList", provinceNameList);
-				
-		//String provinceName = req.getParameter("provinceName");
-		
-		//logger.info("provinceName : " + provinceName);
 		
 	}
 	
@@ -60,9 +52,7 @@ public class ScreenController {
 		model.addAttribute(screen);
 		
 		String provinceName = req.getParameter("provinceName");
-		
-		logger.info("provinceName : " + provinceName);
-		
+				
 		List<CodeLabelValue> cityList = provinceService.getProvinceList(provinceName);
 		model.addAttribute("cityList", cityList);
 		
@@ -97,9 +87,6 @@ public class ScreenController {
 		Screen screen = service.read(screenNo);
 				
 		model.addAttribute(screen);
-		
-		List<CodeLabelValue> provinceNameList = provinceService.getProvinceClassList();
-		model.addAttribute("provinceNameList", provinceNameList);
 		
 	}
 	
@@ -139,5 +126,5 @@ public class ScreenController {
 		
 		return "redirect:/screen/list";
 	}
-
+	
 }

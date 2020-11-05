@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hdcd.domain.Review;
 
-
 public interface ReviewMapper {
 	
 	public void create(Review review) throws Exception;

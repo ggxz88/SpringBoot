@@ -8,6 +8,38 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
+<style>
+	
+	* {box-sizing: border-box;}
+	body {font-family: Verdana, sans-serif;}
+	.mySlides {display: none;}
+	img {vertical-align: middle;}
+	
+	/* Slideshow container */
+	.slideshow-container {
+	  max-width: 1000px;
+	  position: relative;
+	  margin: auto;
+	}
+	
+	/* Fading animation */
+	.fade {
+	  -webkit-animation-name: fade;
+	  -webkit-animation-duration: 1.5s;
+	  animation-name: fade;
+	  animation-duration: 1.5s;
+	}
+	
+	@-webkit-keyframes fade {
+	  from {opacity: .4} 
+	  to {opacity: 1}
+	}
+	
+	@keyframes fade {
+	  from {opacity: .4} 
+	  to {opacity: 1}
+	}
+</style>
 <body>
 	<div layout:fragment="content">
 		<h2>영화 상세보기</h2>
@@ -57,27 +89,6 @@
 				<tr>
 					<td th:text="#{movie.poster}">포스터</td>
 					<td><img src="display1?movieNo=${movie.movieNo}" th:src="|display1?movieNo=${movie.movieNo}|" width="210" height="240"></td>
-					
-				</tr>
-				<tr>
-					<td th:text="#{movie.still1}">스틸컷1</td>
-					<td><img src="display2?movieNo=${movie.movieNo}" th:src="|display2?movieNo=${movie.movieNo}|" width="210" height="240"></td>
-					
-				</tr>
-				<tr>
-					<td th:text="#{movie.still2}">스틸컷2</td>
-					<td><img src="display3?movieNo=${movie.movieNo}" th:src="|display3?movieNo=${movie.movieNo}|" width="210" height="240"></td>
-						
-				</tr>
-				<tr>
-					<td th:text="#{movie.still3}">스틸컷3</td>
-					<td><img src="display4?movieNo=${movie.movieNo}" th:src="|display4?movieNo=${movie.movieNo}|" width="210" height="240"></td>
-					
-				</tr>
-				<tr>
-					<td th:text="#{movie.still4}">스틸컷4</td>
-					<td><img src="display5?movieNo=${movie.movieNo}" th:src="|display5?movieNo=${movie.movieNo}|" width="210" height="240"></td>
-					
 				</tr>
 				<tr>
 					<td th:text="#{movie.summary}">내용</td>
@@ -85,6 +96,25 @@
 				</tr>
 				
 			</table>
+			<br>
+			
+			<!-- 스틸컷 -->
+			<h4>영화 포토</h4>
+			<div class="mySlides fade">
+				<img src="display2movieNo=${movie.movieNo}" th:src="|display2?movieNo=${movie.movieNo}|" width="260" height="180">
+			</div>
+			
+			<div class="mySlides fade">
+				<img src="display3movieNo=${movie.movieNo}" th:src="|display3?movieNo=${movie.movieNo}|" width="260" height="180">
+			</div>
+			
+			<div class="mySlides fade">
+				<img src="display4movieNo=${movie.movieNo}" th:src="|display4?movieNo=${movie.movieNo}|" width="260" height="180">
+			</div>
+			
+			<div class="mySlides fade">
+				<img src="display5movieNo=${movie.movieNo}" th:src="|display5?movieNo=${movie.movieNo}|" width="260" height="180">
+			</div>
 			
 		</form>
 		
@@ -93,6 +123,7 @@
 		</div>
 		
 		<!-- 후기 -->
+		<hr>
 		<h3 align="center" th:text=#{review.list}>댓글</h3>
 		
 		<div align="center">
@@ -103,6 +134,10 @@
 				<div align="center">
 					<th:block sec:authorize="isAuthenticated()">
 						<input type="hidden" id="review_movieNo" th:field="*{movieNo}">
+						
+						<label for="scores" th:text="#{review.scores}"></label>
+						<input type="number" id="scores" min="0" max="5" step="0.5" th:field="*{scores}" />
+						
 						<label for="reviewContent" th:text="#{review.register}"></label>
 						<input type="text" id="reviewContent" th:field="*{reviewContent}" />
 						
@@ -120,8 +155,8 @@
 			</tr>
 			
 			<tr th:each="review : ${reviewList}">
-				<td align="center" th:text="${review.reviewNo}">${review.reviewNo}</td>
 				<td align="center" th:text="${review.reviewWriter}">${review.reviewyWriter}</td>
+				<td align="center" th:text="${review.scores}">${review.scores}</td>
 				<td align="center" th:text="${review.reviewContent}">${review.reviewContent}</td>
 				<td align="center" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd HH:mm')}">${review.regDate}</td>
 				<td>
@@ -153,6 +188,22 @@
 			
 			$(document).ready(function() {
 				
+				//스틸컷
+				var slideIndex = 0;
+				carousel();
+				
+				function carousel() {
+				  var i;
+				  var x = document.getElementsByClassName("mySlides");
+				  for (i = 0; i < x.length; i++) {
+				    x[i].style.display = "none";
+				  }
+				  slideIndex++;
+				  if (slideIndex > x.length) {slideIndex = 1}
+				  x[slideIndex-1].style.display = "block";
+				  setTimeout(carousel, 4000); // Change image every 4 seconds
+				}
+				
 				$("#btnList").on("click", function() {
 					self.location = "list[(${pgrq.toUriString()})]";
 				});
@@ -183,6 +234,7 @@
 					formObj.attr("action", "/movie/reviewregister");
 					formObj.submit();
 				});
+				
 				
 			});
 			

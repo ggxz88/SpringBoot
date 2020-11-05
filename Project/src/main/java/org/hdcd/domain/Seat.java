@@ -6,26 +6,36 @@ public class Seat implements Serializable {
 
 	private static final long serialVersionUID = -415438151228067928L;
 	
-	private String screenNo; /*영화 상영관 번호*/
+	private String screenName; /*영화 상영관 이름*/
 	
-	private String seat; /*영화 좌석*/
+	private int seatNo; /*좌석 번호*/
+	
+	private String seatId; /*영화 좌석*/
     
 	private int price; /*영화 가격*/
 	
-	public String getScreenNo() {
-		return screenNo;
+	public String getScreenName() {
+		return screenName;
 	}
 
-	public void setScreenNo(String screenNo) {
-		this.screenNo = screenNo;
+	public void setScreenName(String screenName) {
+		this.screenName = screenName;
 	}
 
-	public String getSeat() {
-		return seat;
+	public int getSeatNo() {
+		return seatNo;
 	}
 
-	public void setSeat(String seat) {
-		this.seat = seat;
+	public void setSeatNo(int seatNo) {
+		this.seatNo = seatNo;
+	}
+
+	public String getSeatId() {
+		return seatId;
+	}
+
+	public void setSeatId(String seatId) {
+		this.seatId = seatId;
 	}
 
 	public int getPrice() {

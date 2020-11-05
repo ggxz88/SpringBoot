@@ -59,7 +59,7 @@
 				</tr>
 				<tr>
 					<td th:text="#{movie.openningDays}">개봉일자</td>
-					<td><input type="date" id="openningDays" /></td>
+					<td><input type="date" id="openningDays" name="openningDays" /></td>
 				</tr>
 				<tr>
 					<td th:text="#{movie.nation}">국가</td>
@@ -89,27 +89,26 @@
 				<tr>
 					<td th:text="#{movie.still4}">스틸컷4</td>
 					<td><img src="display5?movieNo=${movie.movieNo}" th:src="|display5?movieNo=${movie.movieNo}|" width="210" height="240"></td>
-					
 				</tr>
 				<tr>
 					<td th:text="#{movie.posterFile}">포스터 파일</td>
-					<td><input type="file" id="poster" /></td>
+					<td><input type="file" id="poster" name="poster" /></td>
 				</tr>
 				<tr>
 					<td th:text="#{movie.still1File}">스틸컷1 파일</td>
-					<td><input type="file" id="still1" /></td>
+					<td><input type="file" id="still1" name="still1" /></td>
 				</tr>
 				<tr>
 					<td th:text="#{movie.still2File}">스틸컷2 파일</td>
-					<td><input type="file" id="still2" /></td>
+					<td><input type="file" id="still2" name="still2" /></td>
 				</tr>
 				<tr>
 					<td th:text="#{movie.still3File}">스틸컷3 파일</td>
-					<td><input type="file" id="still3" /></td>
+					<td><input type="file" id="still3" name="still3" /></td>
 				</tr>
 				<tr>
 					<td th:text="#{movie.still4File}">스틸컷4 파일</td>
-					<td><input type="file" id="still4" /></td>
+					<td><input type="file" id="still4" name="still4" /></td>
 				</tr>
 				<tr>
 					<td th:text="#{movie.summary}">줄거리</td>
@@ -141,7 +140,7 @@
 				});
 				
 				$("#btnList").on("click", function() {
-					self.location = "list[(${pgrq.toUriString()})]";
+					self.location = "list";
 				});
 			
 			});

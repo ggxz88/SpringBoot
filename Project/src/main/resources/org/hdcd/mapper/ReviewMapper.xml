@@ -9,12 +9,14 @@
 			(
 			movie_no,
 			review_writer,
+			scores,
 			review_content
 			)
 		VALUES
 			(
 			#{movieNo},
 			#{reviewWriter},
+			#{scores},
 			#{reviewContent}
 			)
 	</insert>
@@ -22,6 +24,7 @@
 	<select id="read" resultType="Review">
 		SELECT review_no,
 			review_writer,
+			scores,
 			review_content,
 			reg_date
 		FROM review 
@@ -30,7 +33,8 @@
 
 	<update id="update">
 		UPDATE review
-		   SET review_content = #{reviewContent}
+		   SET scores = #{scores},
+		   	review_content = #{reviewContent}
 		 WHERE review_no = #{reviewNo}
 	</update>
 	
@@ -41,6 +45,7 @@
 	
 	<select id="list" resultType="Review">
 		SELECT review_no,
+			scores,
 			review_writer,
 			review_content,
 			reg_date

@@ -170,4 +170,10 @@
 		 WHERE movie_no = #{movieNo}
 	</select>
 	
+	<select id="getScores" resultType="float">
+		SELECT ROUND(AVG(scores), 1) as score 
+		  FROM review 
+		 WHERE movie_no = #{movieNo};
+	</select>
+	
 </mapper>

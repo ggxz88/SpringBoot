@@ -22,6 +22,17 @@
 			#{screenRow}
 			)
 	</insert>
+	
+	<insert id="createSeat">
+		INSERT INTO movie_seat 
+			(
+			screen_name
+			)
+		VALUES
+			(
+			#{screenName}
+			)
+	</insert>
 
 	<select id="read" resultType="Screen">
 		SELECT screen_no,

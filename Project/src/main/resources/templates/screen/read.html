@@ -30,7 +30,21 @@
 					<td th:text="#{screen.name}">상영관 이름</td>
 					<td><input type="text" id="screenName" th:field="*{screenName}" readonly="readonly" /></td>
 				</tr>
+				<tr>
+					<td th:text="#{screen.col}">상영관 행</td>
+					<td><input type="number" id="screenCol" th:field="*{screenCol}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{screen.row}">상영관 열</td>
+					<td><input type="number" id="screenRow" th:field="*{screenRow}" readonly="readonly" /></td>
+				</tr>
 			</table>
+			
+			<div>
+				<a href="list.html" th:href="@{|/seat/list?screenName=${screen.screenName}|}">
+					<canvas id="canvas1" width="150" height="150"></canvas>
+				</a>
+			</div>
 			
 		</form>
 		
@@ -41,9 +55,33 @@
 				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
 			</th:block>	
 		</div>
-				
+		<br>
+		
 		<script>
 			$(document).ready(function() {
+				
+				//좌석
+				window.onload = draw;
+				function draw() {
+					var canvas = document.getElementById("canvas1");
+				 	var ctx = canvas.getContext("2d");
+				 	var col, row;
+				 	var maxCol = $("#screenCol").val();
+				 	var maxRow = $("#screenRow").val();
+				 	var x = 10;
+					var y = 10;
+					
+					for (row = 0; row < maxRow; row++) {
+						for (col = 0; col < maxCol; col++) {
+							
+							ctx.fillStyle = "grey";
+							ctx.fillRect (x, y, 15, 15);
+							x = x + 20;
+						}
+						y = y + 20;
+						x = 10
+					}
+				}
 				
 				var formObj = $("#screen");
 				

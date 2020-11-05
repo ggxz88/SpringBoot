@@ -42,12 +42,12 @@
 				</tr>
 				<tr>
 					<td th:text="#{screen.col}">상영관 행</td>
-					<td><input type="number" id="screenCol" th:field="*{screenCol}" /></td>
+					<td><input type="number" id="screenCol" min="1" max="15" th:field="*{screenCol}" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('screenCol')}" th:errors="*{screenCol}">screenCol의 에러 메시지</span></td>
 				</tr>
 				<tr>
 					<td th:text="#{screen.row}">상영관 열</td>
-					<td><input type="number" id="screenRow" th:field="*{screenRow}" /></td>
+					<td><input type="number" id="screenRow" min="1" max="15" th:field="*{screenRow}" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('screenRow')}" th:errors="*{screenRow}">screenRow의 에러 메시지</span></td>
 				</tr>
 			</table>

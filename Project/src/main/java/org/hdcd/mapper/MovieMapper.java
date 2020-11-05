@@ -29,4 +29,6 @@ public interface MovieMapper {
 	
 	public String getStill4(Integer movieNo) throws Exception;
 	
+	public float getScores(Integer movieNo) throws Exception;
+	
 }
