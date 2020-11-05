@@ -1,0 +1,111 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Time</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>상영시간 상세보기</h2>
+		
+		<form id="time" action="list.html" th:action="@{/time/remove}" th:object="${time}" method="POST">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" id="timeNo" th:field="*{timeNo}" />
+			
+			<table>
+				<tr>
+					<td th:text="#{province.name}">도시</td>
+					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{city.name}">극장</td>
+					<td><input type="text" id="city" th:field="*{city}" readonly="readonly" /></td>
+					
+				</tr>
+				<tr>
+					<td th:text="#{screen.name}">상영관 이름</td>
+					<td><input type="text" id="screenName" th:field="*{screenName}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.title}">영화</td>
+					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{time.date}">상영일자</td>
+					<td><input type="date" id="showDate" name="showDate" th:field="*{showDate}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{time.time}">시간</td>
+					<td><input type="time" id="showTime" name="showTime" th:field="*{showTime}" readonly="readonly" /></td>
+				</tr>
+				
+			</table>
+			
+		</form>
+			
+		<div>
+			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+				<button type="submit" id="btnEdit" th:text="#{action.edit}">편집</button>
+				<button type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
+				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+			</th:block>	
+		</div>
+		<br>
+		
+		<script th:inline="javascript">
+			$(document).ready(function() {
+				
+				var formObj = $("#time");
+				
+				$("#btnEdit").on("click", function() {
+					var timeNo = $("#timeNo");
+					var timeNoVal = timeNo.val();
+					
+					self.location = "/time/modify" + "?timeNo=" + timeNoVal;
+				});
+				
+				$("#btnRemove").on("click", function() {
+					formObj.attr("action", "/time/remove");
+					formObj.submit();
+				});
+				
+				$("#btnList").on("click", function() {
+					self.location = "/time/list";
+				});
+				
+				//댓글
+				function getParam(sname) {
+					var presentUrl = document.location.href;
+					
+					var params = presentUrl.substr(presentUrl.indexOf("?") + 1);
+					var sval = "";
+					params = params.split("&");
+					
+					for (var i = 0; i < params.length; i++) {
+						temp = params[i].split("=");
+						if([temp[0]] == sname) {
+							sval = temp[1];
+						}
+					}
+					return sval;
+				}
+				
+				
+				document.getElementById('reply_boardNo').value = getParam("boardNo");
+				
+				$("#replyRegister").on("click", function() {
+					formObj2.attr("action", "/board/replyregister");
+					formObj2.submit();
+				});
+				
+			});
+		</script>
+		
+	</div>
+</body>
+</html>

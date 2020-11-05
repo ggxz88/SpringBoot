@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hdcd.mapper.TimeMapper">
+
+	<insert id="create">
+		INSERT INTO movie_time
+			(
+			province_name,
+			city,
+			screen_name,
+			title,
+			show_date,
+			show_time
+			)
+		VALUES
+			(
+			#{provinceName},
+			#{city},
+			#{screenName},
+			#{title},
+			#{showDate},
+			#{showTime}
+			)
+	</insert>
+	
+	<select id="read" resultType="Time">
+		SELECT province_name,
+			city,
+			screen_name,
+			title,
+			show_date,
+			show_time
+		  FROM movie_time
+		 WHERE time_no = #{timeNo}
+	</select>
+
+	<update id="update">
+		UPDATE movie_time 
+		   SET show_time = #{showTime}
+		 WHERE time_no = #{timeNo}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM movie_time
+		 WHERE time_no = #{timeNo}
+	</delete>
+	
+	<select id="list" resultType="Time">
+		<![CDATA[
+			SELECT time_no, 
+				province_name,
+				city,
+				screen_name,
+				title,
+				show_date,
+				show_time
+			  FROM movie_time
+			 WHERE show_date ASC, show_time ASC
+		]]>
+	</select>
+	
+	<select id="screenList" resultType="org.hdcd.common.domain.CodeLabelValue">
+		SELECT screen_name AS value,
+			screen_name AS label
+		  FROM movie_time
+		 WHERE city = #{city}
+	</select>
+	
+	<select id="movieList" resultType="org.hdcd.common.domain.CodeLabelValue">
+		SELECT title AS value,
+			title AS label
+		  FROM movie
+	</select>
+	
+</mapper>

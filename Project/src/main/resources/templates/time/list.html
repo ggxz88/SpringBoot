@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Time</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>시간 목록</h2>
+		
+		<table border="1">
+			<tr>
+				<th align="center" width="100" th:text="#{time.city}">영화관</th>
+				<th align="center" width="200" th:text="#{time.title}">영화</th>
+				<th align="center" width="100" th:text="#{time.showDate}">상영일</th>
+				<th align="center" width="100" th:text="#{time.showTime}">상영시간</th>
+			</tr>
+			
+			<tr th:if="${#lists.isEmpty(list)}">
+				<td colspan="4" th:text="#{common.listEmpty}">List is empty.</td>
+			</tr>
+			
+			<tr th:each="time : ${list}">
+				<td align="center" th:text="${time.city}">${time.city}</td>
+				<td align="center"><a href="read.html" th:href="@{|/time/read?timeNo=${time.timeNo}|}" th:text="${time.title}">${time.title}</a></td>
+				<td align="center" th:text="${#dates.format(time.showDate, 'yyyy-MM-dd')}">${time.showDate}</td>
+				<td align="center" th:text="${#dates.format(time.showTime, 'HH:mm')}">${time.showTime}</td>
+			</tr>
+		</table>
+		<br />
+		
+		<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+			<a href="register.html" th:href="@{/time/register}">
+				<button type="button" th:text="#{time.new}">상영 등록</button>
+			</a>
+		</th:block>
+		
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+				var result = "[${msg}]";
+			
+			
+				if(result === "SUCCESS") {
+					alert(/*[[#{common.processSuccess}]]*/);
+				}
+			/*]]>*/
+		</script>
+		
+	</div>
+</body>
+</html>

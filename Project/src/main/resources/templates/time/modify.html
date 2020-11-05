@@ -1,0 +1,77 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Time</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h2>시간 수정</h2>
+		
+		<form id="time" action="list.html" th:action="@{/time/modify}" th:object="${time}" method="POST">
+			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" id="timeNo" th:field="*{timeNo}" />
+			
+			<table>
+				<tr>
+					<td th:text="#{province.name}">도시</td>
+					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{city.name}">극장</td>
+					<td><input type="text" id="city" th:field="*{city}" readonly="readonly" /></td>
+					
+				</tr>
+				<tr>
+					<td th:text="#{screen.name}">상영관 이름</td>
+					<td><input type="text" id="screenName" th:field="*{screenName}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{movie.title}">영화</td>
+					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{time.date}">상영일자</td>
+					<td><input type="date" id="showDate" name="showDate" th:field="*{showDate}" /></td>
+				</tr>
+				<tr>
+					<td th:text="#{time.time}">시간</td>
+					<td><input type="time" id="showTime" name="showTime" th:field="*{showTime}" /></td>
+				</tr>
+				
+			</table>
+			
+		</form>
+		
+		<div>
+			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+				<button type="submit" id="btnModify" th:text="#{action.modify}">편집</button>
+				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+			</th:block>	
+		</div>
+		
+		<script>
+			$(document).ready(function() {
+				var formObj = $("#time");
+				
+				console.log(formObj);
+				
+				$("#btnModify").on("click", function() {
+					formObj.submit();
+				});
+				
+				$("#btnList").on("click", function() {
+					self.location = "list";
+				});
+			
+			});
+		</script>
+		
+	</div>
+</body>
+</html>
