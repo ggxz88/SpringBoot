@@ -37,4 +37,41 @@
 		]]>
 	</select>
 	
+	<insert id="createPayHistory">
+		INSERT INTO pay_coin_history
+			(
+			user_id,
+			movie_no,
+			amount
+			)
+		VALUES
+			(
+			#{userId},
+			#{movieNo},
+			#{amount}
+			)
+	</insert>
+	
+	<update id="pay">
+		UPDATE member
+		   SET point = (point - #{amount}),
+		   	upd_date = now()
+		 WHERE user_id = #{userId}
+	</update>
+	
+	<select id="listPayHistory" resultType="PayPoint">
+		<![CDATA[
+			SELECT a.history_no,
+				a.user_id,
+				a.movie_reserve_no,
+				b.reserve_info,
+				a.amount,
+				a.reg_date
+			  FROM pay_point_history a INNER JOIN movie_reservation b
+			    ON a.movie_reserve_no = b.movie_reserve_no
+			 WHERE a.history_no > 0
+			   AND user_id = #{userId}
+			ORDER BY a.history_no DESC
+		]]>
+	</select>
 </mapper>

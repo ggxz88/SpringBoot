@@ -67,7 +67,7 @@
 		
 		<div>
 			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-				<button type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
+				<button type="submit" id="btnRegister" th:text="#{action.register}" disabled="disabled">등록</button>
 				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
 			</th:block>
 		</div>

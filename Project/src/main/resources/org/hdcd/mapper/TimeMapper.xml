@@ -26,7 +26,8 @@
 	</insert>
 	
 	<select id="read" resultType="Time">
-		SELECT province_name,
+		SELECT time_no,
+			province_name,
 			city,
 			screen_name,
 			title,
@@ -57,14 +58,14 @@
 				show_date,
 				show_time
 			  FROM movie_time
-			 WHERE show_date ASC, show_time ASC
+			ORDER BY show_date ASC, show_time ASC
 		]]>
 	</select>
 	
 	<select id="screenList" resultType="org.hdcd.common.domain.CodeLabelValue">
 		SELECT screen_name AS value,
 			screen_name AS label
-		  FROM movie_time
+		  FROM movie_screen
 		 WHERE city = #{city}
 	</select>
 	

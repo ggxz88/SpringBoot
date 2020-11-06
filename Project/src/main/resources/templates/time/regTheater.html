@@ -12,7 +12,7 @@
 	<div layout:fragment="content">
 		<h2>상영 시간 등록</h2>
 		
-		<form id="screen" action="list.html" th:action="@{/screen/register}" th:object="${screen}" method="POST">
+		<form id="time" action="list.html" th:action="@{/time/register}" th:object="${time}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
@@ -25,7 +25,7 @@
 				<tr>
 					<td th:text="#{city.name}">극장</td>
 					<td>
-						<select class="cityget" id="citylist" th:field="*{city}">
+						<select class="cityget" id="city" th:field="*{city}">
 							<option value="">--선택--</option>
 							<option th:each="cityList : ${cityList}" th:value="${cityList.value}" th:text="${cityList.label}">theater</option>
 						</select>
@@ -63,7 +63,7 @@
 		
 		<div>
 			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-				<button type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
+				<button type="submit" id="btnRegister" th:text="#{action.register}" disabled="disabled" >등록</button>
 				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
 			</th:block>
 		</div>
@@ -102,7 +102,7 @@
 						data : query,
 						success : function(data) {
 							console.log($("#city").val());	
-							self.location = "/time/regTime" + "?provinceName=" + $("#provinceName").val() + "?city=" + $("#city").val();
+							self.location = "/time/regTime" + "?provinceName=" + $("#provinceName").val() + "&city=" + $("#city").val();
 						}
 					});
 					

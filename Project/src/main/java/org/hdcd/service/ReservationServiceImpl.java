@@ -1,0 +1,53 @@
+package org.hdcd.service;
+
+import java.util.List;
+
+import org.hdcd.domain.Member;
+import org.hdcd.domain.PayPoint;
+import org.hdcd.domain.Reservation;
+import org.hdcd.mapper.PointMapper;
+import org.hdcd.mapper.ReservationMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class ReservationServiceImpl implements ReservationService {
+
+	@Autowired 
+	private ReservationMapper mapper;
+	
+	@Autowired
+	private PointMapper pointMapper;
+	
+	@Transactional
+	@Override
+	public void register(Member member, Reservation reservation) throws Exception {
+		String userId = member.getUserId();
+		
+		PayPoint payPoint = new PayPoint();
+		payPoint.setUserId(userId);
+		
+		pointMapper.pay(payPoint);
+		pointMapper.createPayHistory(payPoint);
+		
+		mapper.create(reservation);
+		
+	}
+	
+	@Override
+	public Reservation read(Integer movieReserveNo) throws Exception {
+		return mapper.read(movieReserveNo);
+	}
+	
+	@Override
+	public List<Reservation> listAll() throws Exception {
+		return mapper.listAll();
+	}
+	
+	@Override
+	public List<Reservation> list(String userId) throws Exception {
+		return mapper.list(userId);
+	}
+	
+}

@@ -1,7 +1,8 @@
 package org.hdcd.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Time implements Serializable {
 
@@ -17,9 +18,9 @@ public class Time implements Serializable {
 	
 	private String title;
 	
-	private Date showDate;
+	private LocalDate showDate;
 	
-    private Time showTime;
+    private LocalTime showTime;
 
 	public int getTimeNo() {
 		return timeNo;
@@ -60,21 +61,23 @@ public class Time implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	public Date getShowDate() {
+
+	public LocalDate getShowDate() {
 		return showDate;
 	}
 
-	public void setShowDate(Date showDate) {
+	public void setShowDate(LocalDate showDate) {
 		this.showDate = showDate;
 	}
 
-	public Time getShowTime() {
+	public LocalTime getShowTime() {
 		return showTime;
 	}
 
-	public void setShowTime(Time showTime) {
+	public void setShowTime(LocalTime showTime) {
 		this.showTime = showTime;
 	}
+	
+	
 	
 }
