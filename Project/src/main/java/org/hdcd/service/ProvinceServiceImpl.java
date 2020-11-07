@@ -23,5 +23,14 @@ public class ProvinceServiceImpl implements ProvinceService {
 		return mapper.getProvinceList(provinceName);
 	}
 
-
+	@Override
+	public List<CodeLabelValue> getcityList(String provinceName, String title) throws Exception {
+		return mapper.getcityList(provinceName, title);
+	}
+	
+	@Override
+	public List<CodeLabelValue> getdayList(String city, String title) throws Exception {
+		return mapper.getdayList(city, title);
+	}
+	
 }

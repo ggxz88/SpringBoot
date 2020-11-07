@@ -4,25 +4,25 @@
 	layout:decorate="~{/layouts/main_template}">
 
 <head>
-	<title>Time</title>
+	<title>Reservation</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>상영 시간 등록</h2>
+		<h2>영화 예매</h2>
 		
-		<form id="time" action="list.html" th:action="@{/time/register}" th:object="${time}" method="POST">
+		<form id="Reservation" action="list.html" th:action="@{/reserve/reserve}" th:object="${reservation}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
 			<table>
 				<tr>
-					<td th:text="#{province.name}">도시</td>
+					<td th:text="#{movie.title}">영화</td>
 					<td>
-						<select class="provinceget" th:field="*{provinceName}">
+						<select class="getMovie" th:field="*{title}">
 							<option value="">--선택--</option>
-							<option th:each="province : ${provinceNameList}" th:value="${province.label}" th:text="${province.label}">province</option>
+							<option th:each="movieList : ${movieList}" th:value="${movieList.value}" th:text="${movieList.label}">movie</option>
 						</select>
 					</td>
 				</tr>
@@ -31,7 +31,7 @@
 		</form>
 		
 		<div>
-			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+			<th:block sec:authorize="hasRole('ROLE_MEMBER')">
 				<button type="submit" id="btnRegister" th:text="#{action.register}" disabled="disabled">등록</button>
 				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
 			</th:block>
@@ -41,19 +41,19 @@
 			
 			$(document).ready(function() {
 				
-				var formObj = $("#time");
+				var formObj = $("#reservation");
 				
-				$(".provinceget").change(function() {
-					var query = {"provinceName" : $("#provinceName").val()};
+				$(".getMovie").change(function() {
+					var query = {"title" : $("#title").val()};
 					
 					$.ajax({
-						url : "/time/regTheater",
+						url : "/reserve/resProvince",
 						json : "json",
 						type : "post",
 						data : query,
 						success : function(data) {
-							console.log($("#provinceName").val());	
-							self.location = "/time/regTheater" + "?provinceName=" + $("#provinceName").val();
+							console.log($("#title").val());	
+							self.location = "/reserve/resProvince" + "?title=" + $("#title").val();
 						}
 					});
 					

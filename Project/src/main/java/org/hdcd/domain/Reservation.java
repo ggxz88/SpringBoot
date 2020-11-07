@@ -1,8 +1,9 @@
 package org.hdcd.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Reservation implements Serializable {
 
@@ -20,10 +21,9 @@ public class Reservation implements Serializable {
 	
     private String city; /*영화관*/
     
-	private LocalDate showDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime showTime;
 	
-    private LocalTime showTime;
-
     private String screenName; /*영화 상영관 이름*/
 	
     private String seatId; /*좌석 이름*/
@@ -76,22 +76,6 @@ public class Reservation implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
-	}
-
-	public LocalDate getShowDate() {
-		return showDate;
-	}
-
-	public void setShowDate(LocalDate showDate) {
-		this.showDate = showDate;
-	}
-
-	public LocalTime getShowTime() {
-		return showTime;
-	}
-
-	public void setShowTime(LocalTime showTime) {
-		this.showTime = showTime;
 	}
 
 	public String getScreenName() {

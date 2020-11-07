@@ -31,32 +31,6 @@
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<td th:text="#{screen.name}">상영관 이름</td>
-					<td>
-						<select id="screenList" th:field="*{screenName}">
-							<option value="">--선택--</option>
-							<option th:each="screenList : ${screenList}" th:value="${screenList.value}" th:text="${screenList.label}">screen</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.title}">영화</td>
-					<td>
-						<select id="movieList" th:field="*{title}">
-							<option value="">--선택--</option>
-							<option th:each="movieList : ${movieList}" th:value="${movieList.value}" th:text="${movieList.label}">movie</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td th:text="#{time.date}">상영일자</td>
-					<td><input type="date" id="showDate" name="showDate" th:field="*{showDate}" /></td>
-				</tr>
-				<tr>
-					<td th:text="#{time.time}">시간</td>
-					<td><input type="time" id="showTime" name="showTime" th:field="*{showTime}" /></td>
-				</tr>
 			</table>
 			
 		</form>

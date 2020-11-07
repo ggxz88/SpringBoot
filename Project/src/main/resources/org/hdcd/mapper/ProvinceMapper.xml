@@ -17,4 +17,20 @@
 		 WHERE province_name = #{provinceName}
 	</select>
 	
+	<select id="getcityList" resultType="org.hdcd.common.domain.CodeLabelValue">
+		SELECT city AS value,
+			city AS label
+		  FROM movie_time
+		 WHERE province_name = #{provinceName}
+		   AND title = #{title}
+	</select>
+	
+	<select id="getdayList" resultType="org.hdcd.common.domain.CodeLabelValue">
+		SELECT show_time AS value,
+			show_time AS label
+		  FROM movie_time
+		 WHERE city = #{city}
+		   AND title = #{title}
+	</select>
+	
 </mapper>

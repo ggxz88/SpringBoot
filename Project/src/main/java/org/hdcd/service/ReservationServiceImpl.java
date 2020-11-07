@@ -5,6 +5,7 @@ import java.util.List;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.PayPoint;
 import org.hdcd.domain.Reservation;
+import org.hdcd.domain.Seat;
 import org.hdcd.mapper.PointMapper;
 import org.hdcd.mapper.ReservationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,11 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public List<Reservation> list(String userId) throws Exception {
 		return mapper.list(userId);
+	}
+	
+	@Override
+	public List<Seat> getSeatList(String showTime) throws Exception {
+		return mapper.getSeatList(showTime);
 	}
 	
 }

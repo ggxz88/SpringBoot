@@ -87,4 +87,14 @@
 		]]>
 	</select>
 	
+	<select id="getSeatList" resultType="Seat">
+		SELECT seat_no, 
+			seat_id,
+			price
+		  FROM movie_seat
+		 WHERE screen_name = (SELECT screen_name
+				  FROM movie_time
+				 WHERE show_time = #{showTime})
+	</select>
+	
 </mapper>

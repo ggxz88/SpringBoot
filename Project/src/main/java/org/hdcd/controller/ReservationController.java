@@ -1,13 +1,23 @@
 package org.hdcd.controller;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.hdcd.common.domain.CodeLabelValue;
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.Reservation;
+import org.hdcd.domain.Seat;
 import org.hdcd.service.MemberService;
+import org.hdcd.service.ProvinceService;
 import org.hdcd.service.ReservationService;
+import org.hdcd.service.TimeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -28,6 +38,13 @@ public class ReservationController {
 	@Autowired 
 	private MemberService memberService;
 	
+	@Autowired
+	private ProvinceService provinceService;
+	
+	@Autowired
+	private TimeService timeService;
+	
+	
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	public void reserveForm(Model model) throws Exception {
@@ -37,12 +54,86 @@ public class ReservationController {
 		
 		model.addAttribute(reservation);
 		
+		List<CodeLabelValue> movieList = timeService.movieList();
+		
+		model.addAttribute("movieList", movieList);
+		
+	}
+	
+	@RequestMapping(value = "/resProvince", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void resProvince(Model model, HttpServletRequest req) throws Exception {
+		logger.info("resProvince");
+		
+		Reservation reservation = new Reservation();
+		
+		model.addAttribute(reservation);
+		
+		String title = req.getParameter("title");
+		
+		reservation.setTitle(title);
+		
+		List<CodeLabelValue> provinceNameList = provinceService.getProvinceClassList();
+		
+		model.addAttribute("provinceNameList", provinceNameList);
+		
+	}
+	
+	@RequestMapping(value = "/resTheater", method = RequestMethod.GET)
+	public void resTheater(Model model, HttpServletRequest req) throws Exception {
+		logger.info("resTheater");
+		
+		Reservation reservation = new Reservation();
+		
+		model.addAttribute(reservation);
+		
+		String provinceName = req.getParameter("provinceName");
+		
+		String title = req.getParameter("title");
+				
+		List<CodeLabelValue> cityList = provinceService.getcityList(provinceName, title);
+		
+		model.addAttribute("cityList", cityList);
+		
+	}
+	
+	@RequestMapping(value = "/resTime", method = RequestMethod.GET)
+	public void resTime(Model model, HttpServletRequest req) throws Exception {
+		logger.info("resTime");
+		
+		Reservation reservation = new Reservation();
+		
+		model.addAttribute(reservation);
+		
+		String city = req.getParameter("city");
+		
+		String title = req.getParameter("title");
+		
+		List<CodeLabelValue> dayList = provinceService.getdayList(city, title);
+		
+		model.addAttribute("dayList", dayList);
+		
+	}
+	
+	@RequestMapping(value = "/resSeat", method = RequestMethod.GET)
+	public void resSeat(Model model, HttpServletRequest req) throws Exception {
+		logger.info("resSeat");
+		
+		Reservation reservation = new Reservation();
+		
+		model.addAttribute(reservation);
+		
+		String showTime = req.getParameter("showTime");
+		
+		List<Seat> seatList = service.getSeatList(showTime);
+		
+		model.addAttribute("seatList", seatList);
 		
 	}
 	
 	@RequestMapping(value = "/reserve", method= RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	public String reserve(int amount, RedirectAttributes rttr, Authentication authentication) throws Exception {
+	public String reserve(Reservation reservation, RedirectAttributes rttr, Authentication authentication) throws Exception {
 		logger.info("reserve");
 		
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
@@ -52,7 +143,7 @@ public class ReservationController {
 		
 		member.setPoint(memberService.getPoint(userId));
 		
-		service.register(member);
+		service.register(member, reservation);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
@@ -75,7 +166,7 @@ public class ReservationController {
 		model.addAttribute("list", service.listAll());
 	}
 	
-	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MEMBER')")
 	public void list(Model model, Authentication authentication) throws Exception {
 		logger.info("My Reservation list");
