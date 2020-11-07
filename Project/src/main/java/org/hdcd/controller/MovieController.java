@@ -197,34 +197,34 @@ public class MovieController {
 		
 		MultipartFile still1File = movie.getStill1();
 		
-		if(posterFile != null && posterFile.getSize() > 0) {
+		if(still1File != null && still1File.getSize() > 0) {
 			String createFilename = uploadFile(still1File.getOriginalFilename(), still1File.getBytes());
 			
-			movie.setPosterUrl(createFilename);
+			movie.setStill1Url(createFilename);
 		}
 		
 		MultipartFile still2File = movie.getStill2();
 		
-		if(posterFile != null && posterFile.getSize() > 0) {
+		if(still2File != null && still2File.getSize() > 0) {
 			String createFilename = uploadFile(still2File.getOriginalFilename(), still2File.getBytes());
 			
-			movie.setPosterUrl(createFilename);
+			movie.setStill2Url(createFilename);
 		}
 		
 		MultipartFile still3File = movie.getStill3();
 		
-		if(posterFile != null && posterFile.getSize() > 0) {
+		if(still3File != null && still3File.getSize() > 0) {
 			String createFilename = uploadFile(still3File.getOriginalFilename(), still3File.getBytes());
 			
-			movie.setPosterUrl(createFilename);
+			movie.setStill3Url(createFilename);
 		}
 		
 		MultipartFile still4File = movie.getStill4();
 		
-		if(posterFile != null && posterFile.getSize() > 0) {
+		if(still4File != null && still4File.getSize() > 0) {
 			String createFilename = uploadFile(still4File.getOriginalFilename(), still4File.getBytes());
 			
-			movie.setPosterUrl(createFilename);
+			movie.setStill4Url(createFilename);
 		}
 		
 		movieService.modify(movie);

@@ -92,7 +92,7 @@
 				</tr>
 				<tr>
 					<td th:text="#{movie.posterFile}">포스터 파일</td>
-					<td><input type="file" id="poster" name="poster" /></td>
+					<td><input type="file" id="poster" th:field="*{poster}" /></td>
 				</tr>
 				<tr>
 					<td th:text="#{movie.still1File}">스틸컷1 파일</td>

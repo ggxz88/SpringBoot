@@ -97,7 +97,7 @@
 			still4_url = #{still4Url},
 			reg_date = #{regDate},
 			enabled = #{enabled}
-		 WHERE movie_no = #{movieNo}
+		  WHERE movie_no = #{movieNo}
 	</update>
 	
 	<delete id="delete">
