@@ -26,7 +26,7 @@
 			<tr th:each="screen : ${list}">
 				<td align="center" th:text="${screen.provinceName}">${screen.provinceName}</td>
 				<td align="center" th:text="${screen.city}">${screen.city}</td>
-				<td align="center"><a href="read.html" th:href="@{|/screen/read?screenNo=${screen.screenNo}|}" th:text="${screen.screenName}">${screen.screenName}</a></td>
+				<td align="center"><a href="read.html" th:href="@{|/screen/read?city=${screen.city}&screenName=${screen.screenName}|}" th:text="${screen.screenName}">${screen.screenName}</a></td>
 			</tr>
 		</table>
 		<br />

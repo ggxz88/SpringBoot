@@ -6,6 +6,8 @@ public class Seat implements Serializable {
 
 	private static final long serialVersionUID = -415438151228067928L;
 	
+	private String city;
+	
 	private String screenName; /*영화 상영관 이름*/
 	
 	private int seatNo; /*좌석 번호*/
@@ -14,6 +16,14 @@ public class Seat implements Serializable {
     
 	private int price; /*영화 가격*/
 	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getScreenName() {
 		return screenName;
 	}

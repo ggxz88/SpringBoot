@@ -1,13 +1,8 @@
 @charset "EUC-KR";
 
-.squares {
-	width: 40%;
-}
+a { text-decoration: none; }
 
-.square {
-	width: 10%;
-	display: inline-block;
-	text-align: center;
-	background: black;
-	opacity: 1.0;
+.seat {
+	width: 30px;
+	height: 30px;
 }

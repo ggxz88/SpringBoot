@@ -26,42 +26,46 @@
 	<insert id="createSeat">
 		INSERT INTO movie_seat 
 			(
-			screen_name
+			city,
+			screen_name,
+			seat_id
 			)
 		VALUES
 			(
-			#{screenName}
+			#{city},
+			#{screenName},
+			#{seatId}
 			)
 	</insert>
 
 	<select id="read" resultType="Screen">
-		SELECT screen_no,
-			province_name,
+		SELECT province_name,
 			city,
 			screen_name,
 			screen_col,
 			screen_row
 		  FROM movie_screen 
-		 WHERE screen_no = #{screenNo}
+		 WHERE city = #{city}
+		   AND screen_name = #{screenName}
 	</select>
 
 	<update id="update">
 		UPDATE movie_screen
-		SET screen_name = #{screenName},
-			screen_col = #{screenCol},
+		SET screen_col = #{screenCol},
 			screen_row = #{screenRow}
-		WHERE screen_no = #{screenNo}
+		 WHERE city = #{city}
+		   AND screen_name = #{screenName}
 	</update>
 	
 	<delete id="delete">
 		DELETE FROM movie_screen
-		WHERE screen_no = #{screenNo}
+		 WHERE city = #{city}
+		   AND screen_name = #{screenName}
 	</delete>
 	
 	<select id="list" resultType="Screen">
 		SELECT province_name,
 			city,
-			screen_no,
 			screen_name
 		  FROM movie_screen 
 		ORDER BY city ASC

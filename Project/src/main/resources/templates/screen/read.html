@@ -15,7 +15,6 @@
 		<form id="screen" action="list.html" th:action="@{/screen/remove}" th:object="${screen}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" id="screenNo" th:field="*{screenNo}" />
 			
 			<table>
 				<tr>
@@ -39,11 +38,15 @@
 					<td><input type="number" id="screenRow" th:field="*{screenRow}" readonly="readonly" /></td>
 				</tr>
 			</table>
-			
-			<div>
-				<a href="list.html" th:href="@{|/seat/list?screenName=${screen.screenName}|}">
-					<canvas id="canvas1" width="150" height="150"></canvas>
-				</a>
+			<br>
+			<div class="test">
+				<th:block class="block" th:each="seat, i : ${list}">
+					<a class="test" href="read.html" th:href="@{|/seat/read?seatNo=${seat.seatNo}|}">
+						<button type="button" class="seat" th:name="${i.index}" th:text="${seat.seatId}"></button>	
+					</a>
+					<span class="span" th:id="${i.index}"></span>
+				</th:block>
+				
 			</div>
 			
 		</form>
@@ -57,39 +60,46 @@
 		</div>
 		<br>
 		
-		<script>
+		<script th:inline="javascript">
 			$(document).ready(function() {
 				
-				//좌석
-				window.onload = draw;
-				function draw() {
-					var canvas = document.getElementById("canvas1");
-				 	var ctx = canvas.getContext("2d");
-				 	var col, row;
-				 	var maxCol = $("#screenCol").val();
-				 	var maxRow = $("#screenRow").val();
-				 	var x = 10;
-					var y = 10;
+				var ts = document.getElementsByClassName("seat");
+				var span = document.getElementsByClassName("span");
+				
+				var col = $("#screenCol").val();
+				col = Number(col);
+				
+				var count = 0;
+				
+				for(var i = 0; i < ts.length; i++) {
+					var t = ts.item(i);
+					var s = span.item(i);
+					var name = t.getAttribute("name");
+					var sname = s.getAttribute("id");
 					
-					for (row = 0; row < maxRow; row++) {
-						for (col = 0; col < maxCol; col++) {
-							
-							ctx.fillStyle = "grey";
-							ctx.fillRect (x, y, 15, 15);
-							x = x + 20;
+					if(count === (col-1)) {
+
+						if(i == sname) {
+							document.getElementById(sname).innerText = "\r\n";
 						}
-						y = y + 20;
-						x = 10
+						
+						count = 0;
+					} else {
+						count = count + 1;
 					}
+					
 				}
+				
 				
 				var formObj = $("#screen");
 				
 				$("#btnEdit").on("click", function() {
-					var screenNo = $("#screenNo");
-					var screenNoVal = screenNo.val();
+					var city = $("#city");
+					var screenName = $("#screenName");
+					var cityVal = city.val();
+					var screenNameVal = screenName.val();
 					
-					self.location = "/screen/modify" + "?screenNo=" + screenNoVal;
+					self.location = "/screen/modify" + "?city=" + cityVal + "&screenName=" + screenNameVal;
 				});
 				
 				$("#btnRemove").on("click", function() {

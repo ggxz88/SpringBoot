@@ -11,11 +11,11 @@ public interface ScreenMapper {
 	
 	public void createSeat(Seat seat) throws Exception;
 	
-	public Screen read(Integer screenNo) throws Exception;
+	public Screen read(String city, String screenName) throws Exception;
 	
 	public void update(Screen screen) throws Exception;
 	
-	public void delete(Integer screenNo) throws Exception;
+	public void delete(String city, String screenName) throws Exception;
 	
 	public List<Screen> list() throws Exception;
 	

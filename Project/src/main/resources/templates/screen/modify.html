@@ -15,7 +15,6 @@
 		<form id="screen" action="list.html" th:action="@{/screen/modify}" th:object="${screen}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" id="screenNo" th:field="*{screenNo}" />
 			
 			<table>
 				<tr>
@@ -30,7 +29,7 @@
 				</tr>
 				<tr>
 					<td th:text="#{screen.name}">상영관 이름</td>
-					<td><input type="text" id="screenName" th:field="*{screenName}" /></td>
+					<td><input type="text" id="screenName" th:field="*{screenName}" readonly="readonly"/></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('screenName')}" th:errors="*{screenName}">screenName의 에러 메시지</span></td>				
 				</tr>
 				<tr>

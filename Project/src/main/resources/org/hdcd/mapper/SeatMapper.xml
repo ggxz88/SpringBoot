@@ -5,7 +5,8 @@
 <mapper namespace="org.hdcd.mapper.SeatMapper">
 	
 	<select id="read" resultType="Seat">
-		SELECT screen_name,
+		SELECT city,
+			screen_name,
 			seat_no,
 			seat_id,
 			price
@@ -22,7 +23,8 @@
 	
 	<delete id="deleteall">
 		DELETE FROM movie_seat
-		WHERE screen_name = #{screenName}
+		WHERE city = #{city}
+		  AND screen_name = #{screenName}
 	</delete>
 	
 	<select id="list" resultType="Seat">
@@ -30,7 +32,8 @@
 			seat_id,
 			price
 		  FROM movie_seat
-		 WHERE screen_name = #{screenName}
+		 WHERE city = #{city}
+		  AND screen_name = #{screenName}
 	</select>
 	
 </mapper>

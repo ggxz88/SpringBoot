@@ -23,19 +23,6 @@ public class SeatController {
 	@Autowired
 	private SeatService seatService;
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public String list(@RequestParam String screenName, Model model) throws Exception {
-		logger.info("Seat list");
-		
-		List<Seat> seatList = seatService.list(screenName);
-		
-		model.addAttribute("list", seatList);
-		
-		return "seat/list";
-		
-	}
-	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void read(int seatNo, Model model) throws Exception {

@@ -25,8 +25,8 @@ public class SeatServiceImpl implements SeatService {
 	}
 	
 	@Override
-	public List<Seat> list(String screenName) throws Exception {
-		return seatMapper.list(screenName);
+	public List<Seat> list(String city, String screenName) throws Exception {
+		return seatMapper.list(city, screenName);
 	}
 
 }

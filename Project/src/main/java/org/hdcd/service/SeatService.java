@@ -10,6 +10,6 @@ public interface SeatService {
 	
 	public void modify(Seat seat) throws Exception;
 		
-	public List<Seat> list(String screenName) throws Exception;
+	public List<Seat> list(String city, String screenName) throws Exception;
 	
 }

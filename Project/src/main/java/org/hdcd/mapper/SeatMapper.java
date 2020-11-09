@@ -10,8 +10,8 @@ public interface SeatMapper {
 	
 	public void update(Seat seat) throws Exception;
 	
-	public void deleteall(String screenName) throws Exception;
+	public void deleteall(String city, String screenName) throws Exception;
 		
-	public List<Seat> list(String screenName) throws Exception;
+	public List<Seat> list(String city, String screenName) throws Exception;
 	
 }

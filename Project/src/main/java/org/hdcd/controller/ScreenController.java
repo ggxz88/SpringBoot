@@ -6,8 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hdcd.common.domain.CodeLabelValue;
 import org.hdcd.domain.Screen;
+import org.hdcd.domain.Seat;
 import org.hdcd.service.ProvinceService;
 import org.hdcd.service.ScreenService;
+import org.hdcd.service.SeatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,10 @@ public class ScreenController {
 	
 	@Autowired
 	private ScreenService service;
+	
+	@Autowired
+	private SeatService seatService;
+	
 	
 	@Autowired
 	private ProvinceService provinceService;
@@ -81,21 +87,25 @@ public class ScreenController {
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void read(int screenNo, Model model) throws Exception {
+	public void read(String city, String screenName, Model model) throws Exception {
 		logger.info("Screen Read");
 		
-		Screen screen = service.read(screenNo);
+		Screen screen = service.read(city, screenName);
 				
 		model.addAttribute(screen);
+		
+		List<Seat> seatList = seatService.list(city, screenName);
+		
+		model.addAttribute("list", seatList);
 		
 	}
 	
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public String remove(int screenNo, RedirectAttributes rttr) throws Exception {
+	public String remove(String city, String screenName, RedirectAttributes rttr) throws Exception {
 		logger.info("Screen Remove");
 		
-		service.remove(screenNo);
+		service.remove(city, screenName);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
@@ -104,10 +114,10 @@ public class ScreenController {
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void modifyForm(int screenNo, Model model) throws Exception {
+	public void modifyForm(String city, String screenName, Model model) throws Exception {
 		logger.info("Screen ModifyForm");
 		
-		Screen screen = service.read(screenNo);
+		Screen screen = service.read(city, screenName);
 								
 		model.addAttribute(screen);
 		
@@ -118,10 +128,10 @@ public class ScreenController {
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String modify(Screen screen, RedirectAttributes rttr) throws Exception {
-		logger.info("ProvinceDetail Modify");
+		logger.info("Screen Modify");
 		
 		service.modify(screen);
-		
+				
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
 		return "redirect:/screen/list";

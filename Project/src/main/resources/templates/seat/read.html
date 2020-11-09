@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>상영관 상세보기</h2>
+		<h2>좌석 상세보기</h2>
 		
 		<form id="seat" action="list.html" th:action="@{/seat/remove}" th:object="${seat}" method="POST">
 			
@@ -52,7 +52,7 @@
 				});
 				
 				$("#btnList").on("click", function() {
-					self.location = "/seat/list?screenName=" + screenName;
+					self.location = "/screen/list";
 				});
 				
 			});
