@@ -17,7 +17,9 @@
 			<th:block sec:authorize="!isAuthenticated()">
 				<table >
 					<tr>
-						<td align="center"><a href="../auth/loginForm.html" th:href="@{/auth/login}" th:text="#{header.login}">로그인</a></td>
+						<td align="center">
+							<a href="../auth/loginForm.html" th:href="@{/auth/login}" th:text="#{header.login}">로그인</a>
+						</td>
 					</tr>
 				</table>
 			</th:block>
@@ -30,37 +32,78 @@
 					<tr>
 						<td>포인트 : </td>
 						<td th:text="${mypoint}"></td>
+						<td><a href="../point/charge.html" th:href="@{/point/charge}"><button type="button" th:text="#{point.charge}">포인트 충전</button></a></td>						
 					</tr>
 				</table>
 				<br>
-				<br>
+				<br><hr><br>
 				<th:block sec:authorize="hasRole('ROLE_MEMBER')">
-					<div align="left">
-						<a href="../board/list.html" th:href="@{/board/list}" th:text="#{board.list}">회원 게시판 목록</a>
-						<br><br>
-						<a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{notice.list}">공지사항 목록</a>
-						<br><br>
-						<a href="../inquiry/list.html" th:href="@{/inquiry/list}" th:text="#{inquiry.list}">1:1 문의 목록</a>
-						<br><br>
-						<a href="../point/charge.html" th:href="@{/point/charge}" th:text="#{point.charge}">포인트 충전</a>
-						<br><br>
-						<a href="../point/list.html" th:href="@{/point/list}" th:text="#{point.list}">충전 내역</a>
-						<br><br>
-						<a href="../movie/list.html" th:href="@{/movie/list}" th:text="#{movie.list}">영화 목록</a>
-						<br><br>
-						<a href="../reserve/reserve.html" th:href="@{/reserve/reserve}" th:text="#{reserve.reservation}">영화 예매</a>
-						<br><br>
-						<a href="read.html" th:href="'/user/userread?userId=' + ${member.userId}" th:text="#{user.info}">회원 정보</a>
-						<br><br>
-						<a href="../user/checkPw" th:href="@{/user/checkPw}" th:text="#{user.modifyPw}">비밀번호 변경</a>
-						<br><br>
+					<div class="mypage" align="left">
+						<div class="mybtn">
+							<a href="../board/list.html" th:href="@{/board/list}">
+								<img src="../../static/images/board.png" th:src="@{/images/board.png}" width="100px" height="100px"/>
+							</a>
+							<br>
+							<span th:text="#{board.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../notice/list.html" th:href="@{/notice/list}">
+								<img src="../../static/images/notice.png" th:src="@{/images/notice.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{notice.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../inquiry/list.html" th:href="@{/inquiry/list}">
+								<img src="../../static/images/inquiry.png" th:src="@{/images/inquiry.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{inquiry.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../point/list.html" th:href="@{/point/list}">
+								<img src="../../static/images/bill.png" th:src="@{/images/bill.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{point.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../movie/list.html" th:href="@{/movie/list}">
+								<img src="../../static/images/movie.png" th:src="@{/images/movie.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{movie.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../reserve/reserve.html" th:href="@{/reserve/reserve}">
+								<img src="../../static/images/reserve.png" th:src="@{/images/reserve.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{reserve.reservation}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="read.html" th:href="'/user/userread?userId=' + ${member.userId}">
+								<img src="../../static/images/person.png" th:src="@{/images/person.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{user.info}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../user/checkPw" th:href="@{/user/checkPw}">
+								<img src="../../static/images/chpwd.png" th:src="@{/images/chpwd.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{user.modifyPw}"></span>
+							<br><br>
+						</div>
+						
 					</div>
 				</th:block>
 			</th:block>
 		
 		</div>
 		
-		
+		<br><br><br><br><br><br><br><br><br><br>
 	</div>
 </body>
 </html>

@@ -10,18 +10,9 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>1:1 문의 목록</h2>
+		<h3 align="left">1:1 문의</h3>
 		
-		<form id="pgrq" action="list.html" th:action="@{|/inquiry/list${pgrq.toUriStringByPage(1)}|}" th:object="${pgrq}" method="GET">
-			<select th:field="*{searchType}">
-				<option th:each="element : ${searchTypeCodeValueList}" th:value="${element.value}" th:text="${element.label}">제목</option>
-			</select>
-			
-			<input type="text" name="keyword" th:field="*{keyword}" />
-			<button id="searchBtn" th:tex="#{action.search}">검색</button>
-		</form>
-		
-		<table border="1">
+		<table class="list">
 			<tr>
 				<th align="center" width="80" th:text="#{inquiry.no}">문의 번호</th>
 				<th align="center" width="320" th:text="#{inquiry.title}">제목</th>
@@ -35,12 +26,21 @@
 			
 			<tr th:each="inquiry : ${list}">
 				<td align="center"  th:text="${inquiry.inquiryNo}">${inquiry.inquiryNo}</td>
-				<td align="center"><a href="read.html" th:href="@{|/inquiry/read${pgrq.toUriString(pgrq.page)}&inquiryNo=${inquiry.inquiryNo}|}" th:text="${inquiry.title}">${inquiry.title}</a></td>
+				<td align="left"><a href="read.html" th:href="@{|/inquiry/read${pgrq.toUriString(pgrq.page)}&inquiryNo=${inquiry.inquiryNo}|}" th:text="${inquiry.title}">${inquiry.title}</a></td>
 				<td align="center" th:text="${inquiry.writer}">${inquiry.writer}</td>
 				<td align="center" th:text="${#dates.format(inquiry.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 			</tr>
 		</table>
 		<br />
+		
+		<form id="pgrq" action="list.html" th:action="@{|/inquiry/list${pgrq.toUriStringByPage(1)}|}" th:object="${pgrq}" method="GET">
+			<select th:field="*{searchType}">
+				<option th:each="element : ${searchTypeCodeValueList}" th:value="${element.value}" th:text="${element.label}">제목</option>
+			</select>
+			
+			<input class="search" type="text" name="keyword" th:field="*{keyword}" />
+			<button id="searchBtn" th:tex="#{action.search}">검색</button>
+		</form>
 		
 		<th:block sec:authorize="hasRole('ROLE_MEMBER')">
 			<a href="register.html" th:href="@{/inquiry/register}">
@@ -54,7 +54,7 @@
 			
 			
 				if(result === "SUCCESS") {
-					alert(/*[[#{common.processSuccess}]]*/);
+					alert(/*[#{common.processSuccess}]*/);
 				}
 			/*]]>*/
 		</script>

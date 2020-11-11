@@ -33,25 +33,80 @@
 				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
 					<div align="left">
 						<hr><br>
-						<a href="../user/list.html" th:href="@{/user/list}" th:text="#{user.list}">회원 목록</a>
-						<br><br>
-						<a href="../board/list.html" th:href="@{/board/list}" th:text="#{board.list}">회원 게시판 목록</a>
-						<br><br>
-						<a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{notice.list}">공지사항 목록</a>
-						<br><br>
-						<a href="../inquiry/list.html" th:href="@{/inquiry/list}" th:text="#{inquiry.list}">1:1 문의 목록</a>
-						<br><br>
-						<a href="../banner/list.html" th:href="@{/banner/list}" th:text="#{banner.list}">홍보 배너 목록</a>
-						<br><br><hr>
-						<a href="../movie/list.html" th:href="@{/movie/list}" th:text="#{movie.list}">영화 목록</a>
-						<br><br>
-						<a href="../province/list.html" th:href="@{/province/list}" th:text="#{province.list}">영화관 도시 목록</a>
-						<br><br>
-						<a href="../city/list.html" th:href="@{/city/list}" th:text="#{city.list}">영화관 상세 도시 목록</a>
-						<br><br>
-						<a href="../screen/list.html" th:href="@{/screen/list}" th:text="#{screen.list}">상영관 목록</a>
-						<br><br>
-						<a href="../time/list.html" th:href="@{/time/list}" th:text="#{time.list}">상영 목록</a>
+						
+						
+						<div class="mybtn">
+							<a href="../user/list.html" th:href="@{/user/list}">
+								<img src="../../static/images/user.png" th:src="@{/images/user.png}" width="100px" height="100px"/>
+							</a>
+							<br>
+							<span th:text="#{user.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../board/list.html" th:href="@{/board/list}">
+								<img src="../../static/images/board.png" th:src="@{/images/board.png}" width="100px" height="100px"/>
+							</a>
+							<br>
+							<span th:text="#{board.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../notice/list.html" th:href="@{/notice/list}">
+								<img src="../../static/images/notice.png" th:src="@{/images/notice.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{notice.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../inquiry/list.html" th:href="@{/inquiry/list}">
+								<img src="../../static/images/inquiry.png" th:src="@{/images/inquiry.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{inquiry.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../banner/list.html" th:href="@{/banner/list}">
+								<img src="../../static/images/banner.png" th:src="@{/images/banner.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{banner.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../movie/list.html" th:href="@{/movie/list}">
+								<img src="../../static/images/movie.png" th:src="@{/images/movie.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{movie.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../province/list.html" th:href="@{/province/list}">
+								<img src="../../static/images/province.png" th:src="@{/images/province.png}" width="100px" height="100px"/>
+							</a>
+							<span  th:text="#{province.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../city/list.html" th:href="@{/city/list}">
+								<img src="../../static/images/theater.png" th:src="@{/images/theater.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{city.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../screen/list.html" th:href="@{/screen/list}">
+								<img src="../../static/images/screen.png" th:src="@{/images/screen.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{screen.list}"></span>
+							<br><br>
+						</div>
+						<div class="mybtn">
+							<a href="../time/list.html" th:href="@{/time/list}">
+								<img src="../../static/images/time.png" th:src="@{/images/time.png}" width="100px" height="100px"/>
+							</a>
+							<span th:text="#{time.list}"></span>
+							<br><br>
+						</div>
 						<br><br>
 					</div>
 				</th:block>

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>회원 등록</h2>
+		<h3>회원 등록</h3>
 		
 		<form id="member" action="list.html" th:action="@{/user/register}" th:object="${member}" method="POST">
 			
@@ -20,34 +20,36 @@
 			
 			<table>
 				<tr>
-					<td><span th:text="#{user.userId}"></span><button type="button" class="idChk" id="idChk">아이디 확인</button></td>
-					<td><input type="text" id="userId" name="userId" th:field="*{userId}" required="required"/></td>
-					<td><span class="error_message" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span></td>
+					<td>
+						<input type="text" class="userId" id="userId" name="userId" th:field="*{userId}" th:placeholder="#{user.userId}" required="required"/>
+						<button type="button" class="idChk" id="idChk">중복 확인</button>
+					</td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span></td>	
 				</tr>
 				<tr>
-					<td th:text="#{user.userPw}"></td>
-					<td><input type="password" id="userPw" th:field="*{userPw}" required="required" /></td>
+					<td><input type="password" id="userPw" th:field="*{userPw}" th:placeholder="#{user.userPw}" required="required" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}">userPw의 에러 메시지</span></td>
 				</tr>
 				<tr>
-					<td th:text="#{user.userPwConfirm}"></td>
-					<td><input type="password" id="userPwconfirm" onchange="checkPw()"  />&nbsp;</td>
+					<td>
+						<input type="password" id="userPwconfirm" th:placeholder="#{user.userPwConfirm}" onchange="checkPw()" />&nbsp;
+						
+					</td>
 					<td><br></td>
+				</tr>
+				<tr>
 					<td><span id="check"></span></td>
 				</tr>
 				<tr>
-					<td th:text="#{user.userName}"></td>
-					<td><input type="text" id="userName" th:field="*{userName}" required="required" /></td>
+					<td><input type="text" id="userName" th:field="*{userName}" th:placeholder="#{user.userName}" required="required" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span></td>
 				</tr>
 				<tr>
-					<td th:text="#{user.userEmail}"></td>
-					<td><input type="email" id="email" th:field="*{email}" /></td>
+					<td><input type="email" id="email" th:field="*{email}" th:placeholder="#{user.userEmail}" required="required" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span></td>
 				</tr>
 				<tr>
-					<td th:text="#{user.userPhone}"></td>
-					<td><input type="text" id="phone" th:field="*{phone}" /></td>
+					<td><input type="text" id="phone" th:field="*{phone}" th:placeholder="#{user.userPhone}" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">phone의 에러 메시지</span></td>
 				</tr>
 			</table>

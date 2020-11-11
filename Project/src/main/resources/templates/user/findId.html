@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>아이디 찾기</h2>
+		<h3>아이디 찾기</h3>
 		
 		<form id="checkPw" action="list.html" th:action="@{/email/id}" th:object="${member}" method="POST">
 			
@@ -17,9 +17,8 @@
 			
 			<table>
 				<tr>
-					<td>이메일</td>
 					<td>
-						<input type="text" name="email" th:field="*{email}" placeholder="example@email.com" required="required" />
+						<input type="text" name="email" th:field="*{email}" placeholder="이메일" required="required" />
 					</td>
 					<td>
 						<span class="error_message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span>

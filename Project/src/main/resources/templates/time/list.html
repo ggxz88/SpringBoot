@@ -10,9 +10,9 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>시간 목록</h2>
+		<h3>상영 시간</h3>
 		
-		<table border="1">
+		<table class="list2">
 			<tr>
 				<th align="center" width="100" th:text="#{time.city}">영화관</th>
 				<th align="center" width="200" th:text="#{time.title}">영화</th>
@@ -20,7 +20,7 @@
 			</tr>
 			
 			<tr th:if="${#lists.isEmpty(list)}">
-				<td colspan="4" th:text="#{common.listEmpty}">List is empty.</td>
+				<td colspan="3" th:text="#{common.listEmpty}">List is empty.</td>
 			</tr>
 			
 			<tr th:each="time : ${list}">
@@ -43,7 +43,7 @@
 			
 			
 				if(result === "SUCCESS") {
-					alert(/*[[#{common.processSuccess}]]*/);
+					alert(/*[#{common.processSuccess}]*/);
 				}
 			/*]]>*/
 		</script>

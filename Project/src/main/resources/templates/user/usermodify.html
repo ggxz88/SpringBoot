@@ -9,15 +9,14 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>회원 수정</h2>
+		<h3>회원 수정</h3>
 		
 		<form id="member" action="list.html" th:action="@{/user/usermodify}" th:object="${member}" method="POST">
 			
 			<table>
 				<tr>
-					<td>아이디</td>
 					<td>
-						<input type="text" name="userId" th:field="*{userId}" />
+						<input type="text" name="userId" th:field="*{userId}" th:placeholder="#{user.userId}" required="required" />
 					</td>
 					<td>
 						<span class="error_message" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">userId의 에러 메시지</span>
@@ -25,33 +24,31 @@
 					
 				</tr>
 				<tr>
-					<td>이름</td>
 					<td>
-						<input type="text" name="userName" th:field="*{userName}" />
+						<input type="text" name="userName" th:field="*{userName}" th:placeholder="#{user.userName}" required="required" />
 					</td>
 					<td>
 						<span class="error_message" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName의 에러 메시지</span>
 					</td>
 				</tr>
 				<tr>
-					<td>이메일</td>
 					<td>
-						<input type="email" name="email" th:field="*{email}" />
+						<input type="email" name="email" th:field="*{email}" th:placeholder="#{user.email}" required="required" />
 					</td>	
 					<td>
 						<span class="error_message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email의 에러 메시지</span>
 					</td>
 				</tr>
 				<tr>
-					<td>전화번호</td>
 					<td>
-						<input type="text" name="phone" th:field="*{phone}" />
+						<input type="text" name="phone" th:field="*{phone}" th:placeholder="#{user.phone}" required="required" />
 					</td>
 					<td>	
 						<span class="error_message" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">phone의 에러 메시지</span>
 					</td>
 				</tr>
-			</table>
+			</table>			
+
 		</form>
 		
 		<div>

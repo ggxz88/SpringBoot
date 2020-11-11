@@ -1,6 +1,178 @@
 @charset "EUC-KR";
 
-a { text-decoration: none; }
+/* font */
+@font-face {
+	font-family: 'NanumGothicRegular';
+	src: url('fonts/NanumGothicRegular.eot');
+	src:url('fonts/NanumGothicRegular.eot?#iefix') format(¡®embedded-opentype¡¯), 
+	url('fonts/NanumGothicRegular.woff') format(¡®woff¡¯), 
+	url('fonts/NanumGothicRegular.ttf') format('truetype');
+}
+
+
+body, table, div {
+	font-family: 'NanumGothicRegular', arial, verdana, sans-serif;
+}
+
+/* table */
+table.list {
+	width: 100%;
+	line-height: 2;
+	border-top: 2px solid black;
+	border-collapse: collapse;
+	font-family: 'NanumGothicRegular';
+}
+
+.list tr {
+	border-bottom : 1px solid #CACACC;
+}
+
+table.list2 {
+	line-height: 2;
+	border-top: 2px solid black;
+	border-collapse: collapse;
+	font-family: 'NanumGothicRegular';
+}
+
+.list2 tr {
+	border-bottom : 1px solid #CACACC;
+}
+
+td.center {
+	width: 10%;
+}
+
+/* div */
+
+/* input */
+input {
+	width: 200px;
+	height: 25px;
+  	font-family: 'NanumGothicRegular';
+  	border: 2px solid #CACACC;
+	
+}
+
+input.text {
+	width: 300px;
+	height: 25px;
+  	font-family: 'NanumGothicRegular';
+  	border: 2px solid #CACACC;
+}
+
+input.userId {
+	width: 120px;
+	height: 25px;
+  	font-family: 'NanumGothicRegular';
+  	border: 2px solid #CACACC;
+}
+
+input:focus {
+	outline: 2px solid #CACACC;
+}
+
+input.search {
+	width: 200px;
+	height: 25px;
+}
+
+input.checkbox {
+	width: 12px;
+	height: 12px;
+}
+
+/* span */
+span.checkspan {
+	font-family: 'NanumGothicRegular';
+	font-size: 11pt;	
+}
+
+/* p */
+p.footer {
+	font-family: 'NanumGothicRegular';
+	font-size: 10pt;
+}
+
+/* textarea */
+textarea {
+	width: 300px;
+	height: 200px;
+	font-family: 'NanumGothicRegular';
+	border: 2px solid #CACACC;
+}
+
+textarea:focus {
+	outline: 2px solid #CACACC;
+}
+
+/* select */
+select.searchType {
+	width: 80px;
+	height: 25px;
+	border: 2px solid #CACACC;
+}
+
+select.provinceget, 
+select.cityget,
+select.screenget,
+select.movieList 
+{
+	width: 200px;
+	height: 25px;
+	border: 2px solid #CACACC;
+}
+
+select:focus {
+	outline: 2px solid #CACACC;
+}
+
+/* button */
+button {
+  	width: 75px;
+  	height: 25px;
+  	border: 2px solid #CACACC;
+  	text-align: center;
+  	background-color: white;
+  	font-family: 'NanumGothicRegular';
+  	color: black;
+  	margin-top: 10px;
+}
+
+button:focus {
+	outline: 2px solid #CACACC;
+}
+
+button.find {
+  	width: 110px;
+  	height: 25px;
+  	border: 2px solid #CACACC;
+  	text-align: center;
+  	background-color: white;
+  	font-family: 'NanumGothicRegular';
+  	color: black;
+  	margin-top: 10px;
+}
+
+button.my {
+	width: 40px;
+  	height: 25px;
+  	border: 2px solid #CACACC;
+  	text-align: center;
+  	background-color: white;
+  	font-family: 'NanumGothicRegular';
+  	color: black;
+  	margin-top: 10px;
+}
+
+/* a */
+a { 
+	text-decoration: none; 
+	color: black;
+}
+
+div.centerdiv {
+	width: 50%;
+}
 
 .seat {
 	width: 30px;

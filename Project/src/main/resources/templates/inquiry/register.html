@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>1:1 문의 등록</h2>
+		<h3>1:1 문의 등록</h3>
 		
 		<form id="inquiry" action="list.html" th:action="@{/inquiry/register}" th:object="${inquiry}" method="POST">
 			
@@ -18,18 +18,15 @@
 			
 			<table>
 				<tr>
-					<td th:text="#{inquiry.title}">제목</td>
-					<td><input type="text" id="title" th:field="*{title}" /></td>
+					<td><input type="text" class="text" id="title" th:field="*{title}" th:placeholder="#{inquiry.title}" required="required" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title의 에러 메시지</span></td>
 				</tr>
 				<tr>
-					<td th:text="#{inquiry.writer}">작성자</td>
-					<td><input type="text" id="writer" th:field="*{writer}" readonly="readonly" /></td>
+					<td><input type="text" class="text" id="writer" th:field="*{writer}" readonly="readonly" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('writer')}" th:errors="*{writer}">writer의 에러 메시지</span></td>
 				</tr>
 				<tr>
-					<td th:text="#{inquiry.content}">내용</td>
-					<td><textarea id="content" th:field="*{content}" ></textarea></td>
+					<td><textarea id="content" th:field="*{content}" th:placeholder="#{inquiry.content}" required="required" ></textarea></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content의 에러 메시지</span></td>
 				</tr>
 			</table>

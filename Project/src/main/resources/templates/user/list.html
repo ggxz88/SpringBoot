@@ -1,4 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{/layouts/main_template}">
 
@@ -9,9 +10,9 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>회원 목록</h2>
+		<h3 align="left">회원</h3>
 		
-		<table border="1">
+		<table class="list">
 			<tr>
 				<th align="center" width="80" th:text="#{user.userId}">아이디</th>
 				<th align="center" width="100" th:text="#{user.userName}">이름</th>
@@ -34,9 +35,11 @@
 		</table>
 		<br/>
 		
-		<a href="register.html" th:href="@{/user/register}">
-			<button type="button" th:text="#{user.new}">회원 등록</button>
-		</a>
+		<th:block align="right" sec:authorize="hasRole('ROLE_ADMIN')">
+			<a href="register.html" th:href="@{/user/register}">
+				<button type="button" th:text="#{user.new}">회원 등록</button>
+			</a>
+		</th:block>	
 		
 		<script th:inline="javascript">
 			/*<![CDATA[*/

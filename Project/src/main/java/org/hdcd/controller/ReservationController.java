@@ -1,6 +1,5 @@
 package org.hdcd.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import org.hdcd.service.TimeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -46,7 +44,6 @@ public class ReservationController {
 	
 	
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	public void reserveForm(Model model) throws Exception {
 		logger.info("reserveForm");
 		
@@ -61,7 +58,6 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value = "/resProvince", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	public void resProvince(Model model, HttpServletRequest req) throws Exception {
 		logger.info("resProvince");
 		
@@ -132,7 +128,6 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value = "/reserve", method= RequestMethod.POST)
-	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	public String reserve(Reservation reservation, RedirectAttributes rttr, Authentication authentication) throws Exception {
 		logger.info("reserve");
 		

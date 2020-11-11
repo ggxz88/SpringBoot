@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>회원 탈퇴</h2>
+		<h3>회원 탈퇴</h3>
 		
 		<form id="member" action="list.html" th:action="@{/user/userremove}" th:object="${member}" method="POST">
 			
@@ -17,9 +17,8 @@
 			
 			<table>
 				<tr>
-					<td>비밀번호</td>
 					<td>
-						<input type="password" name="userPw" th:field="*{userPw}" required="required" />
+						<input type="password" name="userPw" th:field="*{userPw}" th:placeholder="#{user.userPw}" required="required" />
 					</td>
 					<td>
 						<span class="error_message" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}">userPw의 에러 메시지</span>

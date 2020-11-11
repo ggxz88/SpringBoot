@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>좌석 수정</h2>
+		<h3>좌석 수정</h3>
 		
 		<form id="seat" action="list.html" th:action="@{/seat/modify}" th:object="${seat}" method="POST">
 			
@@ -20,13 +20,11 @@
 			
 			<table>
 				<tr>
-					<td th:text="#{seat.seatId}">좌석명</td>
-					<td><input type="text" id="seatId" th:field="*{seatId}"/></td>
+					<td><input type="text" id="seatId" th:field="*{seatId}" th:placeholder="#{seat.seatId}"/></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('seatId')}" th:errors="*{seatId}">seatId의 에러 메시지</span></td>
 				</tr>
 				<tr>
-					<td th:text="#{seat.price}">가격</td>
-					<td><input type="text" id="price" th:field="*{price}" /></td>
+					<td><input type="text" id="price" th:field="*{price}" th:placeholder="#{seat.price}" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">price의 에러 메시지</span></td>				
 				</tr>
 			</table>

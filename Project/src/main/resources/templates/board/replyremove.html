@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>댓글 삭제</h2>
+		<h3>댓글 삭제</h3>
 		
 		<form id="reply" action="list.html" th:action="@{/board/replyremove}" th:object="${reply}" method="POST">
 			
@@ -22,10 +22,12 @@
 			<input type="hidden" name="searchType" th:value="${pgrq.searchType}" />
 			<input type="hidden" name="keyword" th:value="${pgrq.keyword}" />
 			
-			<div align="center">
-				<label for="replyContent" th:text="#{action.remove}"></label>
-				<input type="text" id="replyContent" th:field="*{replyContent}" disabled="disabled" />
-			</div>
+			<table>
+				<tr>
+					<td><input type="text" id="replyContent" th:field="*{replyContent}" disabled="disabled" /></td>
+					<td><span class="error_message" th:if="${#fields.hasErrors('replyContent')}" th:errors="*{replyContent}">replyContent의 에러 메시지</span></td>
+				</tr>
+			</table>
 			
 			<div th:with="pinfo=${#authentication.principal}">
 			

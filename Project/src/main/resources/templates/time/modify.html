@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>시간 수정</h2>
+		<h3>시간 수정</h3>
 		
 		<form id="time" action="list.html" th:action="@{/time/modify}" th:object="${time}" method="POST">
 			
@@ -19,25 +19,19 @@
 			
 			<table>
 				<tr>
-					<td th:text="#{province.name}">도시</td>
-					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
+					<td><input type="text" id="provinceName" th:field="*{provinceName}" th:placeholder="#{province.name}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{city.name}">극장</td>
-					<td><input type="text" id="city" th:field="*{city}" readonly="readonly" /></td>
-					
+					<td><input type="text" id="city" th:field="*{city}" th:placeholder="#{city.name}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{screen.name}">상영관 이름</td>
-					<td><input type="text" id="screenName" th:field="*{screenName}" readonly="readonly" /></td>
+					<td><input type="text" id="screenName" th:field="*{screenName}" th:placeholder="#{time.screen}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{movie.title}">영화</td>
-					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
+					<td><input type="text" id="title" th:field="*{title}" th:placeholder="#{time.movie}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{time.date}">상영일자</td>
-					<td><input type="datetime-local" id="showTime" name="showTime" th:field="*{showTime}" /></td>
+					<td><input type="datetime-local" id="showTime" name="showTime" th:field="*{showTime}" th:placeholder="#{time.date}" /></td>
 				</tr>
 				
 			</table>

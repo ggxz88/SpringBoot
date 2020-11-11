@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>회원 게시판 상세보기</h2>
+		<h3>회원 게시판 상세보기</h3>
 		
 		<form id="board" action="list.html" th:action="@{/board/remove}" th:object="${board}" method="POST">
 			
@@ -23,15 +23,12 @@
 			
 			<table>
 				<tr>
-					<td th:text="#{board.title}">제목</td>
-					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
+					<td><input type="text" class="text" id="title" th:field="*{title}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{board.writer}">작성자</td>
-					<td><input type="text" id="writer" th:field="*{writer}" readonly="readonly" /></td>
+					<td><input type="text" class="text" id="writer" th:field="*{writer}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{board.content}">내용</td>
 					<td><textarea id="content" th:field="*{content}" readonly="readonly" ></textarea></td>
 				</tr>
 			</table>
@@ -57,34 +54,14 @@
 		</div>
 		
 		<!-- 댓글 -->
-		<h3 align="center" th:text=#{reply.list}>댓글</h3>
-		
-		<div align="center">
-
-			<form id="reply" th:action="@{/board/replyregister}" th:object="${reply}" method="POST">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			
-				<div align="center">
-					<th:block sec:authorize="isAuthenticated()">
-						<input type="hidden" id="reply_boardNo" th:field="*{boardNo}">
-						<label for="replyContent" th:text="#{reply.register}"></label>
-						<input type="text" id="replyContent" th:field="*{replyContent}" />
-						
-						<button type="submit" id="replyRegister" th:text="#{action.register}">등록</button>
-					</th:block>
-				</div>
-				
-			</form>
-			
-		</div>	
+		<h4 align="center" th:text=#{reply.list}>댓글</h4>
 		
 		<table>
 			<tr th:if="${#lists.isEmpty(replyList)}">
-				<td colspan="5" th:text="#{common.listEmpty}">List is empty.</td>
+				<td colspan="4" th:text="#{common.listEmpty}">List is empty.</td>
 			</tr>
 			
 			<tr th:each="reply : ${replyList}">
-				<td align="center" th:text="${reply.replyNo}">${reply.replyNo}</td>
 				<td align="center" th:text="${reply.replyWriter}">${reply.replyWriter}</td>
 				<td align="center" th:text="${reply.replyContent}">${reply.replyContent}</td>
 				<td align="center" th:text="${#dates.format(reply.regDate, 'yyyy-MM-dd HH:mm')}">${reply.regDate}</td>
@@ -115,6 +92,24 @@
 				</td>
 			</tr>
 		</table>
+		
+		<div align="center">
+			<!-- 댓글 작성 -->
+			<form id="reply" th:action="@{/board/replyregister}" th:object="${reply}" method="POST">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+				<div align="center">
+					<th:block sec:authorize="isAuthenticated()">
+						<input type="hidden" id="reply_boardNo" th:field="*{boardNo}">
+						<label for="replyContent" th:text="#{reply.register}"></label>
+						<input type="text" id="replyContent" th:field="*{replyContent}" />
+						
+						<button type="submit" id="replyRegister" th:text="#{action.register}">등록</button>
+					</th:block>
+				</div>
+			</form>
+		</div>	
+		
 		
 		<script th:inline="javascript">
 			$(document).ready(function() {

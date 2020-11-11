@@ -53,7 +53,6 @@ public class ProvinceDetailController {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void list(Model model) throws Exception {
 		logger.info("ProvinceDetail List");
 		

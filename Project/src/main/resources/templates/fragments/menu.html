@@ -1,16 +1,26 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
-	<div align="center" th:fragment="menu">
+	<div th:fragment="menu">
 		<table>
 			<tr>
-				<td width="80"><a href="/home.html" th:href="@{/}" th:text="#{action.home}">홈</a></td>
+				<td align="left" width="600"><a href="/home.html" th:href="@{/}" th:text="#{action.home}">홈</a></td>
+				<td class="center" align="center" width="10%"><a href="../movie/list.html" th:href="@{/movie/list}" th:text="#{menu.movie}">영화</a></td>
+				
+				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+					<td class="center" align="center" width="10%"><a href="../reserve/reserve.html" th:href="@{/reserve/reserve}" th:text="#{menu.reserve}">예매</a></td>			
+				</th:block>
+				
+				<td class="center" align="center" width="10%"><a href="../city/list.html" th:href="@{/city/list}" th:text="#{menu.theater}">극장</a></td>
+				<td align="right" width="600">&nbsp;</td>
 			</tr>
 		</table>
+		
 	</div>
 </body>
 </html>

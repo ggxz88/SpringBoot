@@ -18,13 +18,11 @@
 			
 			<table>
 				<tr>
-					<td th:text="#{notice.title}">제목</td>
-					<td><input type="text" id="title" th:field="*{title}" /></td>
+					<td><input type="text" class="text" id="title" th:field="*{title}" th:placeholder="#{notice.title}" required="required" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title의 에러 메시지</span></td>
 				</tr>
 				<tr>
-					<td th:text="#{notice.content}">내용</td>
-					<td><textarea id="content" th:field="*{content}" ></textarea></td>
+					<td><textarea id="content" th:field="*{content}" th:placeholder="#{notice.content}" required="required" ></textarea></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content의 에러 메시지</span></td>
 				</tr>
 			</table>

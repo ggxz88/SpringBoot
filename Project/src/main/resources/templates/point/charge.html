@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>포인트 충전</h2>
+		<h3>포인트 충전</h3>
 		
 		<form id="chargePoint" action="list.html" th:action="@{/point/charge}" th:object="${chargePoint}" method="POST">
 			
@@ -17,8 +17,7 @@
 			
 			<table>
 				<tr>
-					<td th:text="#{point.amount}">제목</td>
-					<td><input type="text" id="amount" th:field="*{amount}" /></td>
+					<td><input type="text" id="amount" th:field="*{amount}" th:placeholder="#{point.amount}" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">amount의 에러 메시지</span></td>
 				</tr>
 			</table>

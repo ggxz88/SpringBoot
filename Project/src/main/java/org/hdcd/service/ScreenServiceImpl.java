@@ -116,9 +116,12 @@ public class ScreenServiceImpl implements ScreenService {
 		}
 	}
 	
+	@Transactional
 	@Override
 	public void remove(String city, String screenName) throws Exception {
 		screenMapper.delete(city, screenName);
+		
+		seatMapper.deleteall(city, screenName);
 	}
 	
 	@Override

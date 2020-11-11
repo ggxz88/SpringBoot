@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>비밀번호 변경</h2>
+		<h3>비밀번호 변경</h3>
 		
 		<form id="member" action="list.html" th:action="@{/user/modifyPw}" th:object="${member}" method="POST">
 			
@@ -17,14 +17,14 @@
 			
 			<table>
 				<tr>
-					<td th:text="#{user.newUserPw}"></td>
-					<td><input type="password" id="userPw" th:field="*{userPw}" required="required" /></td>
+					<td><input type="password" id="userPw" th:field="*{userPw}" th:placeholder="#{user.newUserPw}" required="required" /></td>
 					<td><span class="error_message" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}">userPw의 에러 메시지</span></td>
 				</tr>
 				<tr>
-					<td th:text="#{user.userPwConfirm}"></td>
-					<td><input type="password" id="newPwconfirm" name="newPwconfirm" onchange="checkPw()" />&nbsp;</td>
+					<td><input type="password" id="newPwconfirm" name="newPwconfirm" onchange="checkPw()" th:placeholder="#{user.userPwConfirm}" />&nbsp;</td>
 					<td><br></td>
+				</tr>
+				<tr>
 					<td><span id="check"></span></td>
 				</tr>
 			</table>
