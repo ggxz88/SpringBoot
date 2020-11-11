@@ -138,10 +138,8 @@
 					<th:block sec:authorize="isAuthenticated()">
 						<input type="hidden" id="review_movieNo" th:field="*{movieNo}">
 						
-						<label for="scores" th:text="#{review.scores}"></label>
-						<input type="number" id="scores" min="0" max="5" step="0.5" th:field="*{scores}" />
+						<input type="number" class="score" id="scores" min="0" max="5" step="0.5" th:field="*{scores}" />
 						
-						<label for="reviewContent" th:text="#{review.register}"></label>
 						<input type="text" id="reviewContent" th:field="*{reviewContent}" />
 						
 						<button type="submit" id="reviewRegister" th:text="#{action.register}">등록</button>

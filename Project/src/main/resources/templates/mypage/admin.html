@@ -4,13 +4,13 @@
 	layout:decorate="~{/layouts/main_template}">
 
 <head>
-	<title>Adminpage</title>
+	<title>AdminPage</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
 	<div layout:fragment="content">
-		<h2>관리자 페이지</h2>
+		<h3>관리자 페이지</h3>
 		
 		<div th:with="pinfo=${#authentication.principal}">
 		
@@ -29,18 +29,16 @@
 					</tr>
 				</table>
 				<br>
-				<br>
+				
 				<th:block sec:authorize="hasRole('ROLE_ADMIN')">
 					<div align="left">
 						<hr><br>
-						
-						
 						<div class="mybtn">
 							<a href="../user/list.html" th:href="@{/user/list}">
 								<img src="../../static/images/user.png" th:src="@{/images/user.png}" width="100px" height="100px"/>
 							</a>
 							<br>
-							<span th:text="#{user.list}"></span>
+							<span th:text="#{mypage.admin.user}"></span>
 							<br><br>
 						</div>
 						<div class="mybtn">
@@ -48,62 +46,105 @@
 								<img src="../../static/images/board.png" th:src="@{/images/board.png}" width="100px" height="100px"/>
 							</a>
 							<br>
-							<span th:text="#{board.list}"></span>
-							<br><br>
+							<span th:text="#{mypage.admin.board}"></span>
 						</div>
 						<div class="mybtn">
 							<a href="../notice/list.html" th:href="@{/notice/list}">
 								<img src="../../static/images/notice.png" th:src="@{/images/notice.png}" width="100px" height="100px"/>
 							</a>
-							<span th:text="#{notice.list}"></span>
+							<br>
+							<span th:text="#{mypage.admin.notice}"></span>
 							<br><br>
 						</div>
 						<div class="mybtn">
 							<a href="../inquiry/list.html" th:href="@{/inquiry/list}">
 								<img src="../../static/images/inquiry.png" th:src="@{/images/inquiry.png}" width="100px" height="100px"/>
 							</a>
-							<span th:text="#{inquiry.list}"></span>
+							<br>
+							<span th:text="#{mypage.admin.inquiry}"></span>
 							<br><br>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
 						</div>
 						<div class="mybtn">
 							<a href="../banner/list.html" th:href="@{/banner/list}">
 								<img src="../../static/images/banner.png" th:src="@{/images/banner.png}" width="100px" height="100px"/>
 							</a>
-							<span th:text="#{banner.list}"></span>
+							<br>
+							<span th:text="#{mypage.admin.banner}"></span>
 							<br><br>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
 						</div>
 						<div class="mybtn">
 							<a href="../movie/list.html" th:href="@{/movie/list}">
 								<img src="../../static/images/movie.png" th:src="@{/images/movie.png}" width="100px" height="100px"/>
 							</a>
-							<span th:text="#{movie.list}"></span>
+							<br>
+							<span th:text="#{mypage.admin.movie}"></span>
 							<br><br>
 						</div>
 						<div class="mybtn">
 							<a href="../province/list.html" th:href="@{/province/list}">
 								<img src="../../static/images/province.png" th:src="@{/images/province.png}" width="100px" height="100px"/>
 							</a>
-							<span  th:text="#{province.list}"></span>
+							<br>
+							<span th:text="#{mypage.admin.province}"></span>
 							<br><br>
 						</div>
 						<div class="mybtn">
 							<a href="../city/list.html" th:href="@{/city/list}">
 								<img src="../../static/images/theater.png" th:src="@{/images/theater.png}" width="100px" height="100px"/>
 							</a>
-							<span th:text="#{city.list}"></span>
+							<br>
+							<span th:text="#{mypage.admin.theater}"></span>
 							<br><br>
 						</div>
 						<div class="mybtn">
 							<a href="../screen/list.html" th:href="@{/screen/list}">
 								<img src="../../static/images/screen.png" th:src="@{/images/screen.png}" width="100px" height="100px"/>
 							</a>
+							<br>
 							<span th:text="#{screen.list}"></span>
 							<br><br>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
+						</div>
+						<div>
+							<span><br><br></span>
 						</div>
 						<div class="mybtn">
 							<a href="../time/list.html" th:href="@{/time/list}">
 								<img src="../../static/images/time.png" th:src="@{/images/time.png}" width="100px" height="100px"/>
 							</a>
+							<br>
 							<span th:text="#{time.list}"></span>
 							<br><br>
 						</div>
@@ -113,8 +154,16 @@
 			</th:block>
 		
 		</div>
-		
-		
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
+		<br><br><br>
 	</div>
 </body>
 </html>
