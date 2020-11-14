@@ -13,7 +13,6 @@ public class PayPoint implements Serializable {
     
     private int movieReserveNo; /*예약 번호*/
     
-    private String reserveInfo; /*에약 정보*/
     
     private int amount;
     
@@ -41,14 +40,6 @@ public class PayPoint implements Serializable {
 
 	public void setMovieReserveNo(int movieReserveNo) {
 		this.movieReserveNo = movieReserveNo;
-	}
-
-	public String getReserveInfo() {
-		return reserveInfo;
-	}
-
-	public void setReserveInfo(String reserveInfo) {
-		this.reserveInfo = reserveInfo;
 	}
 
 	public int getAmount() {

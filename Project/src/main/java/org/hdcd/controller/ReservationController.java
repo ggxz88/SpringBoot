@@ -12,6 +12,7 @@ import org.hdcd.domain.Seat;
 import org.hdcd.service.MemberService;
 import org.hdcd.service.ProvinceService;
 import org.hdcd.service.ReservationService;
+import org.hdcd.service.SeatService;
 import org.hdcd.service.TimeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,9 @@ public class ReservationController {
 	
 	@Autowired
 	private TimeService timeService;
+	
+	@Autowired
+	private SeatService seatService;
 	
 	
 	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
@@ -93,9 +97,9 @@ public class ReservationController {
 		
 	}
 	
-	@RequestMapping(value = "/resTime", method = RequestMethod.GET)
-	public void resTime(Model model, HttpServletRequest req) throws Exception {
-		logger.info("resTime");
+	@RequestMapping(value = "/resDate", method = RequestMethod.GET)
+	public void resDate(Model model, HttpServletRequest req) throws Exception {
+		logger.info("resDate");
 		
 		Reservation reservation = new Reservation();
 		
@@ -111,6 +115,26 @@ public class ReservationController {
 		
 	}
 	
+	@RequestMapping(value = "/resTime", method = RequestMethod.GET)
+	public void resTime(Model model, HttpServletRequest req) throws Exception {
+		logger.info("resTime");
+		
+		Reservation reservation = new Reservation();
+		
+		model.addAttribute(reservation);
+		
+		String city = req.getParameter("city");
+		
+		String title = req.getParameter("title");
+		
+		String showDate = req.getParameter("showDate");		
+		
+		List<CodeLabelValue> timeList = provinceService.gettimeList(showDate, city, title);
+		
+		model.addAttribute("timeList", timeList);
+		
+	}
+	
 	@RequestMapping(value = "/resSeat", method = RequestMethod.GET)
 	public void resSeat(Model model, HttpServletRequest req) throws Exception {
 		logger.info("resSeat");
@@ -119,12 +143,35 @@ public class ReservationController {
 		
 		model.addAttribute(reservation);
 		
+		String city = req.getParameter("city");
+		
+		String title = req.getParameter("title");
+		
+		String showDate = req.getParameter("showDate");		
+		
 		String showTime = req.getParameter("showTime");
 		
-		List<Seat> seatList = service.getSeatList(showTime);
+		List<Seat> seatList = service.getSeatList(showTime, showDate, city, title);
 		
 		model.addAttribute("seatList", seatList);
 		
+	}
+	
+	@RequestMapping(value = "/resPay", method = RequestMethod.GET)
+	public void resPay(Model model, HttpServletRequest req) throws Exception {
+		logger.info("resPay");
+		
+		Reservation reservation = new Reservation();
+		
+		model.addAttribute(reservation);
+		
+		String stringSeatNo = req.getParameter("seatNo");
+		
+		int seatNo = Integer.parseInt(stringSeatNo);
+		
+		Seat seat = seatService.read(seatNo);
+		
+		model.addAttribute(seat);
 	}
 	
 	@RequestMapping(value = "/reserve", method= RequestMethod.POST)

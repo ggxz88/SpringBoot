@@ -31,7 +31,10 @@
 					<td><input type="text" id="title" th:field="*{title}" th:placeholder="#{time.movie}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td><input type="datetime-local" id="showTime" name="showTime" th:field="*{showTime}" th:placeholder="#{time.date}" /></td>
+					<td><input type="date" id="showDate" name="showDate" th:field="*{showDate}" th:placeholder="#{time.date}" /></td>
+				</tr>
+				<tr>
+					<td><input type="time" id="showTime" name="showTime" th:field="*{showTime}" th:placeholder="#{time.time}" /></td>
 				</tr>
 				
 			</table>

@@ -9,23 +9,23 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h3>충전 내역</h3>
+		<h3>구매 내역</h3>
 		
 		<table class="list2">
 			<tr>
-				<th align="center" width="80" th:text="#{point.no}">번호</th>
-				<th align="center" width="320" th:text="#{point.amount}">제목</th>
-				<th align="center" width="180" th:text="#{point.regDate}">등록일자</th>
+				<th align="center" width="80" th:text="#{pay.no}">번호</th>
+				<th align="center" width="120" th:text="#{pay.amount}"></th>
+				<th align="center" width="180" th:text="#{pay.regDate}">등록일자</th>
 			</tr>
 			
 			<tr th:if="${#lists.isEmpty(list)}">
-				<td colspan="3" th:text="#{common.listEmpty}">List is empty.</td>
+				<td colspan="4" th:text="#{common.listEmpty}">List is empty.</td>
 			</tr>
 			
-			<tr th:each="chargePoint : ${list}">
-				<td align="center" th:text="${chargePoint.historyNo}">${chargePoint.historyNo}</td>
-				<td align="center" th:text="${chargePoint.amount}">${chargePoint.amount}</td>
-				<td align="center" th:text="${#dates.format(chargePoint.regDate, 'yyyy-MM-dd HH:mm')}">${chargePoint.regDate}</td>
+			<tr th:each="payPoint : ${list}">
+				<td align="center" th:text="${payPoint.historyNo}">${payPoint.historyNo}</td>
+				<td align="center" th:text="${payPoint.amount}">${payPoint.amount}</td>
+				<td align="center" th:text="${#dates.format(payPoint.regDate, 'yyyy-MM-dd HH:mm')}">${payPoint.regDate}</td>
 			</tr>
 		</table>
 		

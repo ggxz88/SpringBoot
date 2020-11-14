@@ -55,6 +55,16 @@ div.mybtn {
 	text-align: center;
 }
 
+div.movieposter {
+	width: 700px;
+	float: left;
+}
+
+div.movieread {
+	width: 700px;
+}
+
+
 /* input */
 input {
 	width: 200px;
@@ -76,6 +86,10 @@ input.userId {
 	height: 25px;
   	font-family: 'NanumGothicRegular';
   	border: 2px solid #CACACC;
+}
+
+input:hover {
+	outline: 2px solid #CACACC;
 }
 
 input:focus {
@@ -119,6 +133,13 @@ textarea {
 	border: 2px solid #CACACC;
 }
 
+textarea.summary {
+	width: 600px;
+	height: 200px;
+	font-family: 'NanumGothicRegular';
+	border: 2px solid #CACACC;
+}
+
 textarea:focus {
 	outline: 2px solid #CACACC;
 }
@@ -133,7 +154,10 @@ select.searchType {
 select.provinceget, 
 select.cityget,
 select.screenget,
-select.movieList 
+select.movieList,
+select.getMovie,
+select.getDate,
+select.getTime 
 {
 	width: 200px;
 	height: 25px;
@@ -154,6 +178,10 @@ button {
   	font-family: 'NanumGothicRegular';
   	color: black;
   	margin-top: 0px;
+}
+
+button:hover {
+	outline: 2px solid #CACACC;
 }
 
 button:focus {
@@ -193,14 +221,34 @@ button.pointbtn {
   	margin-top: 0px;
 }
 
+button.replybtn {
+  	width: 45px;
+  	height: 25px;
+  	border: 2px solid #CACACC;
+  	text-align: center;
+  	background-color: white;
+  	font-family: 'NanumGothicRegular';
+  	color: black;
+  	margin-top: 0px;
+}
+
 /* a */
 a { 
 	text-decoration: none; 
 	color: black;
 }
 
+a:hover {
+	font-family: 'NanumGothicRegular';
+  	color: #A8978F;
+}
 
 .seat {
 	width: 30px;
 	height: 30px;
+}
+
+.clicked {
+	background-color: #CACACC;
+	color: white;
 }

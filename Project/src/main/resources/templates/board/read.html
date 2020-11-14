@@ -69,21 +69,18 @@
 					<div th:with="pinfo=${#authentication.principal}">
 				
 						<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-							<a href="replymodify.html" th:href="@{|/board/replymodify${pgrq.toUriString(pgrq.page)}&boardNo=${board.boardNo}&replyNo=${reply.replyNo}|}">
-								<button type="button" th:text="#{action.modify}">편집</button>
-							</a>
 							<a href="replyremove.html" th:href="@{|/board/replyremove${pgrq.toUriString(pgrq.page)}&boardNo=${board.boardNo}&replyNo=${reply.replyNo}|}">	
-								<button type="button" th:text="#{action.remove}">삭제</button>
+								<button type="button" class="replybtn" th:text="#{action.remove}">삭제</button>
 							</a>
 						</th:block>		
 						
 						<th:block sec:authorize="hasRole('ROLE_MEMBER')">
 							<th:block th:if="${pinfo.username eq reply.replyWriter}">
 								<a href="replymodify.html" th:href="@{|/board/replymodify${pgrq.toUriString(pgrq.page)}&boardNo=${board.boardNo}&replyNo=${reply.replyNo}|}">
-									<button type="button" th:text="#{action.modify}">편집</button>
+									<button type="button" class="replybtn" th:text="#{action.modify}">편집</button>
 								</a>
 								<a href="replyremove.html" th:href="@{|/board/replyremove${pgrq.toUriString(pgrq.page)}&boardNo=${board.boardNo}&replyNo=${reply.replyNo}|}">	
-									<button type="button" th:text="#{action.remove}">삭제</button>
+									<button type="button" class="replybtn" th:text="#{action.remove}">삭제</button>
 								</a>
 							</th:block>	
 						</th:block>		
@@ -92,7 +89,7 @@
 				</td>
 			</tr>
 		</table>
-		
+		<br>
 		<div align="center">
 			<!-- 댓글 작성 -->
 			<form id="reply" th:action="@{/board/replyregister}" th:object="${reply}" method="POST">
@@ -101,7 +98,7 @@
 				<div align="center">
 					<th:block sec:authorize="isAuthenticated()">
 						<input type="hidden" id="reply_boardNo" th:field="*{boardNo}">
-						<label for="replyContent" th:text="#{reply.register}"></label>
+						
 						<input type="text" id="replyContent" th:field="*{replyContent}" />
 						
 						<button type="submit" id="replyRegister" th:text="#{action.register}">등록</button>

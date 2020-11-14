@@ -33,4 +33,9 @@ public class ProvinceServiceImpl implements ProvinceService {
 		return mapper.getdayList(city, title);
 	}
 	
+	@Override
+	public List<CodeLabelValue> gettimeList(String showDate, String city, String title) throws Exception {
+		return mapper.gettimeList(showDate, city, title);
+	}
+	
 }

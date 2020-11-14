@@ -15,6 +15,6 @@ public interface ReservationMapper {
 	
 	public List<Reservation> list(String userId) throws Exception;
 	
-	public List<Seat> getSeatList(String showTime) throws Exception;
+	public List<Seat> getSeatList(String showTime, String showDate, String city, String title) throws Exception;
 
 }

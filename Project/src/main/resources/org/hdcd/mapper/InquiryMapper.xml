@@ -102,7 +102,7 @@
 		<include refid="search"></include>
 		
 		<![CDATA[
-			 ORDER BY origin_no DESC,
+			 ORDER BY origin_no ASC,
 			 	group_ord ASC
 			  LIMIT #{pageStart}, #{sizePerPage}	
 		]]>

@@ -11,6 +11,7 @@
 			city,
 			screen_name,
 			title,
+			show_date,
 			show_time
 			)
 		VALUES
@@ -19,6 +20,7 @@
 			#{city},
 			#{screenName},
 			#{title},
+			#{showDate},
 			#{showTime}
 			)
 	</insert>
@@ -29,6 +31,7 @@
 			city,
 			screen_name,
 			title,
+			show_date,
 			show_time
 		  FROM movie_time
 		 WHERE time_no = #{timeNo}
@@ -36,7 +39,8 @@
 
 	<update id="update">
 		UPDATE movie_time 
-		   SET show_time = #{showTime}
+		   SET show_date = #{showDate},
+		   	show_time = #{showTime}
 		 WHERE time_no = #{timeNo}
 	</update>
 	
@@ -52,9 +56,12 @@
 				city,
 				screen_name,
 				title,
+				show_date,
 				show_time
 			  FROM movie_time
-			ORDER BY show_time ASC
+			 WHERE time_no > 0
+			ORDER BY show_date ASC, 
+				show_time ASC
 		]]>
 	</select>
 	

@@ -17,16 +17,18 @@
 				<th align="center" width="100" th:text="#{time.city}">영화관</th>
 				<th align="center" width="200" th:text="#{time.title}">영화</th>
 				<th align="center" width="200" th:text="#{time.date}">상영일자</th>
+				<th align="center" width="200" th:text="#{time.time}">상영시간</th>
 			</tr>
 			
 			<tr th:if="${#lists.isEmpty(list)}">
-				<td colspan="3" th:text="#{common.listEmpty}">List is empty.</td>
+				<td colspan="4" th:text="#{common.listEmpty}">List is empty.</td>
 			</tr>
 			
 			<tr th:each="time : ${list}">
 				<td align="center" th:text="${time.city}">${time.city}</td>
 				<td align="center"><a href="read.html" th:href="@{|/time/read?timeNo=${time.timeNo}|}" th:text="${time.title}">${time.title}</a></td>
-				<td align="center" th:text="${#temporals.format(time.showTime, 'yyyy-MM-dd HH:mm')}">${time.showTime}</td>
+				<td align="center" th:text="${#temporals.format(time.showDate, 'yyyy-MM-dd')}">${time.showDate}</td>
+				<td align="center" th:text="${#temporals.format(time.showTime, 'HH:mm:ss')}">${time.showTime}</td>
 			</tr>
 		</table>
 		<br />

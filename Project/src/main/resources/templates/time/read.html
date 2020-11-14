@@ -32,7 +32,10 @@
 					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td><input type="datetime-local" id="showTime" name="showTime" th:field="*{showTime}" readonly="readonly" /></td>
+					<td><input type="date" id="showDate" name="showDate" th:field="*{showDate}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td><input type="time" id="showTime" name="showTime" th:field="*{showTime}" readonly="readonly" /></td>
 				</tr>
 				
 			</table>
@@ -69,30 +72,6 @@
 					self.location = "/time/list";
 				});
 				
-				//댓글
-				function getParam(sname) {
-					var presentUrl = document.location.href;
-					
-					var params = presentUrl.substr(presentUrl.indexOf("?") + 1);
-					var sval = "";
-					params = params.split("&");
-					
-					for (var i = 0; i < params.length; i++) {
-						temp = params[i].split("=");
-						if([temp[0]] == sname) {
-							sval = temp[1];
-						}
-					}
-					return sval;
-				}
-				
-				
-				document.getElementById('reply_boardNo').value = getParam("boardNo");
-				
-				$("#replyRegister").on("click", function() {
-					formObj2.attr("action", "/board/replyregister");
-					formObj2.submit();
-				});
 				
 			});
 		</script>

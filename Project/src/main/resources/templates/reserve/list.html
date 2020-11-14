@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layouts/main_template}">
+
+<head>
+	<title>Reservation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<h3>예매 목록</h3>
+		
+		<table class="list2">
+			<tr>
+				<th align="center" width="80" th:text="#{reservation.movieReserveNo}"></th>
+				<th align="center" width="200" th:text="#{reservation.title}">영화</th>
+				<th align="center" width="100" th:text="#{reservation.province}">지역</th>
+				<th align="center" width="100" th:text="#{reservation.city}">영화관</th>
+				<th align="center" width="200" th:text="#{time.date}">상영일자</th>
+				<th align="center" width="200" th:text="#{time.time}">상영시간</th>
+				<th align="center" width="100" th:text="#{reservation.screenName}">상영관</th>
+				<th align="center" width="100" th:text="#{reservation.seatId}">좌석</th>
+				<th align="center" width="100" th:text="#{reservation.price}">가격</th>
+			</tr>
+			
+			<tr th:if="${#lists.isEmpty(list)}">
+				<td colspan="9" th:text="#{common.listEmpty}">List is empty.</td>
+			</tr>
+			
+			<tr th:each="reservation : ${list}">
+				<th align="center" th:text="${reservation.movieReserveNo}"></th>
+				<th align="center" th:text="${reservation.title}">영화</th>
+				<th align="center" th:text="${reservation.provinceName}">지역</th>
+				<th align="center" th:text="${reservation.city}">영화관</th>
+				<td align="center" th:text="${#temporals.format(reservation.showDate, 'yyyy-MM-dd')}">${time.showDate}</td>
+				<td align="center" th:text="${#temporals.format(reservation.showTime, 'HH:mm:ss')}">${time.showTime}</td>
+				<th align="center" th:text="${reservation.screenName}">상영관</th>
+				<th align="center" th:text="${reservation.seatId}">좌석</th>
+				<th align="center" th:text="${reservation.price}">가격</th>
+			</tr>
+		</table>
+		
+		
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+				var result = "[[${msg}]]";
+			
+			
+				if(result === "SUCCESS") {
+					alert(/*[#{common.processSuccess}]*/);
+				}
+			/*]]>*/
+		</script>
+		
+	</div>
+</body>
+</html>

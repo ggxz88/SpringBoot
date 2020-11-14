@@ -7,7 +7,6 @@
 	<insert id="create">
 		INSERT INTO movie_reservation
 			(
-			reserve_info,
 			user_id,
 			title,
 			province_name,
@@ -15,12 +14,12 @@
 			show_date,
 			show_time,
 			screen_name,
+			seat_no,
 			seat_id,
 			price
 			)
 		VALUES
 			(
-			#{reserveInfo},
 			#{userId},
 			#{title},
 			#{provinceName},
@@ -28,31 +27,15 @@
 			#{showDate},
 			#{showTime},
 			#{screenName},
+			#{seatNo},
 			#{seatId},
 			#{price}
 			)
 	</insert>
 	
-	<select id="read" resultType="Reservation">
-		SELECT movie_reserve_no, 
-			reserve_info,
-			user_id,
-			title,
-			province_name,
-			city,
-			show_date,
-			show_time,
-			screen_name,
-			seat_id,
-			price
-		  FROM movie_reservation
-		 WHERE movie_reserve_no = #{movieReserveNo}
-	</select>
-
 	<select id="listAll" resultType="Reservation">
 		<![CDATA[
 			SELECT movie_reserve_no, 
-				reserve_info,
 				user_id,
 				title,
 				province_name,
@@ -64,14 +47,13 @@
 				price
 			  FROM movie_reservation
 			 WHERE movie_reserve_no > 0
-			ORDER BY movie_reserve_no DESC, reg_date DESC
+			ORDER BY movie_reserve_no DESC
 		]]>
 	</select>
 	
 	<select id="list" resultType="Reservation">
 		<![CDATA[
 			SELECT movie_reserve_no, 
-				reserve_info,
 				user_id,
 				title,
 				province_name,
@@ -83,18 +65,16 @@
 				price
 			  FROM movie_reservation
 			 WHERE user_id = #{userId}
-			ORDER BY movie_reserve_no DESC, reg_date DESC
+			ORDER BY movie_reserve_no DESC
 		]]>
 	</select>
 	
 	<select id="getSeatList" resultType="Seat">
-		SELECT seat_no, 
-			seat_id,
-			price
-		  FROM movie_seat
-		 WHERE screen_name = (SELECT screen_name
-				  FROM movie_time
-				 WHERE show_time = #{showTime})
+		SELECT seat_no, seat_id, price
+		  FROM movie_seat s INNER JOIN movie_time t
+		    ON s.city = t.city AND s.screen_name = t.screen_name
+		 WHERE (t.city = #{city} AND t.title = #{title})
+		   AND (t.show_date = #{showDate} AND t.show_time = #{showTime});
 	</select>
 	
 </mapper>

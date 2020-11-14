@@ -4,55 +4,58 @@
 	layout:decorate="~{/layouts/main_template}">
 
 <head>
-	<title>Time</title>
+	<title>Reservation</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
 	<div layout:fragment="content">
-		<h3>상영 시간 등록</h3>
+		<h2>예매 확인</h2>
 		
-		<form id="time" action="list.html" th:action="@{/time/register}" th:object="${time}" method="POST">
+		<form id="reservation" action="list.html" th:action="@{/reserve/reserve}" th:object="${reservation}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
 			<table>
 				<tr>
+					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
+				</tr>
+				<tr>
 					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
 				</tr>
 				<tr>
 					<td><input type="text" id="city" th:field="*{city}" readonly="readonly" /></td>
-					
 				</tr>
 				<tr>
-					<td>
-						<select class="screenget" id="screenList" th:field="*{screenName}">
-							<option value="">상영관</option>
-							<option th:each="screenList : ${screenList}" th:value="${screenList.value}" th:text="${screenList.label}">screen</option>
-						</select>
-					</td>
+					<td><input type="date" id="showDate" th:field="*{showDate}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td>
-						<select class="movieList" id="movieList" th:field="*{title}">
-							<option value="">영화</option>
-							<option th:each="movieList : ${movieList}" th:value="${movieList.value}" th:text="${movieList.label}">movie</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="date" id="showDate" name="showDate" th:field="*{showDate}" th:placeholder="#{time.date}" /></td>
-				</tr>
-				<tr>
-					<td><input type="time" id="showTime" name="showTime" th:field="*{showTime}" th:placeholder="#{time.time}" /></td>
+					<td><input type="time" id="showTime" th:field="*{showTime}" readonly="readonly" /></td>
 				</tr>
 			</table>
+			<div>
+				<th:block th:object="${seat}">
+					<input type="hidden" id="seatNo" th:field="*{seatNo}" />
+					<table>
+						<tr>
+							<td><input type="text" id="screenName" th:field="*{screenName}" readonly="readonly" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="seatId" th:field="*{seatId}" readonly="readonly" /></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="price" th:field="*{price}" readonly="readonly" /></td>
+						</tr>
+					</table>
+				</th:block>
+			</div>
+			
 			
 		</form>
 		
 		<div>
-			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-				<button type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
+			<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+				<button type="submit" id="btnRegister" th:text="#{action.register}" >등록</button>
 				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
 			</th:block>
 		</div>
@@ -79,10 +82,13 @@
 					return sval;
 				}
 				
+				document.getElementById('title').value = getParam("title");
 				document.getElementById('provinceName').value = getParam("provinceName");
 				document.getElementById('city').value = getParam("city");
+				document.getElementById('showDate').value = getParam("showDate");
+				document.getElementById('showTime').value = getParam("showTime");
 				
-				var formObj = $("#time");
+				var formObj = $("#reservation");
 				
 				$("#btnRegister").on("click", function() {
 					formObj.submit();

@@ -45,8 +45,8 @@
 </style>
 <body>
 	<div layout:fragment="content">
-		<h2>영화 상세보기</h2>
-		
+		<h3>영화 상세보기</h3>
+		<br>
 		<form id="movie" action="list.html" th:object="${movie}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -56,67 +56,72 @@
 			<input type="hidden" name="searchType" th:value="${pgrq.searchType}" />
 			<input type="hidden" name="keyword" th:value="${pgrq.keyword}" />
 			
-			<table>
-				<tr>
-					<td th:text="#{movie.title}">영화 제목</td>
-					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.ratings}">심의 등급</td>
-					<td><input type="text" id="ratings" th:field="*{ratings}" readonly="readonly" ></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.director}">감독</td>
-					<td><input type="text" id="director" th:field="*{director}" readonly="readonly" ></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.actors}">출연</td>
-					<td><input type="text" id="actors" th:field="*{actors}" readonly="readonly" ></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.genre}">장르</td>
-					<td><input type="text" id="genre" th:field="*{genre}" readonly="readonly" /></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.runningTime}">상영시간</td>
-					<td><input type="number" id="runningTime" th:field="*{runningTime}" readonly="readonly" /></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.openningDays}">개봉일자</td>
-					<td><input type="date" id="openningDays" readonly="readonly" /></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.nation}">국가</td>
-					<td><input type="text" id="nation" th:field="*{nation}" readonly="readonly" /></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.poster}">포스터</td>
-					<td><img src="display1?movieNo=${movie.movieNo}" th:src="|display1?movieNo=${movie.movieNo}|" width="210" height="240"></td>
-				</tr>
-				<tr>
-					<td th:text="#{movie.summary}">내용</td>
-					<td><textarea id="summary" th:field="*{summary}" readonly="readonly" ></textarea></td>
-				</tr>
-				
-			</table>
+			<div class="movieposter" align="right">
+				<img src="display1?movieNo=${movie.movieNo}" th:src="|display1?movieNo=${movie.movieNo}|" width="210" height="240"/>				
+			</div>
+			
+			<div class="movieread">
+				<table>
+					<tr>
+						<td th:text="#{movie.title}">영화 제목</td>
+						<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{movie.ratings}">심의 등급</td>
+						<td><input type="text" id="ratings" th:field="*{ratings}" readonly="readonly" ></td>
+					</tr>
+					<tr>
+						<td th:text="#{movie.director}">감독</td>
+						<td><input type="text" id="director" th:field="*{director}" readonly="readonly" ></td>
+					</tr>
+					<tr>
+						<td th:text="#{movie.actors}">출연</td>
+						<td><input type="text" id="actors" th:field="*{actors}" readonly="readonly" ></td>
+					</tr>
+					<tr>
+						<td th:text="#{movie.genre}">장르</td>
+						<td><input type="text" id="genre" th:field="*{genre}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{movie.runningTime}">상영시간</td>
+						<td><input type="number" id="runningTime" th:field="*{runningTime}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{movie.openningDays}">개봉일자</td>
+						<td><input type="date" id="openningDays" th:field="*{openningDays}" readonly="readonly" /></td>
+					</tr>
+					<tr>
+						<td th:text="#{movie.nation}">국가</td>
+						<td><input type="text" id="nation" th:field="*{nation}" readonly="readonly" /></td>
+					</tr>					
+				</table>
+			</div>
+			<br><br>
+			<div>
+				<span th:text="#{movie.summary}">내용</span>
+			</div>
+			<br>
+			<div>
+				<textarea class="summary" id="summary" name="summary" th:field="*{summary}" readonly="readonly" ></textarea>
+			</div>
 			<br>
 			
 			<!-- 스틸컷 -->
 			<h4>영화 포토</h4>
 			<div class="mySlides fade">
-				<img src="display2movieNo=${movie.movieNo}" th:src="|display2?movieNo=${movie.movieNo}|" width="260" height="180">
+				<img src="display2movieNo=${movie.movieNo}" th:src="|display2?movieNo=${movie.movieNo}|" width="320" height="180">
 			</div>
 			
 			<div class="mySlides fade">
-				<img src="display3movieNo=${movie.movieNo}" th:src="|display3?movieNo=${movie.movieNo}|" width="260" height="180">
+				<img src="display3movieNo=${movie.movieNo}" th:src="|display3?movieNo=${movie.movieNo}|" width="320" height="180">
 			</div>
 			
 			<div class="mySlides fade">
-				<img src="display4movieNo=${movie.movieNo}" th:src="|display4?movieNo=${movie.movieNo}|" width="260" height="180">
+				<img src="display4movieNo=${movie.movieNo}" th:src="|display4?movieNo=${movie.movieNo}|" width="320" height="180">
 			</div>
 			
 			<div class="mySlides fade">
-				<img src="display5movieNo=${movie.movieNo}" th:src="|display5?movieNo=${movie.movieNo}|" width="260" height="180">
+				<img src="display5movieNo=${movie.movieNo}" th:src="|display5?movieNo=${movie.movieNo}|" width="320" height="180">
 			</div>
 			
 		</form>
@@ -129,9 +134,44 @@
 		<hr>
 		<h3 align="center" th:text=#{review.list}>댓글</h3>
 		
+		<table>
+			<tr th:if="${#lists.isEmpty(reviewList)}">
+				<td colspan="5" th:text="#{common.listEmpty}">List is empty.</td>
+			</tr>
+			
+			<tr th:each="review : ${reviewList}">
+				<td align="center" th:text="${review.reviewWriter}">${review.reviewyWriter}</td>
+				<td align="center" th:text="${review.scores}">${review.scores}</td>
+				<td align="center" th:text="${review.reviewContent}">${review.reviewContent}</td>
+				<td align="center" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd HH:mm')}">${review.regDate}</td>
+				<td>
+					<div th:with="pinfo=${#authentication.principal}">
+				
+						<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+							<a href="reviewremove.html" th:href="@{|/movie/reviewremove${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">	
+								<button type="button" class="replybtn" th:text="#{action.remove}">삭제</button>
+							</a>
+						</th:block>		
+						
+						<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+							<th:block th:if="${pinfo.username eq review.reviewWriter}">
+								<a href="reviewmodify.html" th:href="@{|/movie/reviewmodify${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">
+									<button type="button" class="replybtn" th:text="#{action.modify}">편집</button>
+								</a>
+								<a href="reviewremove.html" th:href="@{|/movie/reviewremove${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">	
+									<button type="button" class="replybtn" th:text="#{action.remove}">삭제</button>
+								</a>
+							</th:block>	
+						</th:block>		
+										
+					</div>
+				</td>
+			</tr>
+		</table>
+		
 		<div align="center">
-
-			<form id="review" th:action="@{/movie/reviewyregister}" th:object="${review}" method="POST">
+			<!-- 후기 작성-->
+			<form id="review" th:action="@{/movie/reviewregister}" th:object="${review}" method="POST">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
 				<div align="center">
@@ -149,41 +189,6 @@
 			</form>
 			
 		</div>	
-		
-		<table>
-			<tr th:if="${#lists.isEmpty(reviewList)}">
-				<td colspan="5" th:text="#{common.listEmpty}">List is empty.</td>
-			</tr>
-			
-			<tr th:each="review : ${reviewList}">
-				<td align="center" th:text="${review.reviewWriter}">${review.reviewyWriter}</td>
-				<td align="center" th:text="${review.scores}">${review.scores}</td>
-				<td align="center" th:text="${review.reviewContent}">${review.reviewContent}</td>
-				<td align="center" th:text="${#dates.format(review.regDate, 'yyyy-MM-dd HH:mm')}">${review.regDate}</td>
-				<td>
-					<div th:with="pinfo=${#authentication.principal}">
-				
-						<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-							<a href="reviewremove.html" th:href="@{|/movie/reviewremove${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">	
-								<button type="button" th:text="#{action.remove}">삭제</button>
-							</a>
-						</th:block>		
-						
-						<th:block sec:authorize="hasRole('ROLE_MEMBER')">
-							<th:block th:if="${pinfo.username eq review.reviewWriter}">
-								<a href="reviewmodify.html" th:href="@{|/movie/reviewmodify${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">
-									<button type="button" th:text="#{action.modify}">편집</button>
-								</a>
-								<a href="reviewremove.html" th:href="@{|/movie/reviewremove${pgrq.toUriString(pgrq.page)}&movieNo=${movie.movieNo}&reviewNo=${review.reviewNo}|}">	
-									<button type="button" th:text="#{action.remove}">삭제</button>
-								</a>
-							</th:block>	
-						</th:block>		
-										
-					</div>
-				</td>
-			</tr>
-		</table>
 		
 		<script th:inline="javascript">
 			

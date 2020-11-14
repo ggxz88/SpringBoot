@@ -25,13 +25,15 @@
 				</tr>
 				<tr>
 					<td><input type="text" id="city" th:field="*{city}" readonly="readonly" /></td>
-					
+				</tr>
+				<tr>
+					<td><input type="date" id="showDate" th:field="*{showDate}" readonly="readonly" /></td>
 				</tr>
 				<tr>
 					<td>
 						<select class="getTime" id="showTime" name="showTime">
 							<option value="">상영일자</option>
-							<option th:each="dayList : ${dayList}" th:value="${dayList.value}" th:text="${dayList.label}">time</option>
+							<option th:each="timeList : ${timeList}" th:value="${timeList.value}" th:text="${timeList.label}">time</option>
 						</select>
 					</td>
 				</tr>
@@ -71,6 +73,7 @@
 				document.getElementById('title').value = getParam("title");
 				document.getElementById('provinceName').value = getParam("provinceName");
 				document.getElementById('city').value = getParam("city");
+				document.getElementById('showDate').value = getParam("showDate");
 				
 				$(".getTime").change(function() {
 					var query = {"showTime" : $("#showTime").val()};
@@ -83,7 +86,11 @@
 						success : function(data) {
 							console.log($("#showTime").val());
 							
-							self.location = "/reserve/resSeat" + "?title=" + $("#title").val() + "&provinceName=" + $("#provinceName").val() + "&city=" + $("#city").val() + "&showTime" + $("#showTime").val();
+							self.location = "/reserve/resSeat" + "?title=" + $("#title").val() 
+									+ "&provinceName=" + $("#provinceName").val() 
+									+ "&city=" + $("#city").val() 
+									+ "&showDate=" + $("#showDate").val()
+									+ "&showTime=" + $("#showTime").val();
 						}
 					});
 					

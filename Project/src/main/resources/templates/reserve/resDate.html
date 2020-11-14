@@ -4,19 +4,22 @@
 	layout:decorate="~{/layouts/main_template}">
 
 <head>
-	<title>Time</title>
+	<title>Reservation</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
 	<div layout:fragment="content">
-		<h3>상영 시간 등록</h3>
+		<h3>영화 예매</h3>
 		
-		<form id="time" action="list.html" th:action="@{/time/register}" th:object="${time}" method="POST">
+		<form id="reservation" action="list.html" th:action="@{/reserve/reserve}" th:object="${reservation}" method="POST">
 			
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
 			<table>
+				<tr>
+					<td><input type="text" id="title" th:field="*{title}" readonly="readonly" /></td>
+				</tr>
 				<tr>
 					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
 				</tr>
@@ -26,33 +29,19 @@
 				</tr>
 				<tr>
 					<td>
-						<select class="screenget" id="screenList" th:field="*{screenName}">
-							<option value="">상영관</option>
-							<option th:each="screenList : ${screenList}" th:value="${screenList.value}" th:text="${screenList.label}">screen</option>
+						<select class="getDate" id="showDate" name="showDate">
+							<option value="">상영일자</option>
+							<option th:each="dayList : ${dayList}" th:value="${dayList.value}" th:text="${dayList.label}">time</option>
 						</select>
 					</td>
-				</tr>
-				<tr>
-					<td>
-						<select class="movieList" id="movieList" th:field="*{title}">
-							<option value="">영화</option>
-							<option th:each="movieList : ${movieList}" th:value="${movieList.value}" th:text="${movieList.label}">movie</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="date" id="showDate" name="showDate" th:field="*{showDate}" th:placeholder="#{time.date}" /></td>
-				</tr>
-				<tr>
-					<td><input type="time" id="showTime" name="showTime" th:field="*{showTime}" th:placeholder="#{time.time}" /></td>
 				</tr>
 			</table>
 			
 		</form>
 		
 		<div>
-			<th:block sec:authorize="hasRole('ROLE_ADMIN')">
-				<button type="submit" id="btnRegister" th:text="#{action.register}">등록</button>
+			<th:block sec:authorize="hasRole('ROLE_MEMBER')">
+				<button type="submit" id="btnRegister" th:text="#{action.register}" disabled="disabled" >등록</button>
 				<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
 			</th:block>
 		</div>
@@ -79,10 +68,31 @@
 					return sval;
 				}
 				
+				document.getElementById('title').value = getParam("title");
 				document.getElementById('provinceName').value = getParam("provinceName");
 				document.getElementById('city').value = getParam("city");
 				
-				var formObj = $("#time");
+				$(".getDate").change(function() {
+					var query = {"showDate" : $("#showDate").val()};
+					
+					$.ajax({
+						url : "/reserve/resTime",
+						json : "json",
+						type : "post",
+						data : query,
+						success : function(data) {
+							console.log($("#showTime").val());
+							
+							self.location = "/reserve/resTime" + "?title=" + $("#title").val() 
+									+ "&provinceName=" + $("#provinceName").val() 
+									+ "&city=" + $("#city").val() 
+									+ "&showDate=" + $("#showDate").val();
+						}
+					});
+					
+				});
+				
+				var formObj = $("#reservation");
 				
 				$("#btnRegister").on("click", function() {
 					formObj.submit();

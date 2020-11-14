@@ -1,7 +1,8 @@
 package org.hdcd.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,8 +12,6 @@ public class Reservation implements Serializable {
 
 	private int movieReserveNo; /*예약 번호*/
 	
-    private String reserveInfo; /*에약 정보*/
-	
     private String userId;
     
 	private String title; /*영화 제목*/
@@ -21,11 +20,16 @@ public class Reservation implements Serializable {
 	
     private String city; /*영화관*/
     
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime showTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate showDate;
+	
+	@DateTimeFormat(pattern = "HH:mm:ss")
+    private LocalTime showTime;
 	
     private String screenName; /*영화 상영관 이름*/
 	
+    private int seatNo;
+    
     private String seatId; /*좌석 이름*/
     
 	private int price;
@@ -36,14 +40,6 @@ public class Reservation implements Serializable {
 
 	public void setMovieReserveNo(int movieReserveNo) {
 		this.movieReserveNo = movieReserveNo;
-	}
-
-	public String getReserveInfo() {
-		return reserveInfo;
-	}
-
-	public void setReserveInfo(String reserveInfo) {
-		this.reserveInfo = reserveInfo;
 	}
 
 	public String getUserId() {
@@ -78,12 +74,36 @@ public class Reservation implements Serializable {
 		this.city = city;
 	}
 
+	public LocalDate getShowDate() {
+		return showDate;
+	}
+
+	public void setShowDate(LocalDate showDate) {
+		this.showDate = showDate;
+	}
+
+	public LocalTime getShowTime() {
+		return showTime;
+	}
+
+	public void setShowTime(LocalTime showTime) {
+		this.showTime = showTime;
+	}
+	
 	public String getScreenName() {
 		return screenName;
 	}
 
 	public void setScreenName(String screenName) {
 		this.screenName = screenName;
+	}
+	
+	public int getSeatNo() {
+		return seatNo;
+	}
+
+	public void setSeatNo(int seatNo) {
+		this.seatNo = seatNo;
 	}
 
 	public String getSeatId() {
@@ -101,5 +121,5 @@ public class Reservation implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+
 }

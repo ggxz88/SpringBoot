@@ -24,7 +24,6 @@
 					<td><input type="text" id="provinceName" th:field="*{provinceName}" readonly="readonly" /></td>
 				</tr>
 				<tr>
-					<td th:text="#{city.name}">극장</td>
 					<td>
 						<select class="cityget" id="city" th:field="*{city}">
 							<option value="">극장</option>
@@ -71,13 +70,15 @@
 					var query = {"city" : $("#city").val()};
 					
 					$.ajax({
-						url : "/reserve/resTime",
+						url : "/reserve/resDate",
 						json : "json",
 						type : "post",
 						data : query,
 						success : function(data) {
 							console.log($("#city").val());	
-							self.location = "/reserve/resTime" + "?title=" + $("#title").val() + "&provinceName=" + $("#provinceName").val() + "&city=" + $("#city").val();
+							self.location = "/reserve/resDate" + "?title=" + $("#title").val() 
+									+ "&provinceName=" + $("#provinceName").val() 
+									+ "&city=" + $("#city").val();
 						}
 					});
 					

@@ -14,4 +14,6 @@ public interface ProvinceMapper {
 	
 	public List<CodeLabelValue> getdayList(String city, String title) throws Exception;
 	
+	public List<CodeLabelValue> gettimeList(String showDate, String city, String title) throws Exception;
+
 }

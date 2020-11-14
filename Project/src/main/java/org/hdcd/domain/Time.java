@@ -1,7 +1,8 @@
 package org.hdcd.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,8 +20,11 @@ public class Time implements Serializable {
 	
 	private String title;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime showTime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate showDate;
+	
+	@DateTimeFormat(pattern = "HH:mm")
+    private LocalTime showTime;
 	
 	public int getTimeNo() {
 		return timeNo;
@@ -62,12 +66,20 @@ public class Time implements Serializable {
 		this.title = title;
 	}
 
-	public LocalDateTime getShowTime() {
+	public LocalDate getShowDate() {
+		return showDate;
+	}
+
+	public void setShowDate(LocalDate showDate) {
+		this.showDate = showDate;
+	}
+
+	public LocalTime getShowTime() {
 		return showTime;
 	}
 
-	public void setShowTime(LocalDateTime showTime) {
+	public void setShowTime(LocalTime showTime) {
 		this.showTime = showTime;
 	}
-	
+
 }

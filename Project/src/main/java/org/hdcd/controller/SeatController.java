@@ -1,7 +1,5 @@
 package org.hdcd.controller;
 
-import java.util.List;
-
 import org.hdcd.domain.Seat;
 import org.hdcd.service.SeatService;
 import org.slf4j.Logger;
