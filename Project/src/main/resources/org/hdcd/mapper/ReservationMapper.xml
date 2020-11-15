@@ -74,7 +74,14 @@
 		  FROM movie_seat s INNER JOIN movie_time t
 		    ON s.city = t.city AND s.screen_name = t.screen_name
 		 WHERE (t.city = #{city} AND t.title = #{title})
-		   AND (t.show_date = #{showDate} AND t.show_time = #{showTime});
+		   AND (t.show_date = #{showDate} AND t.show_time = #{showTime})
+	</select>
+	
+	<select id="getSeat" resultType="Reservation">
+		SELECT seat_no, seat_id
+		  FROM movie_reservation
+		 WHERE (city = #{city} AND title = #{title})
+		   AND (show_date = #{showDate} AND show_time = #{showTime})
 	</select>
 	
 </mapper>

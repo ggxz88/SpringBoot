@@ -37,11 +37,17 @@
 			<div class="test">
 				<th:block class="block" th:each="seat : ${seatList}">
 					
-					<button type="button" class="seat" th:value="${seat.seatNo}" th:name="${seat.seatId}" th:text="${seat.seatId}"></button>	
+					<button type="button" class="seat" th:value="${seat.seatNo}" th:id="${seat.seatNo}" th:name="${seat.seatId}" th:text="${seat.seatId}"></button>	
 					
 					<span class="span" th:id="${seat.seatId}"></span>
 				</th:block>
 				
+			</div>
+			
+			<div class="compare" style="display:none;">
+				<th:block class="compareBlock" th:each="seat_num : ${seatNo}">
+					<button type="button" class="seat2" th:value="${seat_num.seatNo}" ></button>	
+				</th:block>
 			</div>
 			
 		</form>
@@ -82,6 +88,8 @@
 				document.getElementById('showTime').value = getParam("showTime");
 				
 				//좌석 
+				
+				
 				//줄 나누기
 				var seat = document.getElementsByClassName("seat");
 				var span = document.getElementsByClassName("span");
@@ -100,8 +108,8 @@
 						var sname1 = s1.getAttribute("id");
 					}
 					
-					temp1 = sname[0].split("");
-					temp2 = sname1[0].split("");
+					var temp1 = sname[0].split("");
+					var temp2 = sname1[0].split("");
 					
 					if(temp1.toString() != temp2.toString()) {
 						document.getElementById(sname).innerText = "\r\n";
@@ -139,6 +147,26 @@
 		                console.log(selectedSeats[0]);
 					});
 				}
+				
+				//중복
+				
+				var compareSeat = document.getElementsByClassName("seat2");
+				console.log(compareSeat);
+				
+				for(var i = 0; i < seat.length; i++) {
+					var s = seat.item(i);
+					var c = compareSeat.item(i);
+					if(c != null) {
+						var sId = s.getAttribute("id");
+						var cValue = c.getAttribute("value");
+						
+						if(sId.toString() == cValue.toString()) {
+							document.getElementById(sId).disabled = "true";
+						}
+					}
+					
+				}
+				
 				
 				$("#btnRegister").click(function() {
 					var query = {"seatNo" : selectedSeats[0]};

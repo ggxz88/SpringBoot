@@ -155,6 +155,10 @@ public class ReservationController {
 		
 		model.addAttribute("seatList", seatList);
 		
+		List<Reservation> seatNo = service.getSeat(showTime, showDate, city, title);
+		
+		model.addAttribute("seatNo", seatNo);
+		
 	}
 	
 	@RequestMapping(value = "/resPay", method = RequestMethod.GET)

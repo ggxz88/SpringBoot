@@ -18,4 +18,6 @@ public interface ReservationService {
 
 	public List<Seat> getSeatList(String showTime, String showDate, String city, String title) throws Exception;
 	
+	public List<Reservation> getSeat(String showTime, String showDate, String city, String title) throws Exception;
+	
 }

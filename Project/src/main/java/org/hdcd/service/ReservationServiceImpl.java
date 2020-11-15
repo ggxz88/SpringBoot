@@ -67,5 +67,10 @@ public class ReservationServiceImpl implements ReservationService {
 		return mapper.getSeatList(showTime, showDate, city, title);
 	}
 	
+	@Override
+	public List<Reservation> getSeat(String showTime, String showDate, String city, String title) throws Exception {
+		return mapper.getSeat(showTime, showDate, city, title);
+	}
+	
 	
 }
